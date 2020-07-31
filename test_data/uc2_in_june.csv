@@ -1,0 +1,334 @@
+conversation_id,turn,use_case,outcome,sender_id,sender,user_message,bot_message,intent,entities,created_time,attachments,message_id
+15,0,uc_2,silence,851988961570142,user,Mẫu này m xin giá ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/81557015_285741642474849_1812728957257323985_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=2k-_YsQi5kEAX-z42Te&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=f83fdc7265583f3ac3399bd0857ebdda&oe=5F137497,mẫu này,price,",2020-06-19 5:04:53,"https://scontent.xx.fbcdn.net/v/t1.15752-9/81557015_285741642474849_1812728957257323985_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=2k-_YsQi5kEAX-z42Te&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=f83fdc7265583f3ac3399bd0857ebdda&oe=5F137497, ",a854a2c9a18543128f94dbe53df34228
+15,0,,,851988961570142,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-19 5:04:55,,
+15,0,,,851988961570142,bot,user,,,,2020-06-19 5:04:55,,
+15,0,,,851988961570142,bot,user,,,,2020-06-19 5:04:55,,
+16,0,uc_2,handover_to_inbox,1531221113658774,user,Cho e xin giá ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/105579648_645246399669280_2974881632768175499_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_oc=AQm6k0sbhpkHoIZiGjyqafCua2RqgpEzF7X3IPYegLLs6a8TjDCbwvn1kQKcpJdObyWz9CtSnBZtcysvhnGNpiD_&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=711799ee67eeb7ec3af5779f2cbb91fd&oe=5F0FF120,price,",2020-06-19 2:53:16,"https://scontent.xx.fbcdn.net/v/t1.15752-9/105579648_645246399669280_2974881632768175499_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_oc=AQm6k0sbhpkHoIZiGjyqafCua2RqgpEzF7X3IPYegLLs6a8TjDCbwvn1kQKcpJdObyWz9CtSnBZtcysvhnGNpiD_&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=711799ee67eeb7ec3af5779f2cbb91fd&oe=5F0FF120, ",a216eed1d7a04ddb9942329a21de043c
+16,0,,,1531221113658774,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-19 2:53:18,,
+16,0,,,1531221113658774,bot,user,,,,2020-06-19 2:53:18,,
+16,0,,,1531221113658774,bot,user,,,,2020-06-19 2:53:18,,
+16,1,,,1531221113658774,user,"/disagree{""object_type"": null}",bot,disagree,,2020-06-19 2:54:36,,1927ac3307bb4f7388c7910fb7f98d76
+16,1,,,1531221113658774,bot,user,Bạn vui lòng mô tả rõ mong muốn của bạn hoặc chat với nhân viên tư vấn nhé!,,,2020-06-19 2:54:36,,
+16,2,,,1531221113658774,user,,bot,send_link,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104391127_616964752510336_4315968930101015567_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_oc=AQn3_Md75wnpQsIRxMy2B4fLzjFy_FcrpyKn5PoABMS-UwTkLxMl-BTJEMnz5579ykGHIhrt9wBIJ8Xm_OqRV7gD&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=5e519a56165f4e3acf94e01da1a6034d&oe=5F100FA7,",2020-06-19 2:55:26,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104391127_616964752510336_4315968930101015567_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_oc=AQn3_Md75wnpQsIRxMy2B4fLzjFy_FcrpyKn5PoABMS-UwTkLxMl-BTJEMnz5579ykGHIhrt9wBIJ8Xm_OqRV7gD&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=5e519a56165f4e3acf94e01da1a6034d&oe=5F100FA7, ",3ad10f865e7c4373a7bf3697ebca7e5e
+16,2,,,1531221113658774,bot,user,Bạn đang tìm kiếm thông tin gì ạ?,,,2020-06-19 2:55:26,,
+16,3,,,1531221113658774,user,"M muốn hỏi xe đẩy
+M gửi ảnh r mà
+M xin giá",bot,query_knowledge_base,"xe_day,image,price,",2020-06-19 2:56:00,,3b737e53df054f959c482b4061572e38
+16,3,,,1531221113658774,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-19 2:56:05,,
+16,3,,,1531221113658774,bot,user,,,,2020-06-19 2:56:05,,
+16,3,,,1531221113658774,bot,user,,,,2020-06-19 2:56:05,,
+16,4,,,1531221113658774,user,"M gửi ảnh
+Mà bên b k nhận đc à",bot,handover_to_inbox,"image,",2020-06-19 2:56:47,,ee142a10e1464f53b661415c5d7483a6
+20,0,uc_2,silence,2236239679778228,user,/start_conversation,bot,start_conversation,,2020-06-18 9:59:57,,cd2b6b46055a4b43b41ce0bd7fb49358
+20,0,,,2236239679778228,bot,user,"Chào Hảo Đinh, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-18 9:59:58,,
+20,1,,,2236239679778228,user,Giá bao nhiêu b,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103805011_554902098478456_8496735657847161489_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=I5JjgiqB8OMAX9ZB9nW&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=998339b32811c724a1bd02b4aa1edbc8&oe=5F1172A1,https://scontent.xx.fbcdn.net/v/t1.15752-9/99027051_688989258544420_2023270006933946368_n.jpg?_nc_cat=106&_nc_sid=b96e70&_nc_ohc=sL0PkSw6-jUAX_H2JTO&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=2388c80f0972fa35dfdcf552cd42f347&oe=5F1095F4,https://scontent.xx.fbcdn.net/v/t1.15752-9/104937800_691934048297561_1665723025420168822_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=E5M3l8cQAf8AX8ejdKX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=4df2806240fa54829d198f71e0884294&oe=5F103DF1,price,",2020-06-18 10:00:27,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103805011_554902098478456_8496735657847161489_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=I5JjgiqB8OMAX9ZB9nW&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=998339b32811c724a1bd02b4aa1edbc8&oe=5F1172A1, https://scontent.xx.fbcdn.net/v/t1.15752-9/99027051_688989258544420_2023270006933946368_n.jpg?_nc_cat=106&_nc_sid=b96e70&_nc_ohc=sL0PkSw6-jUAX_H2JTO&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=2388c80f0972fa35dfdcf552cd42f347&oe=5F1095F4, https://scontent.xx.fbcdn.net/v/t1.15752-9/104937800_691934048297561_1665723025420168822_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=E5M3l8cQAf8AX8ejdKX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=4df2806240fa54829d198f71e0884294&oe=5F103DF1, ",d6e2d44ef1504756a89a4e60c9f3717d
+20,1,,,2236239679778228,bot,user,"Sản phẩm  Đai xe máy có phản quang mẫu mới 2019   có giá bán thấp nhất từ: *129,000 VND*, bạn vui lòng bấm vào sản phẩm để xem giá bán và thông tin chi tiết!",,,2020-06-18 10:00:29,,
+20,1,,,2236239679778228,bot,user,,,,2020-06-18 10:00:29,,
+21,0,uc_2,silence,2392858274121997,user,xe này bn vậy shop,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104296782_262516844837867_6535740634171830956_n.png?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=lsnceQnvnjQAX-tULTD&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9099ee9c6de4879ea8025757e77088d9&oe=5F0FD3D0,xe,này,price,",2020-06-18 9:35:49,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104296782_262516844837867_6535740634171830956_n.png?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=lsnceQnvnjQAX-tULTD&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9099ee9c6de4879ea8025757e77088d9&oe=5F0FD3D0, ",256602886855475a83632924fb3de31c
+21,0,,,2392858274121997,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-18 9:35:52,,
+21,0,,,2392858274121997,bot,user,,,,2020-06-18 9:35:52,,
+21,0,,,2392858274121997,bot,user,,,,2020-06-18 9:35:52,,
+25,0,uc_2,silence,2213312315394805,user,/start_conversation,bot,start_conversation,,2020-06-18 7:00:15,,21ce84a08fff4b0e9694837f555a6229
+25,0,,,2213312315394805,bot,user,"Chào Hung Trắng, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-18 7:00:15,,
+25,1,,,2213312315394805,user,Cho m giá xe này nhé,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104309995_260667038527116_3674696773669193931_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=YB2UEJxRnmgAX_Pvysz&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=fa71c14c00d913f39e4ed107bc69f326&oe=5F129B60,price,xe,này,",2020-06-18 7:00:45,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104309995_260667038527116_3674696773669193931_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=YB2UEJxRnmgAX_Pvysz&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=fa71c14c00d913f39e4ed107bc69f326&oe=5F129B60, ",d9b92be9f0024d2e9fcf3a5c06bc53f2
+25,1,,,2213312315394805,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-18 7:00:48,,
+25,1,,,2213312315394805,bot,user,,,,2020-06-18 7:00:48,,
+25,1,,,2213312315394805,bot,user,,,,2020-06-18 7:00:48,,
+30,0,uc_2,silence,3223272474432257,user,/start_conversation,bot,start_conversation,,2020-06-18 3:36:47,,51e2e23c805849afa1faa30759d9971a
+30,0,,,3223272474432257,bot,user,"Chào Tran Nhat Lam Duyen, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-18 3:36:47,,
+30,1,,,3223272474432257,user,cho em xin giá quây nhựa ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104401969_267623327639900_8184372689406761467_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=oJHBwVKAL8IAX_ndH5R&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=bd5f4c5bb93063baa6f1953dc286e044&oe=5F126286,https://scontent.xx.fbcdn.net/v/t1.15752-9/104291071_255527295736759_703397080551639767_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=iCADp_2awRAAX8sBLYp&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=b4a771214e183963802719291e4f306d&oe=5F10A686,price,quay,nhựa,",2020-06-18 3:37:17,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104401969_267623327639900_8184372689406761467_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=oJHBwVKAL8IAX_ndH5R&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=bd5f4c5bb93063baa6f1953dc286e044&oe=5F126286, https://scontent.xx.fbcdn.net/v/t1.15752-9/104291071_255527295736759_703397080551639767_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=iCADp_2awRAAX8sBLYp&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=b4a771214e183963802719291e4f306d&oe=5F10A686, ",fc84827750e8454fb81ad06e2409bd62
+30,1,,,3223272474432257,bot,user,"Sản phẩm Quây Holla Vương Miện  hiện shop đang có mức giá: *1,750,000 VND (giá gốc 3,000,000 VND)*.
+",,,2020-06-18 3:37:19,,
+30,1,,,3223272474432257,bot,user,,,,2020-06-18 3:37:19,,
+30,2,,,3223272474432257,user,minh có nhung size nào ạ,bot,query_knowledge_base,"size,",2020-06-18 3:40:37,,d649c8c8473247379bec3f9bd2cc9642
+30,2,,,3223272474432257,bot,user,"Sản phẩm Quây Holla Vương Miện chất liệu Nhựa hiện shop đang có kích thước: *1m6x1m8*.
+Bạn tham khảo các sản phẩm sau nhé ạ:",,,2020-06-18 3:40:37,,
+30,2,,,3223272474432257,bot,user,,,,2020-06-18 3:40:37,,
+30,3,,,3223272474432257,user,cho e tham khao các màu ạ,bot,query_knowledge_base,,2020-06-18 3:56:20,,cd878fa30ef149dc95da9da27c81251c
+30,3,,,3223272474432257,bot,user,"Sản phẩm Quây chất liệu Nhựa hiện shop đang có kích thước: *100x132x60cm, 1m6x1m8, 1.8x2m, 132x132x60cm, 132x165x60cm*.
+Bạn tham khảo các sản phẩm sau nhé ạ:",,,2020-06-18 3:56:20,,
+30,3,,,3223272474432257,bot,user,,,,2020-06-18 3:56:20,,
+40,0,uc_2,silence,2437026813066784,user,/start_conversation,bot,start_conversation,,2020-06-17 5:19:29,,436a212b65fc4a2dbb4f01d19d6b48e6
+40,0,,,2437026813066784,bot,user,"Chào Thanh Bui, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-17 5:19:30,,
+40,1,,,2437026813066784,user,Cho biết  giá  của  ghế,bot,query_knowledge_base,"price,",2020-06-17 5:20:06,,501bc6b324644bdcacfe3e0a72f061c6
+40,1,,,2437026813066784,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-17 5:20:06,,
+40,2,,,2437026813066784,user,,bot,send_link,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104170939_634052813988088_6830127424964464487_n.jpg?_nc_cat=103&_nc_sid=b96e70&_nc_oc=AQllj_RzCJAuw7lXzDH4huuRhT3MbuVg06evMU49HcuSV9SYkpM2fkL9aZRwUx6zxrzcsWk-h8Dt9xtLAfUT16pX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=290aeed2bb0ac259623aaede389d1cdf&oe=5F108BA9,",2020-06-17 5:22:09,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104170939_634052813988088_6830127424964464487_n.jpg?_nc_cat=103&_nc_sid=b96e70&_nc_oc=AQllj_RzCJAuw7lXzDH4huuRhT3MbuVg06evMU49HcuSV9SYkpM2fkL9aZRwUx6zxrzcsWk-h8Dt9xtLAfUT16pX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=290aeed2bb0ac259623aaede389d1cdf&oe=5F108BA9, ",ccf3f4ae66744ab5a198c95a42a7a64c
+40,2,,,2437026813066784,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-17 5:22:12,,
+40,2,,,2437026813066784,bot,user,,,,2020-06-17 5:22:12,,
+40,2,,,2437026813066784,bot,user,,,,2020-06-17 5:22:12,,
+47,0,uc_2,other,2556244104492992,user,Xin giá Cái đai mấy tủi xài đc ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104879808_551393762434649_6627943503964963539_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=hxO0YmK8Y-EAX-ZzadO&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0bdd49a4e7e7c20c9c5a52b66ac79848&oe=5F0DB733,https://scontent.xx.fbcdn.net/v/t1.15752-9/104937800_691934048297561_1665723025420168822_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=E5M3l8cQAf8AX8FP-NN&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=c872bff09babe78a5d3c343825473758&oe=5F103DF1,price,dai,age_of_use,",2020-06-17 2:09:53,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104879808_551393762434649_6627943503964963539_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=hxO0YmK8Y-EAX-ZzadO&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0bdd49a4e7e7c20c9c5a52b66ac79848&oe=5F0DB733, https://scontent.xx.fbcdn.net/v/t1.15752-9/104937800_691934048297561_1665723025420168822_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=E5M3l8cQAf8AX8FP-NN&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=c872bff09babe78a5d3c343825473758&oe=5F103DF1, ",125beac8334b49318173fdc455d0b800
+53,0,uc_2,shipping_order,2.81976E+15,user,/start_conversation,bot,start_conversation,,2020-06-16 5:10:20,,a82ced4524ce4d8c96fdceed37ef4369
+53,0,,,2.81976E+15,bot,user,"Chào Liên Thach Thi, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-16 5:10:21,,
+53,1,,,2.81976E+15,user,Xe giá nhiêu vậy shop,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104207567_1200486363624775_8447128499919432156_n.jpg?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=3CjRRXPXIa0AX_SG4pM&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9dec41da59dc4cb8aeca8970bcb2ac71&oe=5F0D5154,price,",2020-06-16 5:11:00,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104207567_1200486363624775_8447128499919432156_n.jpg?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=3CjRRXPXIa0AX_SG4pM&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9dec41da59dc4cb8aeca8970bcb2ac71&oe=5F0D5154, ",321994e17707497ba7a5bbe769101033
+53,1,,,2.81976E+15,bot,user,"Sản phẩm XE LẮC CAO CẤP HOLLA -XANH  hiện shop đang có mức giá: *510,000 VND (giá gốc 700,000 VND)*.
+",,,2020-06-16 5:11:03,,
+53,1,,,2.81976E+15,bot,user,,,,2020-06-16 5:11:03,,
+53,2,,,2.81976E+15,user,Gửi về tỉnh Sóc Trăng có tính ship ko shop,bot,handover_to_inbox,,2020-06-16 5:12:12,,5d32510406924a3d971103e64c8a93ff
+57,0,uc_2,handover_to_inbox,3.09017E+15,user,/start_conversation,bot,start_conversation,,2020-06-16 2:10:50,,aa94c9a3f19d4fdbbca7a5ebe4941bf2
+57,0,,,3.09017E+15,bot,user,"Chào Nguyen Thuy Dung, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-16 2:10:50,,
+57,1,,,3.09017E+15,user,cho m xin giá bộ này ah,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104106225_262212771873148_4066821957958461593_n.png?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=maZlpWdePdAAX_3lcyr&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0d9d9f6362f6f8e0d17d398e11a51ef2&oe=5F0D0B0B,price,bộ này,",2020-06-16 2:11:08,"https://scontent.xx.fbcdn.net/v/t1.15752-9/104106225_262212771873148_4066821957958461593_n.png?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=maZlpWdePdAAX_3lcyr&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0d9d9f6362f6f8e0d17d398e11a51ef2&oe=5F0D0B0B, ",5caf2ec60d6b4b39a5e4e19571463e56
+57,1,,,3.09017E+15,bot,user,"Sản phẩm Bàn học, bản chơi lắp ghép Lego cao cấp  hiện shop đang có mức giá: *995,000 VND (giá gốc 1,750,000 VND)*.
+",,,2020-06-16 2:11:10,,
+57,1,,,3.09017E+15,bot,user,,,,2020-06-16 2:11:10,,
+57,2,,,3.09017E+15,user,32 miếng sếp ah shiop,bot,handover_to_inbox,,2020-06-16 2:13:09,,5ae5589cd63048d286de977b1e062c52
+59,0,uc_2,silence,3002906476434699,user,Bn b,bot,query_knowledge_base,"price,",2020-06-05 4:34:21,,b93a97783ea745669c935fbefd78fb9a
+59,0,,,3002906476434699,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-05 4:34:21,,
+59,1,,,3002906476434699,user,,bot,send_link,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101654589_403140673899070_5717385165068566528_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=sh3-yqe3vIMAX8-HEsp&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=5d3d9a4d8d34b921e9b9bea9a7714f8c&oe=5EFFA1DC,",2020-06-05 4:34:32,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101654589_403140673899070_5717385165068566528_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=sh3-yqe3vIMAX8-HEsp&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=5d3d9a4d8d34b921e9b9bea9a7714f8c&oe=5EFFA1DC, ",91769ae4bd844193856269a8a50e4a42
+59,1,,,3002906476434699,bot,user,"Sản phẩm Tông đơ cất tóc Kiza 0700 KZA  hiện shop đang có mức giá: *420,000 VND (giá gốc 499,000 VND)*.
+",,,2020-06-05 4:34:34,,
+59,1,,,3002906476434699,bot,user,,,,2020-06-05 4:34:34,,
+59,2,,,3002906476434699,user,Con loai nao nua k b,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101654589_403140673899070_5717385165068566528_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=sh3-yqe3vIMAX8-HEsp&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=5d3d9a4d8d34b921e9b9bea9a7714f8c&oe=5EFFA1DC,",2020-06-05 4:35:41,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101654589_403140673899070_5717385165068566528_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=sh3-yqe3vIMAX8-HEsp&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=5d3d9a4d8d34b921e9b9bea9a7714f8c&oe=5EFFA1DC, ",ac533e630e85424d9d6f21f7df8b3efe
+59,2,,,3002906476434699,bot,user,"Sản phẩm Tông đơ cất tóc Kiza 0700 KZA  hiện shop đang có mức giá: *420,000 VND (giá gốc 499,000 VND)*.
+",,,2020-06-05 4:35:43,,
+59,2,,,3002906476434699,bot,user,,,,2020-06-05 4:35:43,,
+60,0,uc_2,handover_to_inbox,3002906476434699,user,Bn bn shop,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/83234940_573188230049728_4213120571580593298_n.jpg?_nc_cat=103&_nc_sid=b96e70&_nc_ohc=fTPW_9VMaH0AX81yHNe&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0dccc127df12ec69dc304cd55bfb8f9f&oe=5F0D1062,price,",2020-06-15 8:35:00,"https://scontent.xx.fbcdn.net/v/t1.15752-9/83234940_573188230049728_4213120571580593298_n.jpg?_nc_cat=103&_nc_sid=b96e70&_nc_ohc=fTPW_9VMaH0AX81yHNe&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0dccc127df12ec69dc304cd55bfb8f9f&oe=5F0D1062, ",9137d865b735497aa10c13fdab54dfb5
+60,0,,,3002906476434699,bot,user,,,,2020-06-15 8:35:02,,
+60,1,,,3002906476434699,user,"/confirm_object_type{""object_type"": ""ke""}",bot,confirm_object_type,"ke,",2020-06-15 8:35:20,,addc88a5432a42d390a3519ecfc47d58
+60,1,,,3002906476434699,bot,user,,,,2020-06-15 8:35:20,,
+60,2,,,3002906476434699,user,Loai cao nhat bn,bot,query_knowledge_base,"size,",2020-06-15 8:36:10,,9b25c49dcb72421ba755c2ca5ea43684
+60,2,,,3002906476434699,bot,user,,,,2020-06-15 8:36:10,,
+60,3,,,3002906476434699,user,"Nhu hinh di
+Sau nhiu vay
+Kho chon",bot,handover_to_inbox,"image,",2020-06-15 8:36:57,,5d4b8d73670d480e905a20b1c27186c5
+60,3,,,3002906476434699,user,Nhu hinh gia ra sau,bot,handover_to_inbox,"price,",2020-06-15 8:37:08,,4fbaf8aa5b6d4a8eb3c9bd3bec522054
+65,0,uc_2,silence,3.1994E+15,user,,bot,send_link,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103514719_309249863803295_2856804061360459281_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_oc=AQkZmh9OFb9yn8Q8_fE1gcK1iQugFAkT-LgVvvBgxHM81T0Y6Z7FqFFlVCYnLaj5wxHckh9p5hOI-RGtIB94zFxK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=da64851878745d947e63ead548f020cb&oe=5F0B2E2B,",2020-06-15 4:37:29,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103514719_309249863803295_2856804061360459281_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_oc=AQkZmh9OFb9yn8Q8_fE1gcK1iQugFAkT-LgVvvBgxHM81T0Y6Z7FqFFlVCYnLaj5wxHckh9p5hOI-RGtIB94zFxK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=da64851878745d947e63ead548f020cb&oe=5F0B2E2B, ",36c2995a32104f3f9e52cf8dc132af78
+65,0,,,3.1994E+15,bot,user,Bạn đang tìm kiếm thông tin gì ạ?,,,2020-06-15 4:37:29,,
+65,1,,,3.1994E+15,user,Gia nay bao nhiu a!,bot,query_knowledge_base,"price,price,",2020-06-15 6:15:17,,dee49f56e2774703a34f32f490283d30
+65,1,,,3.1994E+15,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-15 6:15:19,,
+65,1,,,3.1994E+15,bot,user,,,,2020-06-15 6:15:19,,
+65,1,,,3.1994E+15,bot,user,,,,2020-06-15 6:15:19,,
+65,2,,,3.1994E+15,user,Tham nay bao nhiiu tien shop,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103514719_309249863803295_2856804061360459281_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_oc=AQkZmh9OFb9yn8Q8_fE1gcK1iQugFAkT-LgVvvBgxHM81T0Y6Z7FqFFlVCYnLaj5wxHckh9p5hOI-RGtIB94zFxK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=da64851878745d947e63ead548f020cb&oe=5F0B2E2B,tham,nay,price,",2020-06-15 6:16:42,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103514719_309249863803295_2856804061360459281_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_oc=AQkZmh9OFb9yn8Q8_fE1gcK1iQugFAkT-LgVvvBgxHM81T0Y6Z7FqFFlVCYnLaj5wxHckh9p5hOI-RGtIB94zFxK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=da64851878745d947e63ead548f020cb&oe=5F0B2E2B, ",460a092a128346fabdae6c00651026fe
+65,2,,,3.1994E+15,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-15 6:16:44,,
+65,2,,,3.1994E+15,bot,user,,,,2020-06-15 6:16:44,,
+65,2,,,3.1994E+15,bot,user,,,,2020-06-15 6:16:44,,
+65,3,,,3.1994E+15,user,"/query_knowledge_base{""url"": ""https://shopee.vn/product/36371562/2849601704"", ""product_id"": ""https://shopee.vn/product/36371562/2849601704""}",bot,query_knowledge_base,"https://shopee.vn/product/36371562/2849601704,https://shopee.vn/product/36371562/2849601704,",2020-06-15 6:17:00,,d9870e3be90b4fbca32bc35ac31a42b4
+65,3,,,3.1994E+15,bot,user,"Sản phẩm Thảm cuộn XPE (mẫu dày nhất của thảm XPE)  hiện shop đang có mức giá: *490,000 VND (giá gốc 800,000 VND)*.
+",,,2020-06-15 6:17:00,,
+65,3,,,3.1994E+15,bot,user,,,,2020-06-15 6:17:00,,
+68,0,uc_2,handover_to_inbox,3162422187138688,user,2 xe này bn vậy b,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103608268_277943780024302_5404943441171513917_n.jpg?_nc_cat=103&_nc_sid=b96e70&_nc_ohc=DpcFG5efpnEAX_V_LTE&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=2ea3954e34ddd85301eba3e096e41682&oe=5F0C5C97,https://scontent.xx.fbcdn.net/v/t1.15752-9/97983812_307878843707459_6485010379136586811_n.jpg?_nc_cat=104&_nc_sid=b96e70&_nc_ohc=eAIw9yRs2gUAX9RRCGd&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9d2db264ff0ffc53ab2291a13548e5b9&oe=5F0CDDC7,xe,này,price,",2020-06-15 4:06:49,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103608268_277943780024302_5404943441171513917_n.jpg?_nc_cat=103&_nc_sid=b96e70&_nc_ohc=DpcFG5efpnEAX_V_LTE&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=2ea3954e34ddd85301eba3e096e41682&oe=5F0C5C97, https://scontent.xx.fbcdn.net/v/t1.15752-9/97983812_307878843707459_6485010379136586811_n.jpg?_nc_cat=104&_nc_sid=b96e70&_nc_ohc=eAIw9yRs2gUAX9RRCGd&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9d2db264ff0ffc53ab2291a13548e5b9&oe=5F0CDDC7, ",4b4326bfaaa44a568b88b771d9133781
+68,0,,,3162422187138688,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-15 4:06:49,,
+68,1,,,3162422187138688,user,Đây b ơi,bot,greet,"https://scontent.xx.fbcdn.net/v/t1.15752-9/97983812_307878843707459_6485010379136586811_n.jpg?_nc_cat=104&_nc_sid=b96e70&_nc_ohc=eAIw9yRs2gUAX9RRCGd&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9d2db264ff0ffc53ab2291a13548e5b9&oe=5F0CDDC7,https://scontent.xx.fbcdn.net/v/t1.15752-9/103793817_277943826690964_3682254902749272252_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=Qb295DwAu08AX83BtY-&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=aa7a7a6cdc44cd672eecf2b02c2e06ee&oe=5F0E2339,",2020-06-15 4:07:23,"https://scontent.xx.fbcdn.net/v/t1.15752-9/97983812_307878843707459_6485010379136586811_n.jpg?_nc_cat=104&_nc_sid=b96e70&_nc_ohc=eAIw9yRs2gUAX9RRCGd&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9d2db264ff0ffc53ab2291a13548e5b9&oe=5F0CDDC7, https://scontent.xx.fbcdn.net/v/t1.15752-9/103793817_277943826690964_3682254902749272252_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=Qb295DwAu08AX83BtY-&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=aa7a7a6cdc44cd672eecf2b02c2e06ee&oe=5F0E2339, ",19eb8bc67ddb4b01a46a5ca47d4dcc24
+68,1,,,3162422187138688,bot,user,"Chào bạn, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",,,2020-06-15 4:07:23,,
+68,2,,,3162422187138688,user,"M hỏi giá xe đảo chiều ấy b
+Chắc chưa gừi đc hình ảnh",bot,handover_to_inbox,"price,xe,image,",2020-06-15 4:08:02,,e66c329cca3a443dafaff662c8ecb8b8
+68,2,,,3162422187138688,user,Xe vovo vs nadle,bot,query_knowledge_base,"xe,vovo,nadle,",2020-06-15 4:08:13,,4f95da69bdcc4ec4bc3d4030975cb185
+68,2,,,3162422187138688,bot,user,,,,2020-06-15 4:08:13,,
+80,0,uc_2,shipping_order,2937329182960515,user,Ib mình giá bộ này vs ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103906320_264554131292653_8981605439016894782_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_oc=AQk4EIghpjARDeOgguTKQWKuHWeeH97cDb1xg4PXd2p8ZAYys2E8rEAtjfPLVylJG10OIP8luJwKG3CFjjhk6TbK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=04980a1ae48375b74565b154e0902692&oe=5F0A4DBB,price,bộ này,",2020-06-12 4:01:03,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103906320_264554131292653_8981605439016894782_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_oc=AQk4EIghpjARDeOgguTKQWKuHWeeH97cDb1xg4PXd2p8ZAYys2E8rEAtjfPLVylJG10OIP8luJwKG3CFjjhk6TbK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=04980a1ae48375b74565b154e0902692&oe=5F0A4DBB, ",47934f246bf04ec7b514c0bdd72a3ec1
+80,0,,,2937329182960515,bot,user,"Sản phẩm Bộ đồ chơi nhà bếp thông minh  hiện shop đang có mức giá: *790,000 VND, 590,000 VND*.
+",,,2020-06-12 4:01:07,,
+80,0,,,2937329182960515,bot,user,,,,2020-06-12 4:01:07,,
+80,1,,,2937329182960515,user,Cho mình bộ nhỏ nhé,bot,query_knowledge_base,,2020-06-12 4:02:29,,bcc51a902c254839ab6bd3c9689c61f7
+80,1,,,2937329182960515,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-12 4:02:29,,
+80,2,,,2937329182960515,user,Đây ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103906320_264554131292653_8981605439016894782_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_oc=AQk4EIghpjARDeOgguTKQWKuHWeeH97cDb1xg4PXd2p8ZAYys2E8rEAtjfPLVylJG10OIP8luJwKG3CFjjhk6TbK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=04980a1ae48375b74565b154e0902692&oe=5F0A4DBB,đây,",2020-06-12 4:02:54,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103906320_264554131292653_8981605439016894782_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_oc=AQk4EIghpjARDeOgguTKQWKuHWeeH97cDb1xg4PXd2p8ZAYys2E8rEAtjfPLVylJG10OIP8luJwKG3CFjjhk6TbK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=04980a1ae48375b74565b154e0902692&oe=5F0A4DBB, ",55fd319e24b9473e8269c3aafe62d650
+80,2,,,2937329182960515,bot,user,"Sản phẩm Bộ đồ chơi nhà bếp thông minh  hiện shop đang có mức giá: *790,000 VND, 590,000 VND*.
+",,,2020-06-12 4:02:56,,
+80,2,,,2937329182960515,bot,user,,,,2020-06-12 4:02:56,,
+80,3,,,2937329182960515,user,"tớ lấy bộ nhỏ
+màu hồng a",bot,query_knowledge_base,"màu hồng,",2020-06-12 4:03:48,,39d0e14a1ca44fc6a9e347fe7a83bfc5
+85,0,uc_2,other,1994686063895945,user,Vô lăng bn vậy shop,bot,query_knowledge_base,"price,",2020-06-11 10:52:26,,812ed8b089f9445cbafaff8a7b081321
+85,0,,,1994686063895945,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-11 10:52:26,,
+85,1,,,1994686063895945,user,,bot,send_link,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103186646_636879690238577_2317906842584033046_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_oc=AQkhgW7TwIuXhlidM7akD9WHAtDOI_tr6yjhpt-Kt3J_Vl1iABixPUyx7bNjqWh-XfetxpHed4BoGHU6T9r2Cmff&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=166ed6471977a9364180735e9c81af08&oe=5F095301,",2020-06-11 10:53:29,"https://scontent.xx.fbcdn.net/v/t1.15752-9/103186646_636879690238577_2317906842584033046_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_oc=AQkhgW7TwIuXhlidM7akD9WHAtDOI_tr6yjhpt-Kt3J_Vl1iABixPUyx7bNjqWh-XfetxpHed4BoGHU6T9r2Cmff&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=166ed6471977a9364180735e9c81af08&oe=5F095301, ",af7b83eeed9f4e81a46992d6e24a27fe
+85,1,,,1994686063895945,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-11 10:53:33,,
+85,1,,,1994686063895945,bot,user,,,,2020-06-11 10:53:33,,
+85,1,,,1994686063895945,bot,user,,,,2020-06-11 10:53:33,,
+85,2,,,1994686063895945,user,"/disagree{""object_type"": null}",bot,disagree,,2020-06-11 10:57:32,,a8f2e01a5ed342d38f8f7d6e1d4cf080
+85,2,,,1994686063895945,bot,user,Bạn vui lòng mô tả rõ mong muốn của bạn hoặc chat với nhân viên tư vấn nhé!,,,2020-06-11 10:57:32,,
+89,0,uc_2,other,2705623442806274,user,cái này bao nhiêu shop,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/96465758_2290560261247124_8209490610873171968_n.png?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=N8VftPg-pO8AX__-0bK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=2fb97df2fd59e0f3f649a5c5f53b8864&oe=5EFBBA36,cái này,price,",2020-06-03 3:09:25,"https://scontent.xx.fbcdn.net/v/t1.15752-9/96465758_2290560261247124_8209490610873171968_n.png?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=N8VftPg-pO8AX__-0bK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=2fb97df2fd59e0f3f649a5c5f53b8864&oe=5EFBBA36, ",1ec476133f0b494cbf6cf62efa202939
+89,0,,,2705623442806274,bot,user,"Sản phẩm 👌XE LẮC CAO CẤP HOLLA-VÀNG  hiện shop đang có mức giá: *510,000 VND (giá gốc 700,000 VND)*.
+",,,2020-06-03 3:09:28,,
+89,0,,,2705623442806274,bot,user,,,,2020-06-03 3:09:28,,
+89,1,,,2705623442806274,user,bao nhiêu,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100825609_590742301826465_5851151453351051264_n.png?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=_uwWOo2Mm-QAX_Q8VV8&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=4dfbee1bf392638714c6a912aaa96fcd&oe=5EFCF5BD,price,",2020-06-03 3:39:29,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100825609_590742301826465_5851151453351051264_n.png?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=_uwWOo2Mm-QAX_Q8VV8&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=4dfbee1bf392638714c6a912aaa96fcd&oe=5EFCF5BD, ",7750fbd72b3b4bc7bd442c2f862da907
+89,1,,,2705623442806274,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-03 3:39:33,,
+89,1,,,2705623442806274,bot,user,,,,2020-06-03 3:39:33,,
+89,1,,,2705623442806274,bot,user,,,,2020-06-03 3:39:33,,
+89,2,,,2705623442806274,user,"/disagree{""object_type"": null}",bot,disagree,,2020-06-03 3:39:44,,8fc38964133c405697094f614d8a5cdd
+89,2,,,2705623442806274,bot,user,Bạn vui lòng mô tả rõ mong muốn của bạn hoặc chat với nhân viên tư vấn nhé!,,,2020-06-03 3:39:44,,
+100,0,uc_2,other,3.24575E+15,user,/start_conversation,bot,start_conversation,,2020-06-10 6:18:18,,fd5e0a9d403143ff80738ca0f3067bb2
+100,0,,,3.24575E+15,bot,user,"Chào Tran ThuThao, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-10 6:18:18,,
+100,1,,,3.24575E+15,user,Này còn ko shop ah Giá sao vậy ah,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101961111_3117215048361312_6248374759306821632_n.jpg?_nc_cat=106&_nc_sid=b96e70&_nc_ohc=WQRWplYHkn4AX-PY2YP&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03be5d7adadd1ee1ebaa6423aced3517&oe=5F05A73A,này,price,",2020-06-10 6:18:57,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101961111_3117215048361312_6248374759306821632_n.jpg?_nc_cat=106&_nc_sid=b96e70&_nc_ohc=WQRWplYHkn4AX-PY2YP&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03be5d7adadd1ee1ebaa6423aced3517&oe=5F05A73A, ",1b1056c520564f8794d33cc968dcbb40
+100,1,,,3.24575E+15,bot,user,"Sản phẩm Địu cao cấp Infantino Flip 4 in 1 Mỹ - Chính hãng  hiện shop đang có mức giá: *690,000 VND (giá gốc 1,000,000 VND)*.
+",,,2020-06-10 6:18:59,,
+100,1,,,3.24575E+15,bot,user,,,,2020-06-10 6:18:59,,
+100,2,,,3.24575E+15,user,Mấy màu vậy ah,bot,query_knowledge_base,"color,",2020-06-10 6:20:04,,b4ceb753dc3d4817b61515d13a8ee02b
+116,0,uc_2,silence,3587886781221883,user,/start_conversation,bot,start_conversation,,2020-06-09 8:15:03,,44ee73f27c66440b996aea06471a0900
+116,0,,,3587886781221883,bot,user,"Chào Lam Huy Anh, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-09 8:15:03,,
+116,1,,,3587886781221883,user,E xin giá,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/96736446_307095756948300_1408539618554413056_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=gYCVkLQjOhUAX85kKUs&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=66cadf3211aa381b83638524dc88ad04&oe=5F03E797,price,",2020-06-09 8:15:19,"https://scontent.xx.fbcdn.net/v/t1.15752-9/96736446_307095756948300_1408539618554413056_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=gYCVkLQjOhUAX85kKUs&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=66cadf3211aa381b83638524dc88ad04&oe=5F03E797, ",3035b7e0a76f4fa88241e26c70abf0cf
+116,1,,,3587886781221883,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-09 8:15:22,,
+116,1,,,3587886781221883,bot,user,,,,2020-06-09 8:15:22,,
+116,1,,,3587886781221883,bot,user,,,,2020-06-09 8:15:22,,
+124,0,uc_2,silence,2089456507836512,user,/start_conversation,bot,start_conversation,,2020-06-09 3:01:22,,8f70c8cd7a124353a7911b7c40b2254f
+124,0,,,2089456507836512,bot,user,"Chào Hồ Thị Thu Thủy, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-09 3:01:23,,
+124,1,,,2089456507836512,user,Cho mình hỏi shop có bộ này ko ạ Bn tiền ạ shop,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102329373_3925917584145487_6028207796840517295_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=TeFUlLB9s-YAX8BTWzs&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=ef71b60591002ebb357ac965dc2d7cf2&oe=5F055EA2,bộ này,price,",2020-06-09 3:01:57,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102329373_3925917584145487_6028207796840517295_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=TeFUlLB9s-YAX8BTWzs&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=ef71b60591002ebb357ac965dc2d7cf2&oe=5F055EA2, ",fcf585aa5b4849159060f3a9ce9d3184
+124,1,,,2089456507836512,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-09 3:02:00,,
+124,1,,,2089456507836512,bot,user,,,,2020-06-09 3:02:00,,
+124,1,,,2089456507836512,bot,user,,,,2020-06-09 3:02:00,,
+132,0,uc_2,handover_to_inbox,3577119975705736,user,Bàn này giá bao nhiêu ạ,bot,query_knowledge_base,"price,",2020-06-08 8:46:24,,fc8f91fb9c3b4d1680988609b8695ba8
+132,0,,,3577119975705736,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-08 8:46:24,,
+132,1,,,3577119975705736,user,Cả set này đó c,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102678487_1356514954736551_4619510193924003843_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=3u3ag_v0bVkAX87z9FM&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=4645794f324f6a59dd4efed1843bf881&oe=5F01FD74,",2020-06-08 8:47:00,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102678487_1356514954736551_4619510193924003843_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=3u3ag_v0bVkAX87z9FM&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=4645794f324f6a59dd4efed1843bf881&oe=5F01FD74, ",51abda39f4dc42e1a01b0fdec9f2f285
+132,1,,,3577119975705736,bot,user,"Sản phẩm  Bàn ghế đa năng Lego Holla chính hãng / Mẫu Gấu  hiện shop đang có mức giá: *890,000 VND (giá gốc 1,400,000 VND)*.
+",,,2020-06-08 8:47:17,,
+132,1,,,3577119975705736,bot,user,,,,2020-06-08 8:47:17,,
+132,2,,,3577119975705736,user,Địa chỉ shop mình ở đâu c nhỉ,bot,handover_to_inbox,,2020-06-08 8:49:33,,7960d042c8d448f7a390d7c52d924894
+151,0,uc_2,shipping_order,2181209528639709,user,/start_conversation,bot,start_conversation,,2020-06-05 3:57:47,,4d7b6f01c01c4c6ea584829df069f82d
+151,0,,,2181209528639709,bot,user,"Chào Rin Ken, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-05 3:57:47,,
+151,1,,,2181209528639709,user,Alo xe V3 bao nhiêu shop ơi,bot,query_knowledge_base,"xe,price,",2020-06-05 3:58:14,,eb62e493e20849698b7d23a1456fd478
+151,1,,,2181209528639709,bot,user,,,,2020-06-05 3:58:14,,
+151,2,,,2181209528639709,user,"/confirm_object_type{""object_type"": ""xe_day""}",bot,confirm_object_type,"xe_day,",2020-06-05 3:58:28,,563d3139500047b692ea0d1954244cae
+151,2,,,2181209528639709,bot,user,,,,2020-06-05 3:58:28,,
+151,3,,,2181209528639709,user,Xe kiểu này V3,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101944967_289477618754009_913384370985762816_n.jpg?_nc_cat=106&_nc_sid=b96e70&_nc_oc=AQkh7YZmaKvKD9s9mNmdfN2Mn8NEj5tUYFYQ1j0hXHSLMwCpA7Xx1c3-SxGThhJSY2twMIMlC3IdSGnLgbSDGOgi&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=ae5671c40989e06a7c6d4263e7213ed2&oe=5EFD662A,xe,kiểu này,",2020-06-05 3:59:53,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101944967_289477618754009_913384370985762816_n.jpg?_nc_cat=106&_nc_sid=b96e70&_nc_oc=AQkh7YZmaKvKD9s9mNmdfN2Mn8NEj5tUYFYQ1j0hXHSLMwCpA7Xx1c3-SxGThhJSY2twMIMlC3IdSGnLgbSDGOgi&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=ae5671c40989e06a7c6d4263e7213ed2&oe=5EFD662A, ",e1e6452846754176a047b6fd004dc287
+151,3,,,2181209528639709,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-05 3:59:56,,
+151,3,,,2181209528639709,bot,user,,,,2020-06-05 3:59:56,,
+151,3,,,2181209528639709,bot,user,,,,2020-06-05 3:59:56,,
+151,4,,,2181209528639709,user,Gửi cho mình mấy mẫu ghế ngồi ăn dặm nữa,bot,query_knowledge_base,"ghe_an,",2020-06-05 8:51:07,,577d75745561441aa751bbdb28b65abc
+151,4,,,2181209528639709,bot,user,,,,2020-06-05 8:51:07,,
+151,5,,,2181209528639709,user,Mình xem ok thì mình lấy luôn,bot,handover_to_inbox,,2020-06-05 8:51:18,,54193acbee0a4ae58053a5b51cb6d9e1
+162,0,uc_2,silence,2774214605925248,user,B ơi bộ này bao tiền,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100586203_769071940503889_2044779478030221312_n.jpg?_nc_cat=103&_nc_sid=b96e70&_nc_ohc=4GvzM6-mXvAAX_XvxGP&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=105c4c049f3b9e6a7ada3d989f856425&oe=5EFFCF03,price,",2020-06-05 3:48:20,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100586203_769071940503889_2044779478030221312_n.jpg?_nc_cat=103&_nc_sid=b96e70&_nc_ohc=4GvzM6-mXvAAX_XvxGP&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=105c4c049f3b9e6a7ada3d989f856425&oe=5EFFCF03, ",0a8b0617e74d42bc9c0935e592bedde1
+162,0,,,2774214605925248,bot,user,"Sản phẩm Bộ bảng gỗ chữ  hiện shop đang có mức giá: *140,000 VND (giá gốc 210,000 VND)*.
+",,,2020-06-05 3:48:22,,
+162,0,,,2774214605925248,bot,user,,,,2020-06-05 3:48:22,,
+169,0,uc_2,other,1789080991119235,user,Nay nhieu sh,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101895703_250373386061852_4749890231992320_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=BYTySI6p6MMAX-VzLrX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=7e14b533065288b929744a7f8f62b621&oe=5EFCCABC,price,",2020-06-04 9:03:50,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101895703_250373386061852_4749890231992320_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=BYTySI6p6MMAX-VzLrX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=7e14b533065288b929744a7f8f62b621&oe=5EFCCABC, ",0957a0c8a0b846359a1301bb5ea0973b
+169,0,,,1789080991119235,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-04 9:03:53,,
+169,1,,,1789080991119235,user,Bô bạc si b,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101895703_250373386061852_4749890231992320_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=BYTySI6p6MMAX-VzLrX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=7e14b533065288b929744a7f8f62b621&oe=5EFCCABC,bo,",2020-06-04 9:04:28,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101895703_250373386061852_4749890231992320_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=BYTySI6p6MMAX-VzLrX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=7e14b533065288b929744a7f8f62b621&oe=5EFCCABC, ",0b3e703ce6d04fb2a97a627d03ce7e3e
+170,0,uc_2,other,2743694878980761,user,ib giá giúp bộ này,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/83170468_285423859166345_2457239223418224640_n.png?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=zW6i7r00fxUAX_g1KDn&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0381048de6cacf2d2e3f0b04a889ce6b&oe=5F002A92,https://scontent.xx.fbcdn.net/v/t1.15752-9/101532215_376053440036297_6173542466071822336_n.png?_nc_cat=106&_nc_sid=b96e70&_nc_ohc=eBWtyIIaOjMAX_-4jSq&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=1e8d14a0c5ac8b606bae67b1d99fa0cb&oe=5EFEC1D8,price,bộ này,",2020-06-04 7:43:47,"https://scontent.xx.fbcdn.net/v/t1.15752-9/83170468_285423859166345_2457239223418224640_n.png?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=zW6i7r00fxUAX_g1KDn&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0381048de6cacf2d2e3f0b04a889ce6b&oe=5F002A92, https://scontent.xx.fbcdn.net/v/t1.15752-9/101532215_376053440036297_6173542466071822336_n.png?_nc_cat=106&_nc_sid=b96e70&_nc_ohc=eBWtyIIaOjMAX_-4jSq&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=1e8d14a0c5ac8b606bae67b1d99fa0cb&oe=5EFEC1D8, ",fda20b55022d4f72aae3d13c03d86ef4
+170,0,,,2743694878980761,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-04 7:43:51,,
+170,0,,,2743694878980761,bot,user,,,,2020-06-04 7:43:51,,
+170,0,,,2743694878980761,bot,user,,,,2020-06-04 7:43:51,,
+170,1,,,2743694878980761,user,"/disagree{""object_type"": null}",bot,disagree,,2020-06-04 7:45:12,,7fb1d9c0299e417ba093cd02645571fb
+170,1,,,2743694878980761,bot,user,Bạn vui lòng mô tả rõ mong muốn của bạn hoặc chat với nhân viên tư vấn nhé!,,,2020-06-04 7:45:12,,
+170,2,,,2743694878980761,user,/connect_employee,bot,connect_employee,,2020-06-04 7:45:20,,0bd86b32e29842c5ad9a3d198460c277
+171,0,uc_2,silence,2128429800519389,user,kệ này bn ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101018153_2609377096023113_8322494679354441728_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=MojVfF5S1_IAX_vuRPF&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=1d4ebb4281664ea69dabe4daca29f32e&oe=5EFF658D,ke,này,price,",2020-06-04 7:19:42,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101018153_2609377096023113_8322494679354441728_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=MojVfF5S1_IAX_vuRPF&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=1d4ebb4281664ea69dabe4daca29f32e&oe=5EFF658D, ",a09d3ec6d84f4a2fbaf351174ced9964
+171,0,,,2128429800519389,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-04 7:19:46,,
+171,0,,,2128429800519389,bot,user,,,,2020-06-04 7:19:46,,
+171,0,,,2128429800519389,bot,user,,,,2020-06-04 7:19:46,,
+178,0,uc_2,handover_to_inbox,4006833302724537,user,Giá bn b oie,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102448511_686959795459624_3878810498598174720_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=ptozhWv2N2QAX-9-4P6&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0574c2af423aa9b26905d5c07a9a68bc&oe=5EFC6395,price,",2020-06-04 2:40:14,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102448511_686959795459624_3878810498598174720_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=ptozhWv2N2QAX-9-4P6&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0574c2af423aa9b26905d5c07a9a68bc&oe=5EFC6395, ",7b6c75274fa24d1f9acd3fd88a9a41a7
+178,0,,,4006833302724537,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-04 2:40:17,,
+178,0,,,4006833302724537,bot,user,,,,2020-06-04 2:40:17,,
+178,0,,,4006833302724537,bot,user,,,,2020-06-04 2:40:17,,
+178,1,,,4006833302724537,user,"/query_knowledge_base{""url"": ""https://shopee.vn/product/36371562/4520250642"", ""product_id"": ""https://shopee.vn/product/36371562/4520250642""}",bot,query_knowledge_base,"https://shopee.vn/product/36371562/4520250642,https://shopee.vn/product/36371562/4520250642,",2020-06-04 2:42:51,,4570b52bf33c40a7a313d67427bdc689
+178,1,,,4006833302724537,bot,user,"Sản phẩm Đàn piano cổ điển kèm Mic Winfun 2045  hiện shop đang có mức giá: *950,000 VND (giá gốc 1,500,000 VND)*.
+",,,2020-06-04 2:42:51,,
+178,1,,,4006833302724537,bot,user,,,,2020-06-04 2:42:51,,
+178,2,,,4006833302724537,user,Shopee giá 880.000 thì mình mua bên nào b ơi,bot,handover_to_inbox,"link,880.000,",2020-06-04 2:43:41,,b63ebd64341148db8457301669cfe096
+179,0,uc_2,silence,2490064664392398,user,Xe arolo này bn ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100850662_333091451004113_5195877187877601280_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=QcmsciTeJ2UAX_4jKT1&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=05962d2591ce00e34cc651b08a9f9100&oe=5EFE3550,xe,arolo,này,price,",2020-06-03 9:26:15,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100850662_333091451004113_5195877187877601280_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=QcmsciTeJ2UAX_4jKT1&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=05962d2591ce00e34cc651b08a9f9100&oe=5EFE3550, ",70d22d346a49457c9754e0082d8ddae6
+179,0,,,2490064664392398,bot,user,"Sản phẩm  Xe chòi chân kiêm xe lắc cao cấp có nhạc Holla  hiện shop đang có mức giá: *790,000 VND (giá gốc 1,200,000 VND)*.
+",,,2020-06-03 9:26:17,,
+179,0,,,2490064664392398,bot,user,,,,2020-06-03 9:26:17,,
+180,0,uc_2,handover_to_inbox,1828419810617061,user,Xe này bnh thế c,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101699044_288687455507746_5527583254518956032_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=yonnJs2dyx8AX_yJk2g&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=2674332581348c56138986e52fe2b6bd&oe=5EFE70B8,xe,này,price,",2020-06-03 9:16:46,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101699044_288687455507746_5527583254518956032_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=yonnJs2dyx8AX_yJk2g&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=2674332581348c56138986e52fe2b6bd&oe=5EFE70B8, ",b3885f4dba8a4e7793ecefed268ffab9
+180,0,,,1828419810617061,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-03 9:16:52,,
+180,0,,,1828419810617061,bot,user,,,,2020-06-03 9:16:52,,
+180,0,,,1828419810617061,bot,user,,,,2020-06-03 9:16:52,,
+180,1,,,1828419810617061,user,"/query_knowledge_base{""url"": ""https://shopee.vn/XE-L%E1%BA%AEC-CAO-C%E1%BA%A4P-HOLLA-i.36371562.4033416922"", ""product_id"": ""https://shopee.vn/XE-L%E1%BA%AEC-CAO-C%E1%BA%A4P-HOLLA-i.36371562.4033416922""}",bot,query_knowledge_base,"https://shopee.vn/XE-L%E1%BA%AEC-CAO-C%E1%BA%A4P-HOLLA-i.36371562.4033416922,https://shopee.vn/XE-L%E1%BA%AEC-CAO-C%E1%BA%A4P-HOLLA-i.36371562.4033416922,",2020-06-03 9:17:36,,22ada5bea6e64f3a8323917d9dee0533
+180,1,,,1828419810617061,bot,user,"Dạ, sản phẩm hiện tại bên shop đang tạm hết hàng ạ. Bạn tham khảo các sản phẩm khác dành cho bé nhé!",,,2020-06-03 9:17:36,,
+180,2,,,1828419810617061,user,Xe lắc k còn mẫu nào à c,bot,query_knowledge_base,"xe_lac,",2020-06-03 9:18:11,,240b27a06d1a430bb88e5ec9399e5974
+180,2,,,1828419810617061,bot,user,"Sản phẩm  Xe Chòi Chân   có giá bán thấp nhất từ: *510,000 VND*, bạn vui lòng bấm vào sản phẩm để xem giá bán và thông tin chi tiết!",,,2020-06-03 9:18:11,,
+180,2,,,1828419810617061,bot,user,,,,2020-06-03 9:18:11,,
+180,3,,,1828419810617061,user,Xe xanh ạ,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102919624_749561232451287_7489720002631696384_n.jpg?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=C3Uf3QGKq2EAX_ebHSB&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=ca562ba3c6c6046ee8b77e29ddcd345c&oe=5EFC9D20,xanh,",2020-06-03 9:21:13,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102919624_749561232451287_7489720002631696384_n.jpg?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=C3Uf3QGKq2EAX_ebHSB&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=ca562ba3c6c6046ee8b77e29ddcd345c&oe=5EFC9D20, ",b732fdc27e7b4046aba71d28d0f8834c
+180,3,,,1828419810617061,bot,user,Dạ mời bạn tham khảo sản phẩm hiện có tại shop nhé!,,,2020-06-03 9:21:17,,
+180,3,,,1828419810617061,bot,user,,,,2020-06-03 9:21:17,,
+180,4,,,1828419810617061,user,"Mình thấy còn mẫu
+Bạn cho mình đătj qua đây đc k",bot,query_knowledge_base,,2020-06-03 9:22:32,,59fbbb97fde8444ab896788bc418d8aa
+180,4,,,1828419810617061,bot,user,,,,2020-06-03 9:22:32,,
+180,5,,,1828419810617061,user,Là sao ạ,bot,handover_to_inbox,,2020-06-03 9:23:12,,6b11c7987b7347d89a40b397582255cb
+186,0,uc_2,handover_to_inbox,1.93915E+15,user,báo giá giúp m bộ này,bot,query_knowledge_base,"price,bộ này,",2020-06-03 4:31:56,,f4f9ee9b3243435ea4daa01ac8dd3acc
+186,0,,,1.93915E+15,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-03 4:31:56,,
+186,1,,,1.93915E+15,user,,bot,send_link,"https://scontent.xx.fbcdn.net/v/t1.15752-9/83664393_581833999186487_1951526770142347264_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=ZOjmWroP65kAX_N2BEP&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=4002c35f7d26688f546402f950877fd3&oe=5EFC6066,",2020-06-03 4:33:38,"https://scontent.xx.fbcdn.net/v/t1.15752-9/83664393_581833999186487_1951526770142347264_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=ZOjmWroP65kAX_N2BEP&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=4002c35f7d26688f546402f950877fd3&oe=5EFC6066, ",76312e86c9cd483fa3ef37c25c8b432a
+186,1,,,1.93915E+15,bot,user,"Sản phẩm  Bàn ghế đa năng Lego Holla chính hãng / Mẫu Gấu  hiện shop đang có mức giá: *890,000 VND (giá gốc 1,400,000 VND)*.
+",,,2020-06-03 4:33:41,,
+186,1,,,1.93915E+15,bot,user,,,,2020-06-03 4:33:41,,
+186,2,,,1.93915E+15,user,bàn này là loại khác hả b,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/82154917_342805060034781_1411412487818969088_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=_Be8yoyl-cMAX_nUKzD&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=004d74d316f1cb040cf0cb3a06fa3618&oe=5EFCD8A6,",2020-06-03 4:41:02,"https://scontent.xx.fbcdn.net/v/t1.15752-9/82154917_342805060034781_1411412487818969088_n.jpg?_nc_cat=107&_nc_sid=b96e70&_nc_ohc=_Be8yoyl-cMAX_nUKzD&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=004d74d316f1cb040cf0cb3a06fa3618&oe=5EFCD8A6, ",fcc525cf32df4427b3b2c2ec6fc6bd9c
+186,2,,,1.93915E+15,bot,user,"Sản phẩm Bàn ghế chơi Lego đa năng cao cấp gấp gọn SMONEO  hiện shop đang có mức giá: *1,100,000 VND (giá gốc 1,890,000 VND)*.
+",,,2020-06-03 4:41:04,,
+186,2,,,1.93915E+15,bot,user,,,,2020-06-03 4:41:04,,
+186,3,,,1.93915E+15,user,bàn đầu tiên 850k là k gập được đúng k b,bot,handover_to_inbox,"1,850k,",2020-06-03 4:42:53,,3e19c517099a4e8dad9e891b4b9e2811
+190,0,uc_2,other,2930131897023649,user,/start_conversation,bot,start_conversation,,2020-06-03 2:23:08,,a20ce87d68374c35a1a40a85d7682ddf
+190,0,,,2930131897023649,bot,user,"Chào Dung Nguyen, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-03 2:23:09,,
+190,1,,,2930131897023649,user,Bạn ơi cái kệ chữ A cho bé sơ sinh đến 12m  bao nhiêu hả bạn,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102433142_639480643306266_1385876330263871488_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=yFQ8FwYm4dQAX91m3Cf&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=e0825a10af0889136a1d7b9b82941bc5&oe=5EFB4E4A,ke,sơ sinh,đến 12m,price,",2020-06-03 2:24:35,"https://scontent.xx.fbcdn.net/v/t1.15752-9/102433142_639480643306266_1385876330263871488_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=yFQ8FwYm4dQAX91m3Cf&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=e0825a10af0889136a1d7b9b82941bc5&oe=5EFB4E4A, ",3bb7da79faf849e8a4cdc5f6db3f6456
+190,1,,,2930131897023649,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-03 2:24:37,,
+190,1,,,2930131897023649,bot,user,,,,2020-06-03 2:24:37,,
+190,1,,,2930131897023649,bot,user,,,,2020-06-03 2:24:37,,
+190,2,,,2930131897023649,user,"/disagree{""object_type"": null}",bot,disagree,,2020-06-03 2:25:41,,cb87cfa57ebd4a99b41e5cc1d3356c3d
+190,2,,,2930131897023649,bot,user,Bạn vui lòng mô tả rõ mong muốn của bạn hoặc chat với nhân viên tư vấn nhé!,,,2020-06-03 2:25:41,,
+190,3,,,2930131897023649,user,/connect_employee,bot,connect_employee,,2020-06-03 2:26:01,,46e0739e49324eef82f37a96ebfa13f6
+198,0,uc_2,silence,1761272857279605,user,mẫu này bn b,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101791713_632867757311764_8955155843230203904_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_oc=AQlQ_TFQAh4-BlMLzQ15XCDpGI4Ye6wa319rQecOd963Z6JimPbweBVT7dwZBZh4QelIR0jDEm_rUvJoUdCAE831&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=8591881242435000a217b110491677c6&oe=5EFA316C,mẫu này,price,",2020-06-02 5:58:32,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101791713_632867757311764_8955155843230203904_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_oc=AQlQ_TFQAh4-BlMLzQ15XCDpGI4Ye6wa319rQecOd963Z6JimPbweBVT7dwZBZh4QelIR0jDEm_rUvJoUdCAE831&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=8591881242435000a217b110491677c6&oe=5EFA316C, ",051a254ef86a46eb9c725837dafac87c
+198,0,,,1761272857279605,bot,user,"Sản phẩm Voi Jumbo thả hình khối Bkids Infantino  hiện shop đang có mức giá: *269,000 VND (giá gốc 299,000 VND)*.
+",,,2020-06-02 5:58:35,,
+198,0,,,1761272857279605,bot,user,,,,2020-06-02 5:58:35,,
+208,0,uc_2,handover_to_inbox,2030039080420495,user,E ơi,bot,greet,,2020-06-01 8:07:51,,1a2fd1ed47e648e89419ece25d1fe071
+208,0,,,2030039080420495,bot,user,"Chào bạn, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",,,2020-06-01 8:07:51,,
+208,1,,,2030039080420495,user,Giá bnhieu e ơi,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100051383_689105611871689_1821718298518093824_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=dA8WxlUJJI8AX9kzG4n&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=eeb82791106c1729754e36791a1e3367&oe=5EF8D07F,price,",2020-06-01 8:08:50,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100051383_689105611871689_1821718298518093824_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=dA8WxlUJJI8AX9kzG4n&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=eeb82791106c1729754e36791a1e3367&oe=5EF8D07F, ",2424ab09127049ce9cf6739c7f1ca536
+208,1,,,2030039080420495,bot,user,,,,2020-06-01 8:08:57,,
+208,2,,,2030039080420495,user,Có clip nhạc phát như nào k,bot,handover_to_inbox,,2020-06-01 8:09:01,,eecb55f844fb4cbb8c32fb533a267ab6
+209,0,uc_2,handover_to_inbox,1774545319294287,user,M xin giá,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100097969_888917274916266_2258259130965819392_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=N7C4jGC5sbUAX8iV69c&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=cdaa9da0addab27736210d07b9c14729&oe=5EFB5186,price,",2020-06-01 7:29:53,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100097969_888917274916266_2258259130965819392_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=N7C4jGC5sbUAX8iV69c&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=cdaa9da0addab27736210d07b9c14729&oe=5EFB5186, ",420245c2049c41ab80630abeb03e84a4
+209,0,,,1774545319294287,bot,user,"Sản phẩm Bộ đồ chơi nhà bếp thông minh  hiện shop đang có mức giá: *790,000 VND, 590,000 VND*.
+",,,2020-06-01 7:29:57,,
+209,0,,,1774545319294287,bot,user,,,,2020-06-01 7:29:57,,
+209,1,,,1774545319294287,user,"M thấy bảo có hơi nước bốc lên
+Có nóng k b",bot,handover_to_inbox,"nước bốc,",2020-06-01 7:30:08,,de73cfe9e90a45ca982a3707760acb39
+210,0,uc_2,handover_to_inbox,3238879449509406,user,Ghế này bn b oi,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101607154_254261949218940_3904791077894225920_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=EUA0JIve6WsAX-jt8GT&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=dd609e26a2424a7a41a8ee5ad5b5575c&oe=5EFAA41C,ghe,này,price,",2020-06-01 7:14:34,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101607154_254261949218940_3904791077894225920_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=EUA0JIve6WsAX-jt8GT&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=dd609e26a2424a7a41a8ee5ad5b5575c&oe=5EFAA41C, ",48096d488a2c4444a3238be13410710e
+210,0,,,3238879449509406,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-01 7:14:40,,
+210,0,,,3238879449509406,bot,user,,,,2020-06-01 7:14:40,,
+210,0,,,3238879449509406,bot,user,,,,2020-06-01 7:14:40,,
+210,1,,,3238879449509406,user,"/query_knowledge_base{""url"": ""https://shopee.vn/product/36371562/2711535629"", ""product_id"": ""https://shopee.vn/product/36371562/2711535629""}",bot,query_knowledge_base,"https://shopee.vn/product/36371562/2711535629,https://shopee.vn/product/36371562/2711535629,",2020-06-01 7:15:00,,d670a7e62d0b4e4da4b1b578f56e5795
+210,1,,,3238879449509406,bot,user,"Sản phẩm {CHÍNH HÃNG} Ghế đa năng HANBEI ( full bánh xe + đệm lưng / Hàng nhập khẩu chính hãng hộp tiếng Anh )  hiện shop đang có mức giá: *448,000 VND (giá gốc 800,000 VND)*.
+",,,2020-06-01 7:15:00,,
+210,1,,,3238879449509406,bot,user,,,,2020-06-01 7:15:00,,
+210,2,,,3238879449509406,user,"/query_knowledge_base{""url"": ""https://shopee.vn/product/36371562/2711535629"", ""product_id"": ""https://shopee.vn/product/36371562/2711535629""}",bot,query_knowledge_base,"https://shopee.vn/product/36371562/2711535629,https://shopee.vn/product/36371562/2711535629,",2020-06-01 7:15:02,,e108b7b8ec4042198139eee7c2d71fab
+210,2,,,3238879449509406,bot,user,"Sản phẩm {CHÍNH HÃNG} Ghế đa năng HANBEI ( full bánh xe + đệm lưng / Hàng nhập khẩu chính hãng hộp tiếng Anh )  hiện shop đang có mức giá: *448,000 VND (giá gốc 800,000 VND)*.
+",,,2020-06-01 7:15:02,,
+210,2,,,3238879449509406,bot,user,,,,2020-06-01 7:15:02,,
+210,3,,,3238879449509406,user,Còn màu xanh k bann,bot,query_knowledge_base,"màu xanh,",2020-06-01 7:15:50,,2c4213c286af4e0ba614adc7b823bd64
+210,3,,,3238879449509406,bot,user,"Sản phẩm {CHÍNH HÃNG} Ghế đa năng HANBEI ( full bánh xe + đệm lưng / Hàng nhập khẩu chính hãng hộp tiếng Anh )  Màu Xanh hiện shop đang có mức giá: *448,000 VND (giá gốc 800,000 VND)*.
+",,,2020-06-01 7:15:50,,
+210,3,,,3238879449509406,bot,user,,,,2020-06-01 7:15:50,,
+210,4,,,3238879449509406,user,Chân có thể điều chỉnh cao thấp hả b,bot,handover_to_inbox,,2020-06-01 7:16:01,,6ee77fb27c054122893c2e7031ac2f96
+211,0,uc_2,handover_to_inbox,1476585065791295,user,??,bot,ignore,,2020-06-01 7:12:18,,b3fd8a76c04540259e89786d61c68202
+211,0,,,1476585065791295,user,"Alo alo
+Đây b ơi
+Sao lại ko ib d nhỉ",bot,greet,,2020-06-01 7:15:09,,577a83db39914c52967721f5fc2ebd05
+211,0,,,1476585065791295,bot,user,"Chào bạn, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",,,2020-06-01 7:15:09,,
+211,1,,,1476585065791295,user,M hỏi bộ này bn,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100840989_746947766049359_173450665111060480_n.jpg?_nc_cat=102&_nc_sid=b96e70&_nc_oc=AQlnbVWRhfNk1ncXGImG7Bgr2f8KJ38QOn1k0Uj9zJNB8eUbkTSDkkFlmGWoiCZSLhqkQyiKskUHL7wBdLNK-aH7&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=a099f96d8028c4db266c0231d18014d1&oe=5EFBF857,bộ này,price,",2020-06-01 7:15:42,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100840989_746947766049359_173450665111060480_n.jpg?_nc_cat=102&_nc_sid=b96e70&_nc_oc=AQlnbVWRhfNk1ncXGImG7Bgr2f8KJ38QOn1k0Uj9zJNB8eUbkTSDkkFlmGWoiCZSLhqkQyiKskUHL7wBdLNK-aH7&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=a099f96d8028c4db266c0231d18014d1&oe=5EFBF857, ",62fc706078384ef4a37b458e1c8692da
+211,1,,,1476585065791295,bot,user,"Sản phẩm Bộ bảng gỗ chữ  hiện shop đang có mức giá: *140,000 VND (giá gốc 210,000 VND)*.
+",,,2020-06-01 7:15:44,,
+211,1,,,1476585065791295,bot,user,,,,2020-06-01 7:15:44,,
+211,2,,,1476585065791295,user,Gồm cả bảng số và chữ ah,bot,handover_to_inbox,,2020-06-01 7:15:54,,9ba4e01faed149d192f82fe931d246d3
+214,0,uc_2,silence,2904204766294125,user,/start_conversation,bot,start_conversation,,2020-06-01 4:37:07,,fda112e7004f45ab85bd6d6ecdff99bd
+214,0,,,2904204766294125,bot,user,"Chào Lan Ngoc, mình là trợ lý ảo của Shop Gấu & Bí Ngô!
+Để hỗ trợ bạn nhanh nhất có thể, vui lòng mô tả ngắn gọn và rõ ràng sản phẩm muốn tìm kiếm nhé!",,,2020-06-01 4:37:07,,
+214,1,,,2904204766294125,user,Kệ này giá bn vay shop,bot,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101701377_559306654783325_1828102952087191552_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=dexqzv4p8pgAX-mWHEt&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9c415ddef7a8c16bb304f5a1ceded245&oe=5EF966BC,ke,này,price,",2020-06-01 4:37:46,"https://scontent.xx.fbcdn.net/v/t1.15752-9/101701377_559306654783325_1828102952087191552_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=dexqzv4p8pgAX-mWHEt&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=9c415ddef7a8c16bb304f5a1ceded245&oe=5EF966BC, ",0f51320b397e4ec1921369a67e7f311c
+214,1,,,2904204766294125,bot,user,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",,,2020-06-01 4:37:49,,
+214,1,,,2904204766294125,bot,user,,,,2020-06-01 4:37:49,,
+214,1,,,2904204766294125,bot,user,,,,2020-06-01 4:37:49,,
+221,0,uc_2,handover_to_inbox,2219436361455523,user,Cho e hỏi vs ạ,bot,handover_to_inbox,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100835124_3228019663885263_8091084130663530496_n.jpg?_nc_cat=106&_nc_sid=b96e70&_nc_ohc=gkru8GP-G10AX_sndPm&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=35dcdca7e3eb9fdcd236451da319be14&oe=5EF94B54,https://scontent.xx.fbcdn.net/v/t1.15752-9/101524923_278707723494663_5757135701573369856_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=tQCg6i3GN5wAX83gKkS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=b4780c726ab7c805cc5999635700e13b&oe=5EFAD8DA,https://scontent.xx.fbcdn.net/v/t1.15752-9/101570390_690103978492033_2474938710630596608_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=D2JT8MTPblgAX8yglsE&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=3a65947f24a0cd88a948573060021100&oe=5EFA2252,",2020-06-01 2:36:41,"https://scontent.xx.fbcdn.net/v/t1.15752-9/100835124_3228019663885263_8091084130663530496_n.jpg?_nc_cat=106&_nc_sid=b96e70&_nc_ohc=gkru8GP-G10AX_sndPm&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=35dcdca7e3eb9fdcd236451da319be14&oe=5EF94B54, https://scontent.xx.fbcdn.net/v/t1.15752-9/101524923_278707723494663_5757135701573369856_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=tQCg6i3GN5wAX83gKkS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=b4780c726ab7c805cc5999635700e13b&oe=5EFAD8DA, https://scontent.xx.fbcdn.net/v/t1.15752-9/101570390_690103978492033_2474938710630596608_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=D2JT8MTPblgAX8yglsE&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=3a65947f24a0cd88a948573060021100&oe=5EFA2252, ",0507672a008a46ba89b2b6bd58d57e1b
+221,0,,,2219436361455523,user,Giá 3 bộ này như nào vậy chị,bot,query_knowledge_base,"price,bộ này,",2020-06-01 2:36:52,,2653441e4cad4ffa87f9b66f9f60ce89
+221,0,,,2219436361455523,bot,user,"Mình chưa xác định được món đồ bạn hỏi, bạn mô tả rõ hơn giúp mình nhé!",,,2020-06-01 2:36:52,,

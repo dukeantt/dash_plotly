@@ -14,33 +14,62 @@ import plotly.graph_objects as go
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app.layout = html.Div([
-    dcc.Upload(
-        id='upload-data',
-        children=html.Div([
-            'Drag and Drop or ',
-            html.A('Select Files')
-        ]),
-        style={
-            'width': '100%',
-            'height': '60px',
-            'lineHeight': '60px',
-            'borderWidth': '1px',
-            'borderStyle': 'dashed',
-            'borderRadius': '5px',
-            'textAlign': 'center',
-            'margin': '10px'
-        },
-        # Allow multiple files to be uploaded
-        multiple=True
-    ),
-    html.Div(
-        [html.Div(id='first-pie'),
-         html.Div(id='second-pie'), ]
-    ),
-    html.Div(id='third-pie'),
-    html.Div(id='forth-pie'),
-])
+app.layout = html.Div(
+    id='main-div',
+    style={
+        'display': 'flex',
+        'flexDirection': 'column'
+    },
+    children=[
+        dcc.Upload(
+            id='upload-data',
+            children=html.Div([
+                'Drag and Drop or ',
+                html.A('Select Files')
+            ]),
+            style={
+                'width': '100%',
+                'height': '60px',
+                'lineHeight': '60px',
+                'borderWidth': '1px',
+                'borderStyle': 'dashed',
+                'borderRadius': '5px',
+                'textAlign': 'center',
+                'margin': '10px'
+            },
+            # Allow multiple files to be uploaded
+            multiple=True
+        ),
+        html.Div(
+            [html.Div(id='first-pie'),
+             html.Div(id='second-pie'),
+             html.Div(id='third-pie'),
+             html.Div(id='forth-pie'),
+             ]
+        ),
+        dcc.Tabs(
+            id="tab_parent",
+            children=[
+                dcc.Tab(label='Thank', children=[
+                    html.Div(id='thank-table'),
+                ]),
+                dcc.Tab(label='Shipping', children=[
+                    html.Div(id='shipping-table'),
+                ]),
+                dcc.Tab(label='Handover', children=[
+                    html.Div(id='handover-table'),
+                ]),
+                dcc.Tab(label='Silence', children=[
+                    html.Div(id='silence-table'),
+                ]),
+                dcc.Tab(label='Other', children=[
+                    html.Div(id='other-table'),
+                ]),
+                dcc.Tab(label='Agree', children=[
+                    html.Div(id='agree-table'),
+                ]),
+            ]),
+    ])
 
 
 def create_trace1():
@@ -57,7 +86,7 @@ def create_trace1():
         # id="leads_source_container",
         className="six columns chart_div pretty_container",
         children=[
-            html.P("First pie"),
+            html.P("UC1 and UC2 proportion in June"),
             dcc.Graph(
                 figure={"data": [trace]},
                 style={"height": "90%", "width": "98%"},
@@ -69,7 +98,6 @@ def create_trace1():
 
 
 def create_trace2():
-
     trace = go.Pie(
         labels=['thanks', 'shipping', 'handover', "silence", "other", "agree"],
         values=[0, 5, 18, 24, 8, 1],
@@ -85,7 +113,7 @@ def create_trace2():
         # id="leads_source_container",
         className="six columns chart_div pretty_container",
         children=[
-            html.P("Second pie"),
+            html.P("Outcomes proportion in UC1 and UC2 conversations"),
             dcc.Graph(
                 figure={"data": [trace]},
                 style={"height": "90%", "width": "98%"},
@@ -107,7 +135,7 @@ def create_trace3():
         # id="leads_source_container",
         className="six columns chart_div pretty_container",
         children=[
-            html.P("Third pie"),
+            html.P("Outcomes of UC1"),
             dcc.Graph(
                 figure={"data": [trace_1]},
                 style={"height": "90%", "width": "98%"},
@@ -128,7 +156,7 @@ def create_trace4():
         # id="leads_source_container",
         className="six columns chart_div pretty_container",
         children=[
-            html.P("Forth pie"),
+            html.P("Outcomes of UC2"),
             dcc.Graph(
                 figure={"data": [trace_2]},
                 style={"height": "90%", "width": "98%"},
@@ -164,12 +192,50 @@ def parse_contents(contents, filename, date):
     return first_pie
 
 
+def generate_table(file_path: str):
+    df = pd.read_csv(file_path)
+    return html.Div([
+        dash_table.DataTable(
+            style_data={
+                # 'whiteSpace': 'normal',
+                # 'height': 'auto',
+                # 'lineHeight': '15px',
+            },
+            style_cell={
+                'overflow': 'hidden',
+                'textOverflow': 'ellipsis',
+                'minWidth': '0', 'width': '160px', 'maxWidth': '300px',
+                'textAlign' : "left",
+            },
+            tooltip_data=[
+                {
+                    column: {'value': str(value), 'type': 'markdown'}
+                    for column, value in row.items()
+                } for row in df.to_dict('rows')
+            ],
+            tooltip_duration=None,
+            fixed_columns={'headers': True, 'data': 1},
+            # style_table={'overflowX': 'auto'},
+            style_table={'minWidth': '100%'},
+
+            data=df.to_dict('records'),
+            columns=[{'name': i, 'id': i} for i in df.columns]
+        ),
+    ])
+
+
 @app.callback(
     [
         Output('first-pie', 'children'),
         Output('second-pie', 'children'),
         Output('third-pie', 'children'),
         Output('forth-pie', 'children'),
+        Output('thank-table', 'children'),
+        Output('shipping-table', 'children'),
+        Output('handover-table', 'children'),
+        Output('silence-table', 'children'),
+        Output('other-table', 'children'),
+        Output('agree-table', 'children'),
     ],
     [
         Input('upload-data', 'contents')
@@ -188,11 +254,16 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
         third_pie = create_trace3()
         forth_pie = create_trace4()
 
-        # return first_pie, second_pie, third_pie
-        # return children[0]
-        return first_pie, second_pie, third_pie,forth_pie
+        thank_df = generate_table("test_data/handover.csv")
+        agree_df = generate_table("test_data/agree_case.csv")
+        handover_df = generate_table("test_data/handover.csv")
+        other_df = generate_table("test_data/other.csv")
+        shipping_order_df = generate_table("test_data/shipping_order.csv")
+        silence_df = generate_table("test_data/silence_case.csv")
+
+        return first_pie, second_pie, third_pie, forth_pie, thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
     else:
-        return "", "", "", ""
+        return "", "", "", "", "", "", "", "", "", ""
 
 
 if __name__ == '__main__':
