@@ -202,8 +202,8 @@ def parse_contents(contents, filename, date):
     return df
 
 
-def generate_table(file_path: str):
-    df = pd.read_csv(file_path)
+def generate_table(df: pd.DataFrame):
+    # df = pd.read_csv(file_path)
     return html.Div([
         dash_table.DataTable(
             style_data={
@@ -258,6 +258,15 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     return uc_outcome["uc_1"], uc_outcome["uc_2"]
 
 
+def get_conversation_each_outcome(df: pd.DataFrame):
+    thank_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="thanks"]["conversation_id"]))]
+    shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="shipping_order"]["conversation_id"]))]
+    handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="handover_to_inbox"]["conversation_id"]))]
+    silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="silence"]["conversation_id"]))]
+    other_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="other"]["conversation_id"]))]
+    agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="agree"]["conversation_id"]))]
+    return thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
+
 @app.callback(
     Output('df-data', 'children'),
     [Input('upload-data', 'contents')],
@@ -299,24 +308,31 @@ def handle_df(list_of_contents, list_of_names, list_of_dates):
 def update_output(df):
     if df is not None:
         df = pd.read_json(df, orient="split")
+
         total, uc1, uc2 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
         outcome_uc1, outcome_uc2 = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome"]])
+
         first_pie = create_trace_uc_propotion_in_month(total, uc1, uc2)
         second_pie = create_trace_outcome_proportion_in_uc(outcome_uc1, outcome_uc2)
         third_pie = create_trace_outcome_uc1(outcome_uc1)
         forth_pie = create_trace_outcome_uc2(outcome_uc2)
 
-        thank_df = generate_table("test_data/handover.csv")
-        agree_df = generate_table("test_data/agree_case.csv")
-        handover_df = generate_table("test_data/handover.csv")
-        other_df = generate_table("test_data/other.csv")
-        shipping_order_df = generate_table("test_data/shipping_order.csv")
-        silence_df = generate_table("test_data/silence_case.csv")
+        thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df = get_conversation_each_outcome(df[[
+            "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
+            "intent", "entities"]])
+
+        thank_df = generate_table(thank_df)
+        shipping_order_df = generate_table(shipping_order_df)
+        handover_df = generate_table(handover_df)
+        silence_df = generate_table(silence_df)
+        other_df = generate_table(other_df)
+        agree_df = generate_table(agree_df)
 
         return first_pie, second_pie, third_pie, forth_pie, thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
     else:
         return "", "", "", "", "", "", "", "", "", ""
 
 
+#
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
