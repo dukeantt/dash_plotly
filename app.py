@@ -12,6 +12,7 @@ import pandas as pd
 import plotly.graph_objects as go
 
 from rasa_chatlog_processor import RasaChalogProcessor
+import copy
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 suppress_callback_exceptions = True
@@ -78,11 +79,12 @@ app.layout = html.Div(
     ])
 
 
-def create_trace1():
+def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int):
+    not_uc1_uc2 = total - uc1 - uc2
     colors = ['mediumturquoise', 'darkorange', 'lightgreen']
     trace = go.Pie(
         labels=['Other', 'UC 1', 'UC 2'],
-        values=[167, 18, 38],
+        values=[not_uc1_uc2, uc1, uc2],
         hoverinfo='label+percent',
         textinfo='label+value+percent',
         textfont_size=15,
@@ -103,10 +105,14 @@ def create_trace1():
     return first_pie
 
 
-def create_trace2():
+def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
+    uc_1_values = [value for index, value in outcome_uc1.items()]
+    uc_2_values = [value for index, value in outcome_uc2.items()]
+    values = [sum(x) for x in zip(uc_1_values, uc_2_values)]
     trace = go.Pie(
         labels=['thanks', 'shipping', 'handover', "silence", "other", "agree"],
-        values=[0, 5, 18, 24, 8, 1],
+        values=values,
+        # values=[0, 5, 18, 24, 8, 1],
         direction="clockwise",
         sort=False,
         rotation=120,
@@ -130,9 +136,10 @@ def create_trace2():
     return second_pie
 
 
-def create_trace3():
+def create_trace_outcome_uc1(outcome_uc1: dict):
+    values = [value for index, value in outcome_uc1.items()]
     labels = ['thanks', 'shipping', 'handover', "silence", "other", "agree"]
-    trace_1 = go.Pie(labels=labels, values=[0, 2, 5, 7, 3, 1], scalegroup='one',
+    trace_1 = go.Pie(labels=labels, values=values, scalegroup='one',
                      name="UC1", direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
                      textinfo='label+value', textfont_size=15,
                      marker=dict(line=dict(color='#000000', width=2)))
@@ -152,9 +159,10 @@ def create_trace3():
     return third_pie
 
 
-def create_trace4():
+def create_trace_outcome_uc2(outcome_uc2: dict):
+    values = [value for index, value in outcome_uc2.items()]
     labels = ['thanks', 'shipping', 'handover', "silence", "other", "agree"]
-    trace_2 = go.Pie(labels=labels, values=[0, 3, 13, 17, 5, 0], scalegroup='one',
+    trace_2 = go.Pie(labels=labels, values=values, scalegroup='one',
                      name="UC2", direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
                      textinfo='label+value', textfont_size=15,
                      marker=dict(line=dict(color='#000000', width=2)))
@@ -191,10 +199,6 @@ def parse_contents(contents, filename, date):
             'There was an error processing this file.'
         ])
 
-    first_pie = create_trace1()
-    second_pie = create_trace2()
-    third_pie = create_trace3()
-
     return df
 
 
@@ -228,6 +232,30 @@ def generate_table(file_path: str):
             columns=[{'name': i, 'id': i} for i in df.columns]
         ),
     ])
+
+
+def get_number_of_each_uc(df: pd.DataFrame):
+    total = len(list(dict.fromkeys(list(df["conversation_id"]))))
+    uc1 = len(df[df["use_case"] == "uc_1"])
+    uc2 = len(df[df["use_case"] == "uc_2"])
+    return total, uc1, uc2
+
+
+def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
+    """ thank -> shipping -> handover -> silence ->  other -> agree"""
+    uc_outcome = {
+        "uc_1": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
+        "uc_2": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
+    }
+    uc1_uc_2_conversation_id = list(df[(df["use_case"] == "uc_1") | (df["use_case"] == "uc_2")]["conversation_id"])
+    uc1_uc_2_conversation_id = list(dict.fromkeys(uc1_uc_2_conversation_id))
+
+    for id in uc1_uc_2_conversation_id:
+        sub_df = df[df["conversation_id"] == id]
+        use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))[0]
+        outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
+        uc_outcome[use_case][outcome] += 1
+    return uc_outcome["uc_1"], uc_outcome["uc_2"]
 
 
 @app.callback(
@@ -265,28 +293,18 @@ def handle_df(list_of_contents, list_of_names, list_of_dates):
         Output('agree-table', 'children'),
     ],
     [
-        # Input('upload-data', 'contents')
         Input('df-data', 'children')
     ],
-    # [
-    #     State('upload-data', 'filename'),
-    #     State('upload-data', 'last_modified')
-    # ]
 )
-# def update_output(list_of_contents, list_of_names, list_of_dates):
 def update_output(df):
-    # if list_of_contents is not None:
     if df is not None:
-        # children = [
-        #     parse_contents(c, n, d) for c, n, d in
-        #     zip(list_of_contents, list_of_names, list_of_dates)]
-        # df = children[0]
-        # processor = RasaChalogProcessor()
-        # df = processor.process_rasa_chatlog("06", "abc", df)
-        first_pie = create_trace1()
-        second_pie = create_trace2()
-        third_pie = create_trace3()
-        forth_pie = create_trace4()
+        df = pd.read_json(df, orient="split")
+        total, uc1, uc2 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
+        outcome_uc1, outcome_uc2 = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome"]])
+        first_pie = create_trace_uc_propotion_in_month(total, uc1, uc2)
+        second_pie = create_trace_outcome_proportion_in_uc(outcome_uc1, outcome_uc2)
+        third_pie = create_trace_outcome_uc1(outcome_uc1)
+        forth_pie = create_trace_outcome_uc2(outcome_uc2)
 
         thank_df = generate_table("test_data/handover.csv")
         agree_df = generate_table("test_data/agree_case.csv")
