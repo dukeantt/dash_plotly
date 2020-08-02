@@ -11,9 +11,12 @@ import dash_table
 import pandas as pd
 import plotly.graph_objects as go
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+from rasa_chatlog_processor import RasaChalogProcessor
 
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+suppress_callback_exceptions = True
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
 app.layout = html.Div(
     id='main-div',
     style={
@@ -69,6 +72,9 @@ app.layout = html.Div(
                     html.Div(id='agree-table'),
                 ]),
             ]),
+
+        html.Div(id='df-data', style={'display': 'none'})
+
     ])
 
 
@@ -189,7 +195,7 @@ def parse_contents(contents, filename, date):
     second_pie = create_trace2()
     third_pie = create_trace3()
 
-    return first_pie
+    return df
 
 
 def generate_table(file_path: str):
@@ -205,7 +211,7 @@ def generate_table(file_path: str):
                 'overflow': 'hidden',
                 'textOverflow': 'ellipsis',
                 'minWidth': '0', 'width': '160px', 'maxWidth': '300px',
-                'textAlign' : "left",
+                'textAlign': "left",
             },
             tooltip_data=[
                 {
@@ -225,6 +231,27 @@ def generate_table(file_path: str):
 
 
 @app.callback(
+    Output('df-data', 'children'),
+    [Input('upload-data', 'contents')],
+    [
+        State('upload-data', 'filename'),
+        State('upload-data', 'last_modified')
+    ]
+)
+def handle_df(list_of_contents, list_of_names, list_of_dates):
+    if list_of_contents is not None:
+        children = [
+            parse_contents(c, n, d) for c, n, d in
+            zip(list_of_contents, list_of_names, list_of_dates)]
+        df = children[0]
+        processor = RasaChalogProcessor()
+        df = processor.process_rasa_chatlog("06", "abc", df)
+        return df.to_json(date_format='iso', orient='split')
+    else:
+        return None
+
+
+@app.callback(
     [
         Output('first-pie', 'children'),
         Output('second-pie', 'children'),
@@ -238,17 +265,24 @@ def generate_table(file_path: str):
         Output('agree-table', 'children'),
     ],
     [
-        Input('upload-data', 'contents')
+        # Input('upload-data', 'contents')
+        Input('df-data', 'children')
     ],
-    [
-        State('upload-data', 'filename'),
-        State('upload-data', 'last_modified')
-    ])
-def update_output(list_of_contents, list_of_names, list_of_dates):
-    if list_of_contents is not None:
-        children = [
-            parse_contents(c, n, d) for c, n, d in
-            zip(list_of_contents, list_of_names, list_of_dates)]
+    # [
+    #     State('upload-data', 'filename'),
+    #     State('upload-data', 'last_modified')
+    # ]
+)
+# def update_output(list_of_contents, list_of_names, list_of_dates):
+def update_output(df):
+    # if list_of_contents is not None:
+    if df is not None:
+        # children = [
+        #     parse_contents(c, n, d) for c, n, d in
+        #     zip(list_of_contents, list_of_names, list_of_dates)]
+        # df = children[0]
+        # processor = RasaChalogProcessor()
+        # df = processor.process_rasa_chatlog("06", "abc", df)
         first_pie = create_trace1()
         second_pie = create_trace2()
         third_pie = create_trace3()

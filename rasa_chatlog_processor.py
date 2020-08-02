@@ -4,7 +4,7 @@ from utils.helper import *
 import datetime
 from spelling_correction.heuristic_correction import *
 import logging
-# from underthesea import pos_tag
+from underthesea import pos_tag
 
 logging.basicConfig(filename="logging_data/rasa_chatlog_processor_log",
                     format='%(asctime)s %(message)s',
@@ -191,8 +191,8 @@ class RasaChalogProcessor():
                             break
                     if str(user_message) != "nan":
                         user_message_correction = do_correction(user_message)
-                        # message_pos_tag = pos_tag(user_message_correction)
-                        message_pos_tag = [user_message_correction]
+                        message_pos_tag = pos_tag(user_message_correction)
+                        # message_pos_tag = [user_message_correction]
 
                         ##################################################################
                         words = [x[0] for x in message_pos_tag]
@@ -293,5 +293,5 @@ class RasaChalogProcessor():
 
         output_file_path = "output_data/chatlog_rasa/rasa_chatlog_processed_{month}.csv"
         output_file_path = output_file_path.format(month=input_month)
-        rasa_chatlog_by_month_df.to_csv(output_file_path, index=False)
+        # rasa_chatlog_by_month_df.to_csv(output_file_path, index=False)
         return rasa_chatlog_by_month_df
