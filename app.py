@@ -17,6 +17,7 @@ import copy
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 suppress_callback_exceptions = True
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+PAGE_SIZE = 10
 
 app.layout = html.Div(
     id='main-div',
@@ -45,36 +46,54 @@ app.layout = html.Div(
             multiple=True
         ),
         html.Div(
-            [html.Div(id='first-pie'),
-             html.Div(id='second-pie'),
-             html.Div(id='third-pie'),
-             html.Div(id='forth-pie'),
-             ]
+            id='a',
+            children=[
+                html.Div(id='first-pie'),
+            ]
+        ),
+        html.Div(
+            id='b',
+            children=[
+                html.Div(id='second-pie'),
+            ]
+        ),
+        html.Div(
+            id='c',
+            children=[
+                html.Div(id='third-pie'),
+            ]
+        ),
+        html.Div(
+            id='d',
+            children=[
+                html.Div(id='forth-pie'),
+            ]
         ),
         dcc.Tabs(
             id="tab_parent",
+            value="thank",
             children=[
-                dcc.Tab(label='Thank', children=[
+                dcc.Tab(id="thank",label='Thank', value="thank", children=[
                     html.Div(id='thank-table'),
                 ]),
-                dcc.Tab(label='Shipping', children=[
+                dcc.Tab(label='Shipping', value="shipping", children=[
                     html.Div(id='shipping-table'),
                 ]),
-                dcc.Tab(label='Handover', children=[
+                dcc.Tab(label='Handover', value="handover", children=[
                     html.Div(id='handover-table'),
                 ]),
-                dcc.Tab(label='Silence', children=[
+                dcc.Tab(label='Silence', value="silence", children=[
                     html.Div(id='silence-table'),
                 ]),
-                dcc.Tab(label='Other', children=[
+                dcc.Tab(label='Other', value="other", children=[
                     html.Div(id='other-table'),
                 ]),
-                dcc.Tab(label='Agree', children=[
+                dcc.Tab(label='Agree', value="agree", children=[
                     html.Div(id='agree-table'),
                 ]),
             ]),
 
-        html.Div(id='df-data', style={'display': 'none'})
+        html.Div(id='df-data', style={'display': 'none'}),
 
     ])
 
@@ -203,9 +222,15 @@ def parse_contents(contents, filename, date):
 
 
 def generate_table(df: pd.DataFrame):
-    # df = pd.read_csv(file_path)
     return html.Div([
         dash_table.DataTable(
+            id='datatable-paging',
+            # page_current=0,
+            # page_size=PAGE_SIZE,
+            # page_action='custom',
+            page_action="native",
+            page_current=0,
+            page_size=10,
             style_data={
                 # 'whiteSpace': 'normal',
                 # 'height': 'auto',
@@ -259,13 +284,14 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
 
 
 def get_conversation_each_outcome(df: pd.DataFrame):
-    thank_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="thanks"]["conversation_id"]))]
-    shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="shipping_order"]["conversation_id"]))]
-    handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="handover_to_inbox"]["conversation_id"]))]
-    silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="silence"]["conversation_id"]))]
-    other_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="other"]["conversation_id"]))]
-    agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] =="agree"]["conversation_id"]))]
+    thank_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "thanks"]["conversation_id"]))]
+    shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))]
+    handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "handover_to_inbox"]["conversation_id"]))]
+    silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "silence"]["conversation_id"]))]
+    other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))]
+    agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))]
     return thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
+
 
 @app.callback(
     Output('df-data', 'children'),
@@ -333,6 +359,5 @@ def update_output(df):
         return "", "", "", "", "", "", "", "", "", ""
 
 
-#
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)
