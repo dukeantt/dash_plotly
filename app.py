@@ -66,36 +66,15 @@ app.layout = html.Div(
             multiple=True
         ),
         html.Div(
-            id='pie_chart_parent_div',
+            className="d-flex flex-wrap",
             children=[
-                html.Div(id='first-pie', className="col-md-4"),
-                html.Div(
-                    className="col-md-8 d-flex",
-                    children=[
-                        html.Div(id='second-pie'),
-                        html.Div(id='third-pie'),
-                    ]
-                )
+                html.Div(id='first-pie', className="col-md-6 h-50"),
+                html.Div(id='second-pie', className="col-md-6 h-50"),
+                html.Div(id='third-pie', className="col-md-6 h-50"),
+                html.Div(id='forth-pie', className="col-md-6 h-50"),
             ]
         ),
-        # html.Div(
-        #     id='b',
-        #     children=[
-        #         html.Div(id='second-pie'),
-        #     ]
-        # ),
-        # html.Div(
-        #     id='c',
-        #     children=[
-        #         html.Div(id='third-pie'),
-        #     ]
-        # ),
-        html.Div(
-            id='d',
-            children=[
-                html.Div(id='forth-pie'),
-            ]
-        ),
+
         dcc.Tabs(
             id="tab_parent",
             value="thank",
@@ -138,8 +117,7 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int):
         marker=dict(colors=colors, line=dict(color='#000000', width=2))
     )
     first_pie = html.Div(
-        # id="leads_source_container",
-        # className="six columns chart_div pretty_container",
+        className="six columns chart_div pretty_container",
         children=[
             html.P("UC1 and UC2 proportion in June"),
             dcc.Graph(
@@ -159,7 +137,6 @@ def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
     trace = go.Pie(
         labels=['thanks', 'shipping', 'handover', "silence", "other", "agree"],
         values=values,
-        # values=[0, 5, 18, 24, 8, 1],
         direction="clockwise",
         sort=False,
         rotation=120,
@@ -169,8 +146,7 @@ def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
         marker=dict(line=dict(color='#000000', width=2))
     )
     second_pie = html.Div(
-        # id="leads_source_container",
-        # className="six columns chart_div pretty_container",
+        className="six columns chart_div pretty_container",
         children=[
             html.P("Outcomes proportion in UC1 and UC2 conversations"),
             dcc.Graph(
@@ -192,7 +168,6 @@ def create_trace_outcome_uc1(outcome_uc1: dict):
                      marker=dict(line=dict(color='#000000', width=2)))
 
     third_pie = html.Div(
-        # id="leads_source_container",
         className="six columns chart_div pretty_container",
         children=[
             html.P("Outcomes of UC1"),
@@ -214,7 +189,6 @@ def create_trace_outcome_uc2(outcome_uc2: dict):
                      textinfo='label+value', textfont_size=15,
                      marker=dict(line=dict(color='#000000', width=2)))
     forth_pie = html.Div(
-        # id="leads_source_container",
         className="six columns chart_div pretty_container",
         children=[
             html.P("Outcomes of UC2"),

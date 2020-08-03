@@ -35,6 +35,10 @@ input {
 
 .row {
   align-items: center;
+  display: flex;
+  overflow: auto;
+  margin-left: 0;
+  flex-wrap: nowrap;
 }
 
 .modal {
