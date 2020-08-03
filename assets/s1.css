@@ -571,3 +571,15 @@ table {
     height: 100%;
   }
 }
+#main-div {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30%;
+}
+
+.current-page{
+  width: 36px !important;
+}

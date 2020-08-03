@@ -19,6 +19,22 @@ suppress_callback_exceptions = True
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 PAGE_SIZE = 10
 
+tabs_styles = {
+    'height': '44px'
+}
+tab_style = {
+    'borderBottom': '1px solid #d6d6d6',
+    'padding': '6px',
+    'fontWeight': 'bold'
+}
+
+tab_selected_style = {
+    'borderTop': '1px solid #d6d6d6',
+    'borderBottom': '1px solid #d6d6d6',
+    'backgroundColor': '#119DFF',
+    'color': 'white',
+    'padding': '6px'
+}
 app.layout = html.Div(
     id='main-div',
     style={
@@ -73,25 +89,26 @@ app.layout = html.Div(
             id="tab_parent",
             value="thank",
             children=[
-                dcc.Tab(id="thank",label='Thank', value="thank", children=[
-                    html.Div(id='thank-table'),
-                ]),
-                dcc.Tab(label='Shipping', value="shipping", children=[
-                    html.Div(id='shipping-table'),
-                ]),
-                dcc.Tab(label='Handover', value="handover", children=[
-                    html.Div(id='handover-table'),
-                ]),
-                dcc.Tab(label='Silence', value="silence", children=[
-                    html.Div(id='silence-table'),
-                ]),
-                dcc.Tab(label='Other', value="other", children=[
-                    html.Div(id='other-table'),
-                ]),
-                dcc.Tab(label='Agree', value="agree", children=[
-                    html.Div(id='agree-table'),
-                ]),
-            ]),
+                dcc.Tab(id="thank", label='Thank', value="thank", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='thank-table'), ]
+                        ),
+                dcc.Tab(label='Shipping', value="shipping", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='shipping-table'), ]
+                        ),
+                dcc.Tab(label='Handover', value="handover", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='handover-table'), ]
+                        ),
+                dcc.Tab(label='Silence', value="silence", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='silence-table'), ]
+                        ),
+                dcc.Tab(label='Other', value="other", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='other-table'), ]
+                        ),
+                dcc.Tab(label='Agree', value="agree", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='agree-table'), ]
+                        ),
+            ],
+        ),
 
         html.Div(id='df-data', style={'display': 'none'}),
 
@@ -225,13 +242,14 @@ def generate_table(df: pd.DataFrame):
     return html.Div([
         dash_table.DataTable(
             id='datatable-paging',
-            # page_current=0,
-            # page_size=PAGE_SIZE,
-            # page_action='custom',
             page_action="native",
             page_current=0,
             page_size=10,
-            style_data={
+            style_header={
+                'backgroundColor': 'white',
+                'fontWeight': 'bold'
+            },
+            style_data={  # style cho ca header va cell
                 # 'whiteSpace': 'normal',
                 # 'height': 'auto',
                 # 'lineHeight': '15px',
@@ -239,14 +257,27 @@ def generate_table(df: pd.DataFrame):
             style_cell={
                 'overflow': 'hidden',
                 'textOverflow': 'ellipsis',
-                'minWidth': '0', 'width': '160px', 'maxWidth': '300px',
+                'minWidth': '0px',
+                'width': '160px', 'maxWidth': '300px',
                 'textAlign': "left",
             },
+            style_cell_conditional=[
+                {
+                    'if': {'column_id': c},
+                    'width': '20px'
+                } for c in ['use_case']
+            ],
             tooltip_data=[
                 {
                     column: {'value': str(value), 'type': 'markdown'}
                     for column, value in row.items()
                 } for row in df.to_dict('rows')
+            ],
+            style_data_conditional=[
+                {
+                    'if': {'row_index': 'odd'},
+                    'backgroundColor': 'rgb(248, 248, 248)'
+                }
             ],
             tooltip_duration=None,
             fixed_columns={'headers': True, 'data': 1},
@@ -284,12 +315,16 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
 
 
 def get_conversation_each_outcome(df: pd.DataFrame):
-    thank_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "thanks"]["conversation_id"]))]
-    shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))]
-    handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "handover_to_inbox"]["conversation_id"]))]
-    silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "silence"]["conversation_id"]))]
-    other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))]
-    agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))]
+    column_list = ["conversation_id", "use_case", "sender_id", "user_message", "bot_message", "created_time", "intent",
+                   "entities"]
+    thank_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "thanks"]["conversation_id"]))][column_list]
+    shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))][
+        column_list]
+    handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "handover_to_inbox"]["conversation_id"]))][
+        column_list]
+    silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "silence"]["conversation_id"]))][column_list]
+    other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
+    agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
     return thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
 
 
