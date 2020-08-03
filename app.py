@@ -13,10 +13,14 @@ import plotly.graph_objects as go
 
 from rasa_chatlog_processor import RasaChalogProcessor
 import copy
+import dash_bootstrap_components as dbc
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 suppress_callback_exceptions = True
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__,
+                # external_stylesheets=external_stylesheets
+                external_stylesheets=[dbc.themes.BOOTSTRAP]
+                )
 PAGE_SIZE = 10
 
 tabs_styles = {
@@ -62,23 +66,30 @@ app.layout = html.Div(
             multiple=True
         ),
         html.Div(
-            id='a',
+            id='pie_chart_parent_div',
             children=[
-                html.Div(id='first-pie'),
+                html.Div(id='first-pie', className="col-md-4"),
+                html.Div(
+                    className="col-md-8 d-flex",
+                    children=[
+                        html.Div(id='second-pie'),
+                        html.Div(id='third-pie'),
+                    ]
+                )
             ]
         ),
-        html.Div(
-            id='b',
-            children=[
-                html.Div(id='second-pie'),
-            ]
-        ),
-        html.Div(
-            id='c',
-            children=[
-                html.Div(id='third-pie'),
-            ]
-        ),
+        # html.Div(
+        #     id='b',
+        #     children=[
+        #         html.Div(id='second-pie'),
+        #     ]
+        # ),
+        # html.Div(
+        #     id='c',
+        #     children=[
+        #         html.Div(id='third-pie'),
+        #     ]
+        # ),
         html.Div(
             id='d',
             children=[
@@ -128,7 +139,7 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int):
     )
     first_pie = html.Div(
         # id="leads_source_container",
-        className="six columns chart_div pretty_container",
+        # className="six columns chart_div pretty_container",
         children=[
             html.P("UC1 and UC2 proportion in June"),
             dcc.Graph(
@@ -159,7 +170,7 @@ def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
     )
     second_pie = html.Div(
         # id="leads_source_container",
-        className="six columns chart_div pretty_container",
+        # className="six columns chart_div pretty_container",
         children=[
             html.P("Outcomes proportion in UC1 and UC2 conversations"),
             dcc.Graph(
@@ -395,4 +406,4 @@ def update_output(df):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
