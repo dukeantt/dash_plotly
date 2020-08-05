@@ -355,10 +355,14 @@ def get_conversation_each_usecase(df: pd.DataFrame):
                    "entities"]
     uc1_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s1"]["conversation_id"]))][column_list]
     uc2_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s2"]["conversation_id"]))][column_list]
+    uc31_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s31"]["conversation_id"]))][column_list]
+    uc32_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s32"]["conversation_id"]))][column_list]
 
     uc1_df.to_csv("output_data/chatlog_rasa/uc1_df.csv", index=False)
     uc2_df.to_csv("output_data/chatlog_rasa/uc2_df.csv", index=False)
-    return uc1_df, uc2_df
+    uc31_df.to_csv("output_data/chatlog_rasa/uc31_df.csv", index=False)
+    uc32_df.to_csv("output_data/chatlog_rasa/uc32_df.csv", index=False)
+    return uc1_df, uc2_df, uc31_df, uc32_df
 
 
 @app.callback(
@@ -424,10 +428,12 @@ def update_output(df):
         other_df = generate_table(other_df)
         agree_df = generate_table(agree_df)
 
-        uc1_df, uc2_df = get_conversation_each_usecase(df[["conversation_id", "use_case", "outcome","sender_id", "user_message",
+        uc1_df, uc2_df, uc31_df, uc32_df = get_conversation_each_usecase(df[["conversation_id", "use_case", "outcome","sender_id", "user_message",
                                                            "bot_message", "created_time", "intent", "entities"]])
         uc1_df = generate_table(uc1_df)
         uc2_df = generate_table(uc2_df)
+        uc31_df = generate_table(uc31_df)
+        uc32_df = generate_table(uc32_df)
 
         return first_pie, second_pie, third_pie, forth_pie, thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df
     else:

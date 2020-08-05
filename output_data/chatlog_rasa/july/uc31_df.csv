@@ -1,0 +1,51 @@
+conversation_id,use_case,outcome,sender_id,user_message,bot_message,created_time,intent,entities
+1,uc_s31,,2401014239991134,Shop mình có còn máy hút mũi cho bé không?,,2020-07-24 17:46:50,query_knowledge_base,"may_hut_mui,"
+1,,,2401014239991134,,Sản phẩm Máy Hút Mũi hiện shop đang *còn hàng*. Mời bạn xem thông tin chi tiết sản phẩm tại link sau ạ!,2020-07-24 17:46:52,,
+1,,,2401014239991134,,,2020-07-24 17:46:52,,
+1,,,2401014239991134,Shop mình còn máy hút mũi cho bé không?,,2020-07-25 01:32:43,query_knowledge_base,"may_hut_mui,"
+1,,,2401014239991134,,Sản phẩm Máy Hút Mũi hiện shop đang *còn hàng*. Mời bạn xem thông tin chi tiết sản phẩm tại link sau ạ!,2020-07-25 01:32:44,,
+1,,,2401014239991134,,,2020-07-25 01:32:44,,
+6,,,3348044228588564,/start_conversation,,2020-07-31 23:12:40,start_conversation,
+6,,,3348044228588564,,"Chào Hiền Sf, mình là Gấu Bino, trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-31 23:12:41,,
+6,uc_s31,,3348044228588564,Shop có kệ chữ A ko,,2020-07-31 23:13:00,query_knowledge_base,"ke,"
+6,,,3348044228588564,,,2020-07-31 23:13:01,,
+11,uc_s31,,1908546782549645,"Bên mình có bán tủ , kệ đựng đồ chơi cho bé k ăn",,2020-07-31 09:00:10,query_knowledge_base,"ke,"
+11,,,1908546782549645,,,2020-07-31 09:00:11,,
+48,uc_s31,,2494074823944059,Cho mình hỏi shop có ngựa bập bênh ko,,2020-07-29 04:12:50,query_knowledge_base,"ngua_bap_benh,"
+48,,,2494074823944059,,"Sản phẩm NGỰA BẬP BÊNH HOLLA 2020 có giá: *590,000 VND (giá gốc 800,000 VND)*, bạn vui lòng bấm vào sản phẩm để xem thông tin chi tiết ạ!",2020-07-29 04:12:50,,
+48,,,2494074823944059,,,2020-07-29 04:12:50,,
+98,,,3177392552329139,/start_conversation,,2020-07-26 08:52:51,start_conversation,
+98,,,3177392552329139,,"Chào Tuyet Chu, mình là Gấu Bino, trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-26 08:52:51,,
+98,uc_s31,,3177392552329139,"Bạn có xe chòi chân cho bé ko
+Mình qua cửa hàng xem đc ko nhỉ",,2020-07-26 08:53:27,query_knowledge_base,"xe_choi_chan,"
+98,,,3177392552329139,,Bạn vui lòng bấm vào sản phẩm để xem ảnh và thông tin chi tiết nhé!,2020-07-26 08:53:27,,
+98,,,3177392552329139,,,2020-07-26 08:53:27,,
+120,,,4010097362339048,/start_conversation,,2020-07-24 03:08:58,start_conversation,
+120,,,4010097362339048,,"Chào Quỳnh Toét, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-24 03:08:58,,
+120,uc_s31,,4010097362339048,Bên mình có nôi ru ngủ k ạ,,2020-07-24 03:09:11,query_knowledge_base,"noi,"
+120,,,4010097362339048,,,2020-07-24 03:09:12,,
+122,uc_s31,,1736318719734991,Bên shop có khay ăn cho bé k,,2020-07-24 01:40:37,query_knowledge_base,"khay_an,"
+122,,,1736318719734991,,"Sản phẩm Khay ăn 3 ngăn cao cấp #Richell (Nhật Bản) có giá: *205,000 VND (giá gốc 205,000 VND)*, bạn vui lòng bấm vào sản phẩm để xem thông tin chi tiết ạ!",2020-07-24 01:40:37,,
+122,,,1736318719734991,,,2020-07-24 01:40:37,,
+142,,,3295793613835814,/start_conversation,,2020-07-22 05:12:31,start_conversation,
+142,,,3295793613835814,,"Chào Đặng Thu Hương, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-22 05:12:32,,
+142,uc_s31,,3295793613835814,"Shop ơi
+Cho mình hỏi
+Shop có bộ đồ chơi xúc cát cho bé k nhỉ ..???",,2020-07-22 05:12:57,query_knowledge_base,"bo_do_choi,"
+142,,,3295793613835814,,"Sản phẩm Bộ bảng gỗ chữ có giá: *140,000 VND (giá gốc 210,000 VND)*, bạn vui lòng bấm vào sản phẩm để xem thông tin chi tiết ạ!",2020-07-22 05:12:58,,
+142,,,3295793613835814,,,2020-07-22 05:12:58,,
+193,uc_s31,,2108307822528877,Bạn ơi bạn có nhiệt kế đo trán điện tử ko ạ,,2020-07-17 08:15:44,query_knowledge_base,"nhiet_ke,"
+193,,,2108307822528877,,"Sản phẩm Nhiệt ẩm kế Lanaform (Bỉ) có giá: *390,000 VND (giá gốc 490,000 VND)*, bạn vui lòng bấm vào sản phẩm để xem thông tin chi tiết ạ!",2020-07-17 08:15:44,,
+193,,,2108307822528877,,,2020-07-17 08:15:44,,
+196,uc_s31,,1248028105297782,B có máy hút sữa k,,2020-07-17 03:36:45,query_knowledge_base,"may_hut_sua,"
+196,,,1248028105297782,,"Sản phẩm Máy hút sữa điện đôi Avent Snow (Chính hãng - Cty Vạn An) có giá: *4,990,000 VND (giá gốc 6,950,000 VND)*, bạn vui lòng bấm vào sản phẩm để xem thông tin chi tiết ạ!",2020-07-17 03:36:46,,
+196,,,1248028105297782,,,2020-07-17 03:36:46,,
+198,,,3211644028911242,/start_conversation,,2020-07-16 19:38:00,start_conversation,
+198,,,3211644028911242,,"Chào Linh Anh, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-16 19:38:00,,
+198,uc_s31,,3211644028911242,Bên b có máy tiệt trùng uv k,,2020-07-16 19:38:17,query_knowledge_base,"may_tiet_trung,"
+198,,,3211644028911242,,,2020-07-16 19:38:18,,
+229,,,2462771350420574,/start_conversation,,2020-07-14 15:51:02,start_conversation,
+229,,,2462771350420574,,"Chào Hạo Nhiên, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-14 15:51:02,,
+229,uc_s31,,2462771350420574,"Shop có xe đẩy ko ạ
+Tư vấn giúp mình với ạ",,2020-07-14 15:51:25,query_knowledge_base,"xe_day,"
+229,,,2462771350420574,,,2020-07-14 15:51:26,,

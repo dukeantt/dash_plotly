@@ -11,6 +11,10 @@ logging.basicConfig(filename="logging_data/rasa_chatlog_processor_log",
                     filemode='w')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+objtype_list = []
+with open("obj_type", "r") as obj_type_file:
+    lines = obj_type_file.readlines()
+    objtype_list = [x.strip() for x in lines]
 
 
 class RasaChalogProcessor():
@@ -217,13 +221,50 @@ class RasaChalogProcessor():
                                 "còn" in user_message_correction and "không" in user_message_correction):
                             rasa_chatlog_df.at[index, "use_case"] = "uc_s1"
                             break
-                        ##################################################################
+            else:
+                chatlog_sub_df_first_turn = chatlog_sub_df[(chatlog_sub_df["turn"] == 0) | (chatlog_sub_df["turn"] == 1)]
+                for index, item in chatlog_sub_df_first_turn.iterrows():
+                    user_message = item["user_message"]
+                    if str(item["entities"]) != "nan":
+                        entities_list = item["entities"].split(",")
+                        if any("price" in str(x) for x in entities_list):
+                            # rasa_chatlog_df.at[index, "use_case"] = "uc_s4"
+                            break
+                    if str(user_message) != "nan":
+                        user_message_correction = do_correction(user_message)
+                        message_pos_tag = pos_tag(user_message_correction)
+                        words = [x[0] for x in message_pos_tag]
+                        pos = [x[1] for x in message_pos_tag]
+                        co_x_khong_form = False
+                        if "có" in words and "không" in words:
+                            co_index = words.index("có")
+                            khong_index = words.index("không")
+                            if co_index < khong_index:
+                                in_between_word_pos = pos[co_index:khong_index]
+                                if any(x in in_between_word_pos for x in ["N", "Nc", "Ny", "Np", "Nu"]):
+                                    co_x_khong_form = True
 
-                        # input_message = pd.DataFrame([{"feature": user_message_correction}])
-                        # predicted = list(clf.predict(input_message["feature"]))
-                        # if predicted[0] == "uc_1":
-                        #     rasa_chatlog_df.at[index, "use_case"] = "uc_1"
-                        # break
+                        if co_x_khong_form or "có không" in user_message_correction or (
+                                "có" in user_message_correction and "không" in user_message_correction):
+                            if str(item["entities"]) != "nan":
+                                entities_list = item["entities"].split(",")
+                                entities_list = [x for x in entities_list if x != '']
+                                if any(x in objtype_list for x in entities_list):
+                                    if len(entities_list) == 1:
+                                        rasa_chatlog_df.at[index, "use_case"] = "uc_s31"
+                                        break
+                                    else:
+                                        rasa_chatlog_df.at[index, "use_case"] = "uc_s32"
+                                        break
+
+
+                ##################################################################
+
+                # input_message = pd.DataFrame([{"feature": user_message_correction}])
+                # predicted = list(clf.predict(input_message["feature"]))
+                # if predicted[0] == "uc_1":
+                #     rasa_chatlog_df.at[index, "use_case"] = "uc_1"
+                # break
         return rasa_chatlog_df
 
     def specify_conversation_outcome(self, rasa_chatlog_df: pd.DataFrame):
@@ -242,7 +283,7 @@ class RasaChalogProcessor():
             sub_uc1_uc2_conversation_df = rasa_chatlog_df[rasa_chatlog_df["conversation_id"] == id]
             last_turn = max(list(sub_uc1_uc2_conversation_df["turn"]))
             last_turn_message_df = sub_uc1_uc2_conversation_df[sub_uc1_uc2_conversation_df["turn"] == last_turn]
-            last_turn_message_df = last_turn_message_df.dropna(subset=["bot_message", "user_message"],how="all")
+            last_turn_message_df = last_turn_message_df.dropna(subset=["bot_message", "user_message"], how="all")
             message_counter = 0
             for index, item in last_turn_message_df.iterrows():
                 user_message = item["user_message"]
