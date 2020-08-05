@@ -15,6 +15,10 @@ from rasa_chatlog_processor import RasaChalogProcessor
 import copy
 import dash_bootstrap_components as dbc
 
+month_dict = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
+              "8": "August",
+              "9": "September", "10": "October", "11": "November", "12": "December"}
+
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 suppress_callback_exceptions = True
 app = dash.Dash(__name__,
@@ -68,16 +72,13 @@ app.layout = html.Div(
         html.Div(
             className="d-flex flex-wrap",
             children=[
-                html.Div(id='first-pie', className="col-md-6 h-50"),
-                html.Div(id='second-pie', className="col-md-6 h-50"),
-                html.Div(id='third-pie', className="col-md-6 h-50"),
-                html.Div(id='forth-pie', className="col-md-6 h-50"),
+                html.Div(id='first-pie', className="col-md-12 h-50"),
             ]
         ),
 
         dcc.Tabs(
             id="tab_parent",
-            value="thank",
+            value="shipping",
             children=[
                 dcc.Tab(id="thank", label='Thank', value="thank", style=tab_style, selected_style=tab_selected_style,
                         children=[html.Div(id='thank-table'), ]
@@ -99,7 +100,31 @@ app.layout = html.Div(
                         ),
             ],
         ),
-
+        html.Div(
+            className="d-flex flex-wrap",
+            children=[
+                html.Div(id='second-pie', className="col-md-12 h-50"),
+            ]
+        ),
+        dcc.Tabs(
+            id="uc_tab_parent",
+            value="uc_s1",
+            children=[
+                dcc.Tab(id="uc_s1", label='UC_S1', value="uc_s1", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='uc-s1'), ]
+                        ),
+                dcc.Tab(id="uc_s2", label='UC_S2', value="uc_s2", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='uc-s2'), ]
+                        ),
+            ]
+        ),
+        html.Div(
+            className="d-flex flex-wrap",
+            children=[
+                html.Div(id='third-pie', className="col-md-6 h-50"),
+                html.Div(id='forth-pie', className="col-md-6 h-50"),
+            ]
+        ),
         html.Div(id='df-data', style={'display': 'none'}),
 
     ])
@@ -114,12 +139,12 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int):
         hoverinfo='label+percent',
         textinfo='label+value+percent',
         textfont_size=15,
-        marker=dict(colors=colors, line=dict(color='#000000', width=2))
+        marker=dict(colors=colors, line=dict(color='#000000', width=1))
     )
     first_pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
-            html.P("UC1 and UC2 proportion in June"),
+            html.P("UC1 and UC2 proportion in month"),
             dcc.Graph(
                 figure={"data": [trace]},
                 style={"height": "90%", "width": "98%"},
@@ -131,9 +156,9 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int):
 
 
 def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
-    uc_1_values = [value for index, value in outcome_uc1.items()]
-    uc_2_values = [value for index, value in outcome_uc2.items()]
-    values = [sum(x) for x in zip(uc_1_values, uc_2_values)]
+    uc_s1_values = [value for index, value in outcome_uc1.items()]
+    uc_s2_values = [value for index, value in outcome_uc2.items()]
+    values = [sum(x) for x in zip(uc_s1_values, uc_s2_values)]
     trace = go.Pie(
         labels=['thanks', 'shipping', 'handover', "silence", "other", "agree"],
         values=values,
@@ -143,7 +168,7 @@ def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
         hoverinfo='label+percent',
         textinfo='label+value',
         textfont_size=15,
-        marker=dict(line=dict(color='#000000', width=2))
+        marker=dict(line=dict(color='#000000', width=1))
     )
     second_pie = html.Div(
         className="six columns chart_div pretty_container",
@@ -165,7 +190,7 @@ def create_trace_outcome_uc1(outcome_uc1: dict):
     trace_1 = go.Pie(labels=labels, values=values, scalegroup='one',
                      name="UC1", direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
                      textinfo='label+value', textfont_size=15,
-                     marker=dict(line=dict(color='#000000', width=2)))
+                     marker=dict(line=dict(color='#000000', width=1)))
 
     third_pie = html.Div(
         className="six columns chart_div pretty_container",
@@ -187,7 +212,7 @@ def create_trace_outcome_uc2(outcome_uc2: dict):
     trace_2 = go.Pie(labels=labels, values=values, scalegroup='one',
                      name="UC2", direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
                      textinfo='label+value', textfont_size=15,
-                     marker=dict(line=dict(color='#000000', width=2)))
+                     marker=dict(line=dict(color='#000000', width=1)))
     forth_pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
@@ -277,26 +302,29 @@ def generate_table(df: pd.DataFrame):
 
 def get_number_of_each_uc(df: pd.DataFrame):
     total = len(list(dict.fromkeys(list(df["conversation_id"]))))
-    uc1 = len(df[df["use_case"] == "uc_1"])
-    uc2 = len(df[df["use_case"] == "uc_2"])
-    return total, uc1, uc2
+    uc_s1 = len(df[df["use_case"] == "uc_s1"])
+    uc_s2 = len(df[df["use_case"] == "uc_s2"])
+    return total, uc_s1, uc_s2
 
 
 def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     """ thank -> shipping -> handover -> silence ->  other -> agree"""
     uc_outcome = {
-        "uc_1": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
-        "uc_2": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
+        "uc_s1": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
+        "uc_s2": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
     }
-    uc1_uc_2_conversation_id = list(df[(df["use_case"] == "uc_1") | (df["use_case"] == "uc_2")]["conversation_id"])
+    uc1_uc_2_conversation_id = list(df[(df["use_case"] == "uc_s1") | (df["use_case"] == "uc_s2")]["conversation_id"])
     uc1_uc_2_conversation_id = list(dict.fromkeys(uc1_uc_2_conversation_id))
 
     for id in uc1_uc_2_conversation_id:
         sub_df = df[df["conversation_id"] == id]
         use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))[0]
-        outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
+        try:
+            outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
+        except:
+            a = 0
         uc_outcome[use_case][outcome] += 1
-    return uc_outcome["uc_1"], uc_outcome["uc_2"]
+    return uc_outcome["uc_s1"], uc_outcome["uc_s2"]
 
 
 def get_conversation_each_outcome(df: pd.DataFrame):
@@ -310,7 +338,26 @@ def get_conversation_each_outcome(df: pd.DataFrame):
     silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "silence"]["conversation_id"]))][column_list]
     other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
     agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
+
+    thank_df.to_csv("output_data/chatlog_rasa/thank_df.csv", index=False)
+    shipping_order_df.to_csv("output_data/chatlog_rasa/shipping_order_df.csv", index=False)
+    handover_df.to_csv("output_data/chatlog_rasa/handover_df.csv", index=False)
+    silence_df.to_csv("output_data/chatlog_rasa/silence_df.csv", index=False)
+    other_df.to_csv("output_data/chatlog_rasa/other_df.csv", index=False)
+    agree_df.to_csv("output_data/chatlog_rasa/agree_df.csv", index=False)
     return thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
+
+
+def get_conversation_each_usecase(df: pd.DataFrame):
+    column_list = ["conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
+                   "intent",
+                   "entities"]
+    uc1_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s1"]["conversation_id"]))][column_list]
+    uc2_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s2"]["conversation_id"]))][column_list]
+
+    uc1_df.to_csv("output_data/chatlog_rasa/uc1_df.csv", index=False)
+    uc2_df.to_csv("output_data/chatlog_rasa/uc2_df.csv", index=False)
+    return uc1_df, uc2_df
 
 
 @app.callback(
@@ -346,6 +393,8 @@ def handle_df(list_of_contents, list_of_names, list_of_dates):
         Output('silence-table', 'children'),
         Output('other-table', 'children'),
         Output('agree-table', 'children'),
+        Output('uc-s1', 'children'),
+        Output('uc-s2', 'children'),
     ],
     [
         Input('df-data', 'children')
@@ -374,10 +423,15 @@ def update_output(df):
         other_df = generate_table(other_df)
         agree_df = generate_table(agree_df)
 
-        return first_pie, second_pie, third_pie, forth_pie, thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
+        uc1_df, uc2_df = get_conversation_each_usecase(df[["conversation_id", "use_case", "outcome","sender_id", "user_message",
+                                                           "bot_message", "created_time", "intent", "entities"]])
+        uc1_df = generate_table(uc1_df)
+        uc2_df = generate_table(uc2_df)
+
+        return first_pie, second_pie, third_pie, forth_pie, thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df
     else:
-        return "", "", "", "", "", "", "", "", "", ""
+        return "", "", "", "", "", "", "", "", "", "", "", ""
 
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)

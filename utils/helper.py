@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_all_conv():
-    with open('../chatlog_data/all_conv.pkl', 'rb') as f:
+    with open('../data/rasa_chatlog/raw_data/all_conv.pkl', 'rb') as f:
         data = pickle.load(f)
     return data
 
@@ -46,7 +46,7 @@ def export_conversation_detail():
     """
     Export all conversation detail to file so that we dont have to crawl everytime
     """
-    file_name = "../chatlog_data/all_conv_detail.csv"
+    file_name = "../data/rasa_chatlog/raw_data/all_conv_detail.csv"
     all_conv = get_all_conv()
     all_sender_id = [x["sender_id"] for x in all_conv]
     for sender_id in all_sender_id:
@@ -67,10 +67,10 @@ def export_conversations():
     """
     Export all conversation to file so that we dont have to crawl everytime
     """
-    conversation_api = "curl -H \"Authorization: Bearer $TOKEN\" -s https://babeshop.ftech.ai/api/conversations"
+    conversation_api = "curl -H \"Authorization: Bearer $TOKEN\" -s https://babeshop.ftech.ai/api/conversations?start=2020-07-01T00:00:00.000Z"
     token = "TOKEN=$(curl -s https://babeshop.ftech.ai/api/auth -d '{\"username\": \"me\", \"password\": \"w4J6OObi996nDGcQ4mlYNK4F\"}' | jq -r .access_token)"
     all_conversations = json.loads(os.popen(token + " && " + conversation_api).read())
-    with open('../chatlog_data/all_conv.pkl', 'wb') as f:
+    with open('../data/rasa_chatlog/raw_data/all_conv.pkl', 'wb') as f:
         pickle.dump(all_conversations, f)
 
 
@@ -252,3 +252,10 @@ def upload_chatlog():
 
     # Insert collection
     collection.insert_many(data_dict)
+
+
+def crawl_rasa_chatlog():
+    export_conversations()
+    export_conversation_detail()
+
+# crawl_rasa_chatlog()

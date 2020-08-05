@@ -1,8 +1,0 @@
-conversation_id,turn,use_case,outcome,sender_id,sender,user_message,bot_message,intent,entities,created_time,attachments,message_id
-34,0,uc_1,agree,2535538143187015,user,Mẫu này còn màu vang ko ạ,bot,2020-06-18 2:42:18,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/96095043_3466177293395251_8256491128006071430_n.jpg?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=882LgS7A6WAAX-InAke&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=92873c629ed465c221ee03a5d2f5d077&oe=5F0F382B,mẫu này,màu vang,","https://scontent.xx.fbcdn.net/v/t1.15752-9/96095043_3466177293395251_8256491128006071430_n.jpg?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=882LgS7A6WAAX-InAke&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=92873c629ed465c221ee03a5d2f5d077&oe=5F0F382B, ",be3fffc1c0264814935578ea5b2b205f
-34,0,,,2535538143187015,bot,user,,2020-06-18 2:42:21,,,,
-34,1,,,2535538143187015,user,"/confirm_object_type{""object_type"": ""ke""}",bot,2020-06-18 2:42:35,confirm_object_type,"ke,",,c9f3765d214e46148747acdd68bbeabd
-34,1,,,2535538143187015,bot,user,"Dạ, sản phẩm Kệ  Màu Vang hiện tại bên shop đang tạm hết hàng ạ. Bạn tham khảo các sản phẩm khác dành cho bé nhé!",2020-06-18 2:42:35,,,,
-34,1,,,2535538143187015,bot,user,,2020-06-18 2:42:35,,,,
-34,2,,,2535538143187015,user,Vâng ạ,bot,2020-06-18 2:43:02,agree,,,25be57575450408a812d80f45d4499c5
-34,2,,,2535538143187015,bot,user,Dạ vâng ạ!,2020-06-18 2:43:02,,,,

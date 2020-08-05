@@ -1,0 +1,66 @@
+conversation_id,use_case,sender_id,user_message,bot_message,created_time,intent,entities
+21,,3107135902738981,/start_conversation,,2020-07-30 12:33:41,start_conversation,
+21,,3107135902738981,,"Chào Sy Phan, mình là Gấu Bino, trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-30 12:33:42,,
+21,uc_s2,3107135902738981,Máy này giá bn shop ,,2020-07-30 12:34:15,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/116743487_899934753850127_7795460580554031702_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=GsBBV1U6UZgAX9k7i6-&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=666a4b461939c28ba3c731829df209a6&oe=5F498C8F,https://scontent.xx.fbcdn.net/v/t1.15752-9/116710362_293057605303914_8140709158635782049_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=e3JPlQ-v5zUAX9SvQ-H&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=117eb85e77e69fdcee3646e64d619d45&oe=5F48C184,may,này,price,"
+21,,3107135902738981,,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",2020-07-30 12:34:17,,
+21,,3107135902738981,,,2020-07-30 12:34:17,,
+21,,3107135902738981,,,2020-07-30 12:34:17,,
+21,,3107135902738981,Mình ở Huế có hàng sẵn không ?,,2020-07-30 12:34:27,handover_to_inbox,
+21,,3107135902738981,,"Dạ, bạn vui lòng chờ trong ít phút nhân viên của shop sẽ phục vụ bạn ạ!^^",2020-07-30 12:34:27,,
+25,uc_s2,3154228984690301,Bộ xếp hình lego này bao nhiêu ạ ,,2020-07-30 07:24:33,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/99104633_193742088364240_7309464356977115136_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=gPqbbmK76vYAX9RNEAE&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=0a58742d30021b1401c2ba9f4c022711&oe=5F493F2C,price,"
+25,,3154228984690301,,"Sản phẩm Bàn ghế đa năng Lego Holla chính hãng / Mẫu Gấu có giá: *890,000 VND (giá gốc 1,400,000 VND)*, bạn vui lòng bấm vào sản phẩm để xem thông tin chi tiết ạ!",2020-07-30 07:24:34,,
+25,,3154228984690301,,,2020-07-30 07:24:34,,
+25,,3154228984690301,Là kèm luôn bộ xếp hình giống như hình hay sao ạ,,2020-07-30 07:29:30,handover_to_inbox,
+25,,3154228984690301,,"Dạ, bạn vui lòng chờ trong ít phút nhân viên của shop sẽ phục vụ bạn ạ!^^",2020-07-30 07:29:31,,
+57,,3245432022184115,/start_conversation,,2020-07-29 02:39:55,start_conversation,
+57,,3245432022184115,,"Chào Mai Nguyen, mình là Gấu Bino, trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-29 02:39:55,,
+57,uc_s2,3245432022184115,Bạn ơi bộ này chiều cao bao nhiêu Và giá bao nhiêu ,,2020-07-29 02:40:21,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/116358898_285978509330409_4882063280173727578_n.jpg?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=IBokdkJ0KhcAX_3zEM-&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=de7380aab6f889deac3616ef4dbc025a&oe=5F45FA22,size,price,price,"
+57,,3245432022184115,,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",2020-07-29 02:40:24,,
+57,,3245432022184115,,,2020-07-29 02:40:24,,
+57,,3245432022184115,,,2020-07-29 02:40:24,,
+57,,3245432022184115,Ko bạn Đây cơ mà ,,2020-07-29 02:41:49,disagree,"https://scontent.xx.fbcdn.net/v/t1.15752-9/116358898_285978509330409_4882063280173727578_n.jpg?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=IBokdkJ0KhcAX_3zEM-&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=de7380aab6f889deac3616ef4dbc025a&oe=5F45FA22,"
+57,,3245432022184115,,Bạn vui lòng mô tả rõ mong muốn của bạn hoặc chat với nhân viên tư vấn nhé!,2020-07-29 02:41:49,,
+57,,3245432022184115,"Ơ
+Bạn ko nhận được ảnh mình gửi à
+Gửi 2 lần rồi vẫn bảo mô tả",,2020-07-29 02:42:28,handover_to_inbox,"image,"
+57,,3245432022184115,,"Dạ, bạn vui lòng chờ trong ít phút nhân viên của shop sẽ phục vụ bạn ạ!^^",2020-07-29 02:42:29,,
+118,uc_s1,2230231970404708,Binh nc nay con ko shop ,,2020-07-24 03:55:12,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/115803620_1327924334079730_2429139750762951978_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=1UUv_FRHQjwAX995mem&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=a9556b64ca6b558d6125d35bedcae612&oe=5F41CBF8,binh nc,nay,"
+118,,2230231970404708,,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",2020-07-24 03:55:14,,
+118,,2230231970404708,,,2020-07-24 03:55:14,,
+118,,2230231970404708,,,2020-07-24 03:55:14,,
+118,,2230231970404708,Binh nay co tiet trung dc ko a,,2020-07-24 03:55:25,handover_to_inbox,
+118,,2230231970404708,,"Dạ, bạn vui lòng chờ trong ít phút nhân viên của shop sẽ phục vụ bạn ạ!^^",2020-07-24 03:55:26,,
+230,uc_s1,2109635822411911,"B ơi
+Nhà b còn kệ đựng đồ chơi đợt trc k",,2020-07-14 09:38:43,query_knowledge_base,"ke,"
+230,,2109635822411911,Kệ này nè b Hoặc kệ nào tương tự ,,2020-07-14 09:39:38,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/109329460_300718917861146_7922539172103880927_n.jpg?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=S94COlTqMjcAX8Hmq_8&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=c3a8994649c096f38c1bef06141b1cca&oe=5F338A0C,ke,này,"
+230,,2109635822411911,,"Dạ, có phải bạn muốn hỏi một trong các sản phẩm dưới đây không ạ?
+ (Vui lòng ấn chọn 1 sản phẩm)",2020-07-14 09:39:40,,
+230,,2109635822411911,,,2020-07-14 09:39:40,,
+230,,2109635822411911,,,2020-07-14 09:39:40,,
+230,,2109635822411911,"Kệ đồ chơi toyhouse b ạ
+K phải kệ chữ a",,2020-07-14 09:40:28,disagree,"ke,toyhouse,ke,"
+230,,2109635822411911,,Bạn vui lòng mô tả rõ mong muốn của bạn hoặc chat với nhân viên tư vấn nhé!,2020-07-14 09:40:28,,
+230,,2109635822411911,"Ôi b
+Bên b dùng chatbot trả lời à
+Setup buồn cười thế",,2020-07-14 09:41:13,handover_to_inbox,
+230,,2109635822411911,,"Dạ, bạn vui lòng chờ trong ít phút nhân viên của shop sẽ phục vụ bạn ạ!^^",2020-07-14 09:41:13,,
+236,,3574319219264562,/start_conversation,,2020-07-14 04:05:16,start_conversation,
+236,,3574319219264562,,"Chào Minh Nguyen, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-14 04:05:16,,
+236,uc_s2,3574319219264562,Cho mình xin giá xe đẩy vovo 2 chiều 2020 với ạ,,2020-07-14 04:05:42,query_knowledge_base,"price,xe_day,vovo,"
+236,,3574319219264562,,"Sản phẩm Xe Đẩy hãng sản xuất Vovo có giá bán thấp nhất từ: *2,200,000 VND*, bạn vui lòng bấm vào sản phẩm để xem thông tin chi tiết ạ!",2020-07-14 04:05:42,,
+236,,3574319219264562,,,2020-07-14 04:05:42,,
+236,,3574319219264562,Sao trên shopbee có 1tr400k mà shop mình 2tr2 vậy ,,2020-07-14 04:07:05,handover_to_inbox,"https://scontent.xx.fbcdn.net/v/t1.15752-9/107666166_976421802786778_4326425833058115355_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=M3FDJ6tisUEAX__D8OW&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=ab567ffb4ef07785578335f5b57a0aae&oe=5F329983,1tr400k,2tr2,"
+236,,3574319219264562,,"Dạ, bạn vui lòng chờ trong ít phút nhân viên của shop sẽ phục vụ bạn ạ!^^",2020-07-14 04:07:06,,
+252,,3646076928739707,/start_conversation,,2020-07-13 07:20:46,start_conversation,
+252,,3646076928739707,,"Chào Trần Hoài Thương, mình là trợ lý ảo của Shop Gấu & Bí Ngô, mình giúp gì được bạn ạ?",2020-07-13 07:20:46,,
+252,uc_s1,3646076928739707,"Shop ơi, bên mình còn sẵn xe đẩy này ko ạ? ",,2020-07-13 07:21:28,query_knowledge_base,"https://scontent.xx.fbcdn.net/v/t1.15752-9/105427190_747746172639669_3655270502832131495_n.jpg?_nc_cat=104&_nc_sid=b96e70&_nc_ohc=u8AUcqoVv4IAX-xfmLS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=b630d2469ffffa744ee3a83809ddd2f1&oe=5F32DF90,xe_day,"
+252,,3646076928739707,,Sản phẩm Set Xe đẩy & ghế ô tô kiêm nôi xách tay Zaracos Revo 2506 hiện shop đang *còn hàng*. Mời bạn xem thông tin chi tiết sản phẩm tại link sau ạ!,2020-07-13 07:21:30,,
+252,,3646076928739707,,,2020-07-13 07:21:30,,
+252,,3646076928739707,Mình muốn đến xem ạ,,2020-07-13 07:21:38,query_knowledge_base,
+252,,3646076928739707,,Bạn vui lòng bấm vào sản phẩm để xem ảnh và thông tin chi tiết nhé!,2020-07-13 07:21:39,,
+252,,3646076928739707,,,2020-07-13 07:21:39,,
+252,,3646076928739707,Bên mình buổi tối mở cửa đến mấy giờ ạ?,,2020-07-13 07:25:21,handover_to_inbox,
+252,,3646076928739707,,"Dạ, bạn vui lòng chờ trong ít phút nhân viên của shop sẽ phục vụ bạn ạ!^^",2020-07-13 07:25:22,,

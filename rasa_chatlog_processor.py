@@ -1,10 +1,10 @@
-import pandas as pd
 from datetime import datetime
 from utils.helper import *
 import datetime
 from spelling_correction.heuristic_correction import *
 import logging
 from underthesea import pos_tag
+import pandas as pd
 
 logging.basicConfig(filename="logging_data/rasa_chatlog_processor_log",
                     format='%(asctime)s %(message)s',
@@ -98,9 +98,9 @@ class RasaChalogProcessor():
                     event_owner = event["event"]
                     if event_owner == "user":
                         df_data["user_message"].append(message)
-                        df_data["bot_message"].append("bot")
+                        df_data["bot_message"].append("")
                     else:
-                        df_data["user_message"].append("user")
+                        df_data["user_message"].append("")
                         df_data["bot_message"].append(message)
 
         rasa_chatlog_df = pd.DataFrame.from_dict(df_data)
@@ -187,7 +187,7 @@ class RasaChalogProcessor():
                     if str(item["entities"]) != "nan":
                         entities_list = item["entities"].split(",")
                         if any("price" in str(x) for x in entities_list):
-                            rasa_chatlog_df.at[index, "use_case"] = "uc_2"
+                            rasa_chatlog_df.at[index, "use_case"] = "uc_s2"
                             break
                     if str(user_message) != "nan":
                         user_message_correction = do_correction(user_message)
@@ -215,7 +215,7 @@ class RasaChalogProcessor():
 
                         if con_x_khong_form or "còn không" in user_message_correction or (
                                 "còn" in user_message_correction and "không" in user_message_correction):
-                            rasa_chatlog_df.at[index, "use_case"] = "uc_1"
+                            rasa_chatlog_df.at[index, "use_case"] = "uc_s1"
                             break
                         ##################################################################
 
@@ -229,7 +229,7 @@ class RasaChalogProcessor():
     def specify_conversation_outcome(self, rasa_chatlog_df: pd.DataFrame):
         rasa_chatlog_df.insert(3, "outcome", "")
         uc1_uc2_line = rasa_chatlog_df[
-            (rasa_chatlog_df["use_case"] == "uc_1") | (rasa_chatlog_df["use_case"] == "uc_2")]
+            (rasa_chatlog_df["use_case"] == "uc_s1") | (rasa_chatlog_df["use_case"] == "uc_s2")]
         conversation_ids = list(uc1_uc2_line["conversation_id"])
         conversation_ids = list(dict.fromkeys(conversation_ids))
 
@@ -242,7 +242,7 @@ class RasaChalogProcessor():
             sub_uc1_uc2_conversation_df = rasa_chatlog_df[rasa_chatlog_df["conversation_id"] == id]
             last_turn = max(list(sub_uc1_uc2_conversation_df["turn"]))
             last_turn_message_df = sub_uc1_uc2_conversation_df[sub_uc1_uc2_conversation_df["turn"] == last_turn]
-            last_turn_message_df = last_turn_message_df.dropna(subset=["bot_message"])
+            last_turn_message_df = last_turn_message_df.dropna(subset=["bot_message", "user_message"],how="all")
             message_counter = 0
             for index, item in last_turn_message_df.iterrows():
                 user_message = item["user_message"]
