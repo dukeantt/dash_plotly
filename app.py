@@ -21,6 +21,7 @@ app = dash.Dash(__name__,
                 # external_stylesheets=external_stylesheets
                 external_stylesheets=[dbc.themes.BOOTSTRAP]
                 )
+server = app.server
 PAGE_SIZE = 10
 
 tabs_styles = {
