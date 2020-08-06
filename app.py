@@ -14,6 +14,7 @@ import plotly.graph_objects as go
 from rasa_chatlog_processor import RasaChalogProcessor
 import copy
 import dash_bootstrap_components as dbc
+import numpy as np
 
 month_dict = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
               "8": "August",
@@ -250,6 +251,67 @@ def parse_contents(contents, filename, date):
 
 
 def generate_table(df: pd.DataFrame):
+    df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
+    info_dict = {x: [] for x in list(df.columns)}
+    user_counter = 0
+    bot_counter = 0
+    counter = 0
+    for row in df.itertuples():
+        counter += 1
+        user_message = row.user_message
+        bot_message = row.bot_message
+        if user_message is None or user_message == "None":
+            user_message = np.NaN
+        if bot_message is None or bot_message == "None":
+            bot_message = np.NaN
+        if user_message == "user":
+            user_counter = 0
+            bot_counter += 1
+            info_dict["bot_message"].append(bot_message)
+            info_dict["created_time_bot"].append(row.created_time)
+            use_case = row.use_case
+            if "outcome" in info_dict:
+                outcome = row.outcome
+                if outcome != '':
+                    if bot_counter <= 1:
+                        info_dict["outcome"].remove('')
+                    info_dict["outcome"].append(row.outcome)
+
+            if bot_counter > 1:
+                info_dict["conversation_id"].append(row.conversation_id)
+                info_dict["user_message"].append(np.NaN)
+                info_dict["created_time"].append("")
+                info_dict["intent"].append("")
+                info_dict["entities"].append("")
+                if "outcome" in info_dict and row.outcome == '':
+                    info_dict["outcome"].append(row.outcome)
+
+                info_dict["use_case"].append(use_case)
+                info_dict["sender_id"].append(row.sender_id)
+
+        elif user_message != "user":
+            user_counter += 1
+            bot_counter = 0
+            info_dict["conversation_id"].append(row.conversation_id)
+            info_dict["user_message"].append(user_message)
+            info_dict["created_time"].append(row.created_time)
+            info_dict["intent"].append(row.intent)
+            info_dict["entities"].append(row.entities)
+            info_dict["use_case"].append(row.use_case)
+            info_dict["sender_id"].append(row.sender_id)
+            if "outcome" in info_dict:
+                info_dict["outcome"].append(row.outcome)
+
+            if user_counter > 1 or counter == len(df):
+                info_dict["bot_message"].append(np.NaN)
+                info_dict["created_time_bot"].append("")
+
+            if counter == len(df) and user_counter > 1:
+                info_dict["bot_message"].append(np.NaN)
+                info_dict["created_time_bot"].append("")
+
+    df = pd.DataFrame.from_dict(info_dict)
+    df = df.dropna(subset=["user_message", "bot_message"], how="all")
     return html.Div([
         dash_table.DataTable(
             id='datatable-paging',
@@ -428,8 +490,9 @@ def update_output(df):
         other_df = generate_table(other_df)
         agree_df = generate_table(agree_df)
 
-        uc1_df, uc2_df, uc31_df, uc32_df = get_conversation_each_usecase(df[["conversation_id", "use_case", "outcome","sender_id", "user_message",
-                                                           "bot_message", "created_time", "intent", "entities"]])
+        uc1_df, uc2_df, uc31_df, uc32_df = get_conversation_each_usecase(
+            df[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
+                "bot_message", "created_time", "intent", "entities"]])
         uc1_df = generate_table(uc1_df)
         uc2_df = generate_table(uc2_df)
         uc31_df = generate_table(uc31_df)
