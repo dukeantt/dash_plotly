@@ -424,12 +424,12 @@ def get_conversation_each_outcome(df: pd.DataFrame):
     other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
     agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
 
-    thank_df.to_csv("output_data/chatlog_rasa/thank_df.csv", index=False)
-    shipping_order_df.to_csv("output_data/chatlog_rasa/shipping_order_df.csv", index=False)
-    handover_df.to_csv("output_data/chatlog_rasa/handover_df.csv", index=False)
-    silence_df.to_csv("output_data/chatlog_rasa/silence_df.csv", index=False)
-    other_df.to_csv("output_data/chatlog_rasa/other_df.csv", index=False)
-    agree_df.to_csv("output_data/chatlog_rasa/agree_df.csv", index=False)
+    # thank_df.to_csv("output_data/chatlog_rasa/thank_df.csv", index=False)
+    # shipping_order_df.to_csv("output_data/chatlog_rasa/shipping_order_df.csv", index=False)
+    # handover_df.to_csv("output_data/chatlog_rasa/handover_df.csv", index=False)
+    # silence_df.to_csv("output_data/chatlog_rasa/silence_df.csv", index=False)
+    # other_df.to_csv("output_data/chatlog_rasa/other_df.csv", index=False)
+    # agree_df.to_csv("output_data/chatlog_rasa/agree_df.csv", index=False)
     return thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
 
 
@@ -442,10 +442,10 @@ def get_conversation_each_usecase(df: pd.DataFrame):
     uc31_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s31"]["conversation_id"]))][column_list]
     uc32_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s32"]["conversation_id"]))][column_list]
 
-    uc1_df.to_csv("output_data/chatlog_rasa/uc1_df.csv", index=False)
-    uc2_df.to_csv("output_data/chatlog_rasa/uc2_df.csv", index=False)
-    uc31_df.to_csv("output_data/chatlog_rasa/uc31_df.csv", index=False)
-    uc32_df.to_csv("output_data/chatlog_rasa/uc32_df.csv", index=False)
+    # uc1_df.to_csv("output_data/chatlog_rasa/uc1_df.csv", index=False)
+    # uc2_df.to_csv("output_data/chatlog_rasa/uc2_df.csv", index=False)
+    # uc31_df.to_csv("output_data/chatlog_rasa/uc31_df.csv", index=False)
+    # uc32_df.to_csv("output_data/chatlog_rasa/uc32_df.csv", index=False)
     return uc1_df, uc2_df, uc31_df, uc32_df
 
 
