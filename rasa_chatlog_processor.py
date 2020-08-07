@@ -269,9 +269,9 @@ class RasaChalogProcessor():
 
     def specify_conversation_outcome(self, rasa_chatlog_df: pd.DataFrame):
         rasa_chatlog_df.insert(3, "outcome", "")
-        uc1_uc2_line = rasa_chatlog_df[
-            (rasa_chatlog_df["use_case"] == "uc_s1") | (rasa_chatlog_df["use_case"] == "uc_s2")]
-        conversation_ids = list(uc1_uc2_line["conversation_id"])
+        # uc1_uc2_line = rasa_chatlog_df[(rasa_chatlog_df["use_case"] == "uc_s1") | (rasa_chatlog_df["use_case"] == "uc_s2")]
+        # conversation_ids = list(uc1_uc2_line["conversation_id"])
+        conversation_ids = list(rasa_chatlog_df["conversation_id"])
         conversation_ids = list(dict.fromkeys(conversation_ids))
 
         key_words = ["ship", "gửi hàng", "lấy", "địa chỉ", "giao hàng", "đ/c", "thanh toán", "tổng", "stk",
@@ -280,9 +280,9 @@ class RasaChalogProcessor():
         filter_words = ["địa chỉ shop", "địa chỉ cửa hàng", "lấy rồi", "giao hàng chậm"]
 
         for id in conversation_ids:
-            sub_uc1_uc2_conversation_df = rasa_chatlog_df[rasa_chatlog_df["conversation_id"] == id]
-            last_turn = max(list(sub_uc1_uc2_conversation_df["turn"]))
-            last_turn_message_df = sub_uc1_uc2_conversation_df[sub_uc1_uc2_conversation_df["turn"] == last_turn]
+            sub_conversation_df = rasa_chatlog_df[rasa_chatlog_df["conversation_id"] == id]
+            last_turn = max(list(sub_conversation_df["turn"]))
+            last_turn_message_df = sub_conversation_df[sub_conversation_df["turn"] == last_turn]
             last_turn_message_df = last_turn_message_df.dropna(subset=["bot_message", "user_message"], how="all")
             message_counter = 0
             for index, item in last_turn_message_df.iterrows():

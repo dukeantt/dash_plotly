@@ -10,7 +10,7 @@ import dash_table
 
 import pandas as pd
 import plotly.graph_objects as go
-
+import plotly
 from rasa_chatlog_processor import RasaChalogProcessor
 import copy
 import dash_bootstrap_components as dbc
@@ -37,7 +37,6 @@ tab_style = {
     'padding': '6px',
     'fontWeight': 'bold'
 }
-
 tab_selected_style = {
     'borderTop': '1px solid #d6d6d6',
     'borderBottom': '1px solid #d6d6d6',
@@ -45,6 +44,7 @@ tab_selected_style = {
     'color': 'white',
     'padding': '6px'
 }
+
 app.layout = html.Div(
     id='main-div',
     style={
@@ -74,7 +74,7 @@ app.layout = html.Div(
         html.Div(
             className="d-flex flex-wrap",
             children=[
-                html.Div(id='first-pie', className="col-md-12 h-50"),
+                html.Div(id='outcome_proportion-in-conversations', className="col-md-12 h-50"),
             ]
         ),
 
@@ -105,7 +105,7 @@ app.layout = html.Div(
         html.Div(
             className="d-flex flex-wrap",
             children=[
-                html.Div(id='second-pie', className="col-md-12 h-50"),
+                html.Div(id='uc-proportion-in-month', className="col-md-12 h-50"),
             ]
         ),
         dcc.Tabs(
@@ -118,13 +118,26 @@ app.layout = html.Div(
                 dcc.Tab(id="uc_s2", label='UC_S2', value="uc_s2", style=tab_style, selected_style=tab_selected_style,
                         children=[html.Div(id='uc-s2'), ]
                         ),
+                dcc.Tab(id="uc_s31", label='UC_S31', value="uc_s31", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='uc-s31'), ]
+                        ),
+                dcc.Tab(id="uc_s32", label='UC_S32', value="uc_s32", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='uc-s32'), ]
+                        ),
             ]
         ),
         html.Div(
             className="d-flex flex-wrap",
             children=[
-                html.Div(id='third-pie', className="col-md-6 h-50"),
-                html.Div(id='forth-pie', className="col-md-6 h-50"),
+                html.Div(id='outcome-uc1-pie', className="col-md-6 h-50"),
+                html.Div(id='outcome-uc2-pie', className="col-md-6 h-50"),
+            ]
+        ),
+        html.Div(
+            className="d-flex flex-wrap",
+            children=[
+                html.Div(id='outcome-uc31-pie', className="col-md-6 h-50"),
+                html.Div(id='outcome-uc32-pie', className="col-md-6 h-50"),
             ]
         ),
         html.Div(id='df-data', style={'display': 'none'}),
@@ -132,21 +145,23 @@ app.layout = html.Div(
     ])
 
 
-def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int):
-    not_uc1_uc2 = total - uc1 - uc2
+def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31:int, uc32:int):
+    not_uc1_uc2 = total - uc1 - uc2 - uc31 - uc32
     colors = ['mediumturquoise', 'darkorange', 'lightgreen']
     trace = go.Pie(
-        labels=['Other', 'UC 1', 'UC 2'],
-        values=[not_uc1_uc2, uc1, uc2],
+        labels=['Other', 'UC S1', 'UC S2', "UC S31", "UC S32"],
+        values=[not_uc1_uc2, uc1, uc2, uc31, uc32],
         hoverinfo='label+percent',
         textinfo='label+value+percent',
         textfont_size=15,
-        marker=dict(colors=colors, line=dict(color='#000000', width=1))
+        marker=dict(
+            colors=plotly.colors.diverging.Portland,
+            line=dict(color='#000000', width=1))
     )
     first_pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
-            html.P("UC1 and UC2 proportion in month"),
+            html.P("Usecases proportion in month"),
             dcc.Graph(
                 figure={"data": [trace]},
                 style={"height": "90%", "width": "98%"},
@@ -157,10 +172,20 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int):
     return first_pie
 
 
-def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
+def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
+    outcome_uc1 = uc_outcome["uc_s1"]
+    outcome_uc2 = uc_outcome["uc_s2"]
+    outcome_uc31 = uc_outcome["uc_s31"]
+    outcome_uc32 = uc_outcome["uc_s32"]
+    outcome_other = uc_outcome["other"]
+
     uc_s1_values = [value for index, value in outcome_uc1.items()]
     uc_s2_values = [value for index, value in outcome_uc2.items()]
-    values = [sum(x) for x in zip(uc_s1_values, uc_s2_values)]
+    uc_s31_values = [value for index, value in outcome_uc31.items()]
+    uc_s32_values = [value for index, value in outcome_uc32.items()]
+    uc_other_values = [value for index, value in outcome_other.items()]
+
+    values = [sum(x) for x in zip(uc_s1_values, uc_s2_values, uc_s31_values, uc_s32_values, uc_other_values)]
     trace = go.Pie(
         labels=['thanks', 'shipping', 'handover', "silence", "other", "agree"],
         values=values,
@@ -170,12 +195,13 @@ def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
         hoverinfo='label+percent',
         textinfo='label+value',
         textfont_size=15,
-        marker=dict(line=dict(color='#000000', width=1))
-    )
+        marker=dict(line=dict(
+            color=plotly.colors.diverging.Portland,
+            width=1)))
     second_pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
-            html.P("Outcomes proportion in UC1 and UC2 conversations"),
+            html.P("Outcomes proportion in all conversations"),
             dcc.Graph(
                 figure={"data": [trace]},
                 style={"height": "90%", "width": "98%"},
@@ -186,39 +212,20 @@ def create_trace_outcome_proportion_in_uc(outcome_uc1: dict, outcome_uc2: dict):
     return second_pie
 
 
-def create_trace_outcome_uc1(outcome_uc1: dict):
-    values = [value for index, value in outcome_uc1.items()]
-    labels = ['thanks', 'shipping', 'handover', "silence", "other", "agree"]
-    trace_1 = go.Pie(labels=labels, values=values, scalegroup='one',
-                     name="UC1", direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
-                     textinfo='label+value', textfont_size=15,
-                     marker=dict(line=dict(color='#000000', width=1)))
-
-    third_pie = html.Div(
-        className="six columns chart_div pretty_container",
-        children=[
-            html.P("Outcomes of UC1"),
-            dcc.Graph(
-                figure={"data": [trace_1]},
-                style={"height": "90%", "width": "98%"},
-                config=dict(displayModeBar=False),
-            ),
-        ],
-    ),
-    return third_pie
-
-
-def create_trace_outcome_uc2(outcome_uc2: dict):
-    values = [value for index, value in outcome_uc2.items()]
+def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
+    outcome_uc = uc_outcome[key]
+    values = [value for index, value in outcome_uc.items()]
     labels = ['thanks', 'shipping', 'handover', "silence", "other", "agree"]
     trace_2 = go.Pie(labels=labels, values=values, scalegroup='one',
-                     name="UC2", direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
+                     name=name, direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
                      textinfo='label+value', textfont_size=15,
-                     marker=dict(line=dict(color='#000000', width=1)))
-    forth_pie = html.Div(
+                     marker=dict(line=dict(
+                         color=plotly.colors.diverging.Portland,
+                         width=1)))
+    pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
-            html.P("Outcomes of UC2"),
+            html.P(title),
             dcc.Graph(
                 figure={"data": [trace_2]},
                 style={"height": "90%", "width": "98%"},
@@ -226,7 +233,7 @@ def create_trace_outcome_uc2(outcome_uc2: dict):
             ),
         ],
     ),
-    return forth_pie
+    return pie
 
 
 def parse_contents(contents, filename, date):
@@ -253,6 +260,11 @@ def parse_contents(contents, filename, date):
 def generate_table(df: pd.DataFrame):
     df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
     info_dict = {x: [] for x in list(df.columns)}
+    info_dict.pop('turn', None)
+    info_dict.pop('message_id', None)
+    info_dict.pop('sender', None)
+    info_dict.pop('attachments', None)
+
     user_counter = 0
     bot_counter = 0
     counter = 0
@@ -367,7 +379,9 @@ def get_number_of_each_uc(df: pd.DataFrame):
     total = len(list(dict.fromkeys(list(df["conversation_id"]))))
     uc_s1 = len(df[df["use_case"] == "uc_s1"])
     uc_s2 = len(df[df["use_case"] == "uc_s2"])
-    return total, uc_s1, uc_s2
+    uc_s31 = len(df[df["use_case"] == "uc_s31"])
+    uc_s32 = len(df[df["use_case"] == "uc_s32"])
+    return total, uc_s1, uc_s2, uc_s31, uc_s32
 
 
 def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
@@ -375,19 +389,27 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     uc_outcome = {
         "uc_s1": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
         "uc_s2": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
+        "uc_s31": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
+        "uc_s32": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
+        "other": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
     }
     uc1_uc_2_conversation_id = list(df[(df["use_case"] == "uc_s1") | (df["use_case"] == "uc_s2")]["conversation_id"])
     uc1_uc_2_conversation_id = list(dict.fromkeys(uc1_uc_2_conversation_id))
 
-    for id in uc1_uc_2_conversation_id:
+    conversation_id = list(df["conversation_id"])
+    conversation_id = list(dict.fromkeys(conversation_id))
+
+    # for id in uc1_uc_2_conversation_id:
+    for id in conversation_id:
         sub_df = df[df["conversation_id"] == id]
-        use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))[0]
-        try:
-            outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
-        except:
-            a = 0
+        use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))
+        if len(use_case) > 0:
+            use_case = use_case[0]
+        else:
+            use_case = "other"
+        outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
         uc_outcome[use_case][outcome] += 1
-    return uc_outcome["uc_s1"], uc_outcome["uc_s2"]
+    return uc_outcome
 
 
 def get_conversation_each_outcome(df: pd.DataFrame):
@@ -450,10 +472,12 @@ def handle_df(list_of_contents, list_of_names, list_of_dates):
 
 @app.callback(
     [
-        Output('first-pie', 'children'),
-        Output('second-pie', 'children'),
-        Output('third-pie', 'children'),
-        Output('forth-pie', 'children'),
+        Output('uc-proportion-in-month', 'children'),
+        Output('outcome_proportion-in-conversations', 'children'),
+        Output('outcome-uc1-pie', 'children'),
+        Output('outcome-uc2-pie', 'children'),
+        Output('outcome-uc31-pie', 'children'),
+        Output('outcome-uc32-pie', 'children'),
         Output('thank-table', 'children'),
         Output('shipping-table', 'children'),
         Output('handover-table', 'children'),
@@ -462,6 +486,8 @@ def handle_df(list_of_contents, list_of_names, list_of_dates):
         Output('agree-table', 'children'),
         Output('uc-s1', 'children'),
         Output('uc-s2', 'children'),
+        Output('uc-s31', 'children'),
+        Output('uc-s32', 'children'),
     ],
     [
         Input('df-data', 'children')
@@ -471,18 +497,20 @@ def update_output(df):
     if df is not None:
         df = pd.read_json(df, orient="split")
 
-        total, uc1, uc2 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
-        outcome_uc1, outcome_uc2 = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome"]])
+        total, uc1, uc2, uc31, uc32 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
+        uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome"]])
 
-        first_pie = create_trace_uc_propotion_in_month(total, uc1, uc2)
-        second_pie = create_trace_outcome_proportion_in_uc(outcome_uc1, outcome_uc2)
-        third_pie = create_trace_outcome_uc1(outcome_uc1)
-        forth_pie = create_trace_outcome_uc2(outcome_uc2)
+        uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32)
+        outcome_proportion_in_conversations = create_trace_outcome_proportion_in_all_conversation(uc_outcome)
+        outcome_uc1_pie = create_trace_outcome_uc(uc_outcome, "uc_s1", "UC S1", "Outcomes of UC-S1")
+        outcome_uc2_pie = create_trace_outcome_uc(uc_outcome, "uc_s2", "UC S2", "Outcomes of UC-S2")
+        outcome_uc31_pie = create_trace_outcome_uc(uc_outcome, "uc_s31", "UC S31", "Outcomes of UC-S31")
+        outcome_uc32_pie = create_trace_outcome_uc(uc_outcome, "uc_s32", "UC S32", "Outcomes of UC-S32")
+        # fifth_pie =
 
         thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df = get_conversation_each_outcome(df[[
             "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
             "intent", "entities"]])
-
         thank_df = generate_table(thank_df)
         shipping_order_df = generate_table(shipping_order_df)
         handover_df = generate_table(handover_df)
@@ -498,9 +526,11 @@ def update_output(df):
         uc31_df = generate_table(uc31_df)
         uc32_df = generate_table(uc32_df)
 
-        return first_pie, second_pie, third_pie, forth_pie, thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df
+        return uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie,outcome_uc31_pie,outcome_uc32_pie,\
+               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df
     else:
-        return "", "", "", "", "", "", "", "", "", "", "", ""
+        return "", "", "", "", "", "", \
+               "", "", "", "", "", "", "", "", "", ""
 
 
 if __name__ == '__main__':
