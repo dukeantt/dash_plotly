@@ -17,6 +17,13 @@ import copy
 import dash_bootstrap_components as dbc
 import numpy as np
 from utils.helper import *
+import logging
+
+logging.basicConfig(filename="logging_data/rasa_chatlog_processor_log",
+                    format='%(asctime)s %(message)s',
+                    filemode='w')
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 month_dict = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
               "8": "August",
@@ -59,6 +66,7 @@ app.layout = html.Div(
             min_date_allowed=dt(2020, 1, 1),
             max_date_allowed=dt(2020, 12, 31),
             initial_visible_month=dt(2020, 7, 1),
+            start_date=dt(2020, 7, 1).date(),
             end_date=dt(2020, 7, 31).date()
         ),
         html.Div(
@@ -136,6 +144,8 @@ app.layout = html.Div(
 
 
 def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int, uc32: int):
+    logger.info("Create trace uc proportion in month")
+
     not_uc1_uc2 = total - uc1 - uc2 - uc31 - uc32
     colors = ['mediumturquoise', 'darkorange', 'lightgreen']
     trace = go.Pie(
@@ -163,6 +173,8 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
 
 
 def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
+    logger.info("Create trace ourcome proportion in all conversation")
+
     outcome_uc1 = uc_outcome["uc_s1"]
     outcome_uc2 = uc_outcome["uc_s2"]
     outcome_uc31 = uc_outcome["uc_s31"]
@@ -203,6 +215,8 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
 
 
 def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
+    logger.info("Create trace ourcome proportion in each use_case")
+
     outcome_uc = uc_outcome[key]
     values = [value for index, value in outcome_uc.items()]
     labels = ['thanks', 'shipping', 'handover', "silence", "other", "agree"]
@@ -248,6 +262,8 @@ def parse_contents(contents, filename, date):
 
 
 def generate_table(df: pd.DataFrame):
+    logger.info("Generate table")
+
     df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
     info_dict = {x: [] for x in list(df.columns)}
     info_dict.pop('turn', None)
@@ -366,6 +382,8 @@ def generate_table(df: pd.DataFrame):
 
 
 def get_number_of_each_uc(df: pd.DataFrame):
+    logger.info("Count each usecase")
+
     total = len(list(dict.fromkeys(list(df["conversation_id"]))))
     uc_s1 = len(df[df["use_case"] == "uc_s1"])
     uc_s2 = len(df[df["use_case"] == "uc_s2"])
@@ -375,6 +393,8 @@ def get_number_of_each_uc(df: pd.DataFrame):
 
 
 def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
+    logger.info("Count outcome each use_case")
+
     """ thank -> shipping -> handover -> silence ->  other -> agree"""
     uc_outcome = {
         "uc_s1": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
@@ -403,6 +423,8 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
 
 
 def get_conversation_each_outcome(df: pd.DataFrame):
+    logger.info("Get conversation for each outcome")
+
     column_list = ["conversation_id", "use_case", "sender_id", "user_message", "bot_message", "created_time", "intent",
                    "entities"]
     thank_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "thanks"]["conversation_id"]))][column_list]
@@ -418,6 +440,8 @@ def get_conversation_each_outcome(df: pd.DataFrame):
 
 
 def get_conversation_each_usecase(df: pd.DataFrame):
+    logger.info("Get conversation for each use_case")
+
     column_list = ["conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
                    "intent",
                    "entities"]

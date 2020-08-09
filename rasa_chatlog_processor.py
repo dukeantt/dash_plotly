@@ -174,6 +174,8 @@ class RasaChalogProcessor():
         return rasa_chatlog_df
 
     def set_uc1_and_uc2_for_conversations(self, rasa_chatlog_df: pd.DataFrame):
+        logger.info("Specify uc for conversations")
+
         # with open("models/ic_for_uc1_2.pkl", "rb") as file:
         #     clf = pickle.load(file)
         conversation_ids = list(rasa_chatlog_df["conversation_id"])
@@ -267,6 +269,8 @@ class RasaChalogProcessor():
         return rasa_chatlog_df
 
     def specify_conversation_outcome(self, rasa_chatlog_df: pd.DataFrame):
+        logger.info("Specify outcome for conversations")
+
         rasa_chatlog_df.insert(3, "outcome", "")
         # uc1_uc2_line = rasa_chatlog_df[(rasa_chatlog_df["use_case"] == "uc_s1") | (rasa_chatlog_df["use_case"] == "uc_s2")]
         # conversation_ids = list(uc1_uc2_line["conversation_id"])
