@@ -61,6 +61,9 @@ app.layout = html.Div(
         'flexDirection': 'column'
     },
     children=[
+        html.Div(
+            id="loading-div"
+        ),
         dcc.DatePickerRange(
             id='my-date-picker-range',
             min_date_allowed=dt(2020, 1, 1),
@@ -458,6 +461,30 @@ def get_conversation_each_usecase(df: pd.DataFrame):
 
 
 @app.callback(
+    Output(component_id='loading-div', component_property='children'),
+    [
+        Input('my-date-picker-range', 'start_date'),
+        Input('my-date-picker-range', 'end_date'),
+    ], )
+def show_loading(start_date, end_date):
+    if start_date is not None and end_date is not None:
+        return html.Div(style={
+            'display': 'block',
+            'position': 'fixed',
+            'top': '0',
+            'bottom': '0',
+            'left': '0',
+            'right': '0',
+            'backgroundColor': '#fff',
+            'opacity': '0.8',
+            'zIndex': '1002',
+        })
+        # return {'display': 'block'}
+    else:
+        return {'display': 'none'}
+
+
+@app.callback(
     Output('df-data', 'children'),
     [
         Input('my-date-picker-range', 'start_date'),
@@ -492,6 +519,7 @@ def handle_df(start_date, end_date):
         Output('uc-s2', 'children'),
         Output('uc-s31', 'children'),
         Output('uc-s32', 'children'),
+        Output(component_id='loading-div', component_property='style'),
     ],
     [
         Input('df-data', 'children')
@@ -531,7 +559,8 @@ def update_output(df):
         uc32_df = generate_table(uc32_df)
 
         return uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
-               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df
+               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, {
+                   'display': 'none'}
     else:
         return "", "", "", "", "", "", \
                "", "", "", "", "", "", "", "", "", ""
