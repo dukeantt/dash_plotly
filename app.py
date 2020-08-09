@@ -54,26 +54,6 @@ app.layout = html.Div(
         'flexDirection': 'column'
     },
     children=[
-        dcc.Upload(
-            id='upload-data',
-            children=html.Div([
-                'Drag and Drop or ',
-                html.A('Select Files')
-            ]),
-            style={
-                'width': '100%',
-                'height': '60px',
-                'lineHeight': '60px',
-                'borderWidth': '1px',
-                'borderStyle': 'dashed',
-                'borderRadius': '5px',
-                'textAlign': 'center',
-                'margin': '10px'
-            },
-            # Allow multiple files to be uploaded
-            multiple=True
-        ),
-
         dcc.DatePickerRange(
             id='my-date-picker-range',
             min_date_allowed=dt(2020, 1, 1),
@@ -434,12 +414,6 @@ def get_conversation_each_outcome(df: pd.DataFrame):
     other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
     agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
 
-    # thank_df.to_csv("output_data/chatlog_rasa/thank_df.csv", index=False)
-    # shipping_order_df.to_csv("output_data/chatlog_rasa/shipping_order_df.csv", index=False)
-    # handover_df.to_csv("output_data/chatlog_rasa/handover_df.csv", index=False)
-    # silence_df.to_csv("output_data/chatlog_rasa/silence_df.csv", index=False)
-    # other_df.to_csv("output_data/chatlog_rasa/other_df.csv", index=False)
-    # agree_df.to_csv("output_data/chatlog_rasa/agree_df.csv", index=False)
     return thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
 
 
@@ -462,22 +436,12 @@ def get_conversation_each_usecase(df: pd.DataFrame):
 @app.callback(
     Output('df-data', 'children'),
     [
-        # Input('upload-data', 'contents'),
         Input('my-date-picker-range', 'start_date'),
         Input('my-date-picker-range', 'end_date'),
     ],
-    # [
-    #     State('upload-data', 'filename'),
-    #     State('upload-data', 'last_modified')
-    # ]
 )
-# def handle_df(list_of_contents, list_of_names, list_of_dates):
 def handle_df(start_date, end_date):
-    if start_date is not None:
-        # children = [
-        #     parse_contents(c, n, d) for c, n, d in
-        #     zip(list_of_contents, list_of_names, list_of_dates)]
-        # df = children[0]
+    if start_date is not None and end_date is not None:
         df = get_chatloag_from_db(from_date=start_date, to_date=end_date)
         processor = RasaChalogProcessor()
         df = processor.process_rasa_chatlog("06", "abc", df)
