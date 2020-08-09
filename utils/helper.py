@@ -132,7 +132,8 @@ def get_fb_conversations():
 
 
 def get_fb_converstaions_message(conversation_id, updated_time):
-    collect_info = {"sender_id": [],"sender_name":[], "user_message": [], "bot_message": [], "updated_time": [], "created_time": []}
+    collect_info = {"sender_id": [], "sender_name": [], "user_message": [], "bot_message": [], "updated_time": [],
+                    "created_time": []}
     shop_name = 'Shop Gấu & Bí Ngô - Đồ dùng Mẹ & Bé cao cấp'
     message_api = "curl -i -X GET \"https://graph.facebook.com/v6.0/{id}/messages?fields=from,message,created_time&access_token=EAAm7pZBf3ed8BAJISrzp5gjX7QZCZCbwHHF0CbJJ2hnoqOdITf7RMpZCrpvaFJulpL8ptx73iTLKS4SzZAa6ub5liZAsp6dfmSbGhMoMKXy2tQhZAi0CcnPIxKojJmf9XmdRh376SFlOZBAnpSymsmUjR7FX5rC1BWlsTdhbDj0XbwZDZD\""
     message_api = message_api.format(id=conversation_id)
@@ -258,4 +259,28 @@ def crawl_rasa_chatlog():
     export_conversations()
     export_conversation_detail()
 
-# crawl_rasa_chatlog()
+
+def get_chatloag_from_db():
+    client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
+    db = client['chatlog_db']
+    collection = db['new_rasa_chatlog_7']
+    start = datetime.datetime.strptime("2020-07-14", "%Y-%m-%d")
+    end = datetime.datetime.strptime("2020-07-16", "%Y-%m-%d")
+    for document in collection.find({'date': {'$gte': start, '$lte': end, }}):
+        print("date: " + str(document["date"]) + "----" + str(document["created_time"]))
+
+
+def upload_single_chatlog():
+    file_name = "../output_data/chatlog_rasa/rasa_chatlog_07.csv"
+    data = pd.read_csv(file_name)
+    date_list = [datetime.datetime.strptime(x[:10], "%Y-%m-%d") for x in list(data["created_time"])]
+    data.insert(9, "date", date_list)
+
+    client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
+    db = client['chatlog_db']
+    collection = db['new_rasa_chatlog_7']
+    data_dict = data.to_dict("records")
+    collection.insert_many(data_dict)
+
+
+get_chatloag_from_db()

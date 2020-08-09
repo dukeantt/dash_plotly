@@ -11,7 +11,7 @@ logging.basicConfig(filename="logging_data/rasa_chatlog_processor_log",
                     filemode='w')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-with open("obj_type", "r") as obj_type_file:
+with open("obj_type", "r", encoding="utf-8") as obj_type_file:
     lines = obj_type_file.readlines()
     objtype_list = [x.strip() for x in lines]
 
