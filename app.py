@@ -6,6 +6,7 @@ import dash
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
+from datetime import datetime as dt
 import dash_table
 
 import pandas as pd
@@ -15,6 +16,7 @@ from rasa_chatlog_processor import RasaChalogProcessor
 import copy
 import dash_bootstrap_components as dbc
 import numpy as np
+from utils.helper import *
 
 month_dict = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
               "8": "August",
@@ -70,6 +72,14 @@ app.layout = html.Div(
             },
             # Allow multiple files to be uploaded
             multiple=True
+        ),
+
+        dcc.DatePickerRange(
+            id='my-date-picker-range',
+            min_date_allowed=dt(2020, 1, 1),
+            max_date_allowed=dt(2020, 12, 31),
+            initial_visible_month=dt(2020, 7, 1),
+            end_date=dt(2020, 7, 31).date()
         ),
         html.Div(
             className="d-flex flex-wrap",
@@ -145,7 +155,7 @@ app.layout = html.Div(
     ])
 
 
-def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31:int, uc32:int):
+def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int, uc32: int):
     not_uc1_uc2 = total - uc1 - uc2 - uc31 - uc32
     colors = ['mediumturquoise', 'darkorange', 'lightgreen']
     trace = go.Pie(
@@ -451,18 +461,24 @@ def get_conversation_each_usecase(df: pd.DataFrame):
 
 @app.callback(
     Output('df-data', 'children'),
-    [Input('upload-data', 'contents')],
     [
-        State('upload-data', 'filename'),
-        State('upload-data', 'last_modified')
-    ]
+        # Input('upload-data', 'contents'),
+        Input('my-date-picker-range', 'start_date'),
+        Input('my-date-picker-range', 'end_date'),
+    ],
+    # [
+    #     State('upload-data', 'filename'),
+    #     State('upload-data', 'last_modified')
+    # ]
 )
-def handle_df(list_of_contents, list_of_names, list_of_dates):
-    if list_of_contents is not None:
-        children = [
-            parse_contents(c, n, d) for c, n, d in
-            zip(list_of_contents, list_of_names, list_of_dates)]
-        df = children[0]
+# def handle_df(list_of_contents, list_of_names, list_of_dates):
+def handle_df(start_date, end_date):
+    if start_date is not None:
+        # children = [
+        #     parse_contents(c, n, d) for c, n, d in
+        #     zip(list_of_contents, list_of_names, list_of_dates)]
+        # df = children[0]
+        df = get_chatloag_from_db(from_date=start_date, to_date=end_date)
         processor = RasaChalogProcessor()
         df = processor.process_rasa_chatlog("06", "abc", df)
         return df.to_json(date_format='iso', orient='split')
@@ -526,7 +542,7 @@ def update_output(df):
         uc31_df = generate_table(uc31_df)
         uc32_df = generate_table(uc32_df)
 
-        return uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie,outcome_uc31_pie,outcome_uc32_pie,\
+        return uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
                thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df
     else:
         return "", "", "", "", "", "", \
