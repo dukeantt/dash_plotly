@@ -223,7 +223,8 @@ class RasaChalogProcessor():
                             rasa_chatlog_df.at[index, "use_case"] = "uc_s1"
                             break
             else:
-                chatlog_sub_df_first_turn = chatlog_sub_df[(chatlog_sub_df["turn"] == 0) | (chatlog_sub_df["turn"] == 1)]
+                chatlog_sub_df_first_turn = chatlog_sub_df[
+                    (chatlog_sub_df["turn"] == 0) | (chatlog_sub_df["turn"] == 1)]
                 for index, item in chatlog_sub_df_first_turn.iterrows():
                     user_message = item["user_message"]
                     if str(item["entities"]) != "nan":
@@ -258,7 +259,6 @@ class RasaChalogProcessor():
                                         rasa_chatlog_df.at[index, "use_case"] = "uc_s32"
                                         break
 
-
                 ##################################################################
 
                 # input_message = pd.DataFrame([{"feature": user_message_correction}])
@@ -281,7 +281,10 @@ class RasaChalogProcessor():
                      "số tài khoản",
                      "gửi về"]
         filter_words = ["địa chỉ shop", "địa chỉ cửa hàng", "lấy rồi", "giao hàng chậm"]
-
+        handover_bot_message = [
+            "Dạ, bạn chờ trong ít phút shop kiểm tra kho hàng rồi báo lại bạn ngay ạ!",
+            "Mời bạn bấm vào sản phẩm để xem thông tin chi tiết nhé",
+        ]
         for id in conversation_ids:
             sub_conversation_df = rasa_chatlog_df[rasa_chatlog_df["conversation_id"] == id]
             last_turn = max(list(sub_conversation_df["turn"]))
@@ -303,7 +306,8 @@ class RasaChalogProcessor():
                         x not in user_message_correction for x in filter_words):
                     rasa_chatlog_df.at[index, "outcome"] = "shipping_order"
                     break
-                elif str(user_intent) != "nan" and user_intent == "handover_to_inbox":
+                elif (str(user_intent) != "nan" and user_intent == "handover_to_inbox") or any(
+                        x in str(bot_message) for x in handover_bot_message):
                     rasa_chatlog_df.at[index, "outcome"] = "handover_to_inbox"
                     break
                 elif str(user_intent) != "nan" and user_intent == "agree":

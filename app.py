@@ -62,7 +62,15 @@ app.layout = html.Div(
     },
     children=[
         html.Div(
-            id="loading-div"
+            id="loading-div",
+            style={"display": "block"},
+        ),
+        html.Div(
+            id="loading-div-2",
+            style={"display": "none"},
+            children=[
+                html.Img(id="loading_spinner", src="assets/cat-spinner.png")
+            ]
         ),
         dcc.DatePickerRange(
             id='my-date-picker-range',
@@ -461,14 +469,24 @@ def get_conversation_each_usecase(df: pd.DataFrame):
 
 
 @app.callback(
-    Output(component_id='loading-div', component_property='children'),
+    [
+        Output(component_id='loading-div', component_property='children'),
+        Output(component_id='loading-div-2', component_property='children'),
+
+    ],
     [
         Input('my-date-picker-range', 'start_date'),
         Input('my-date-picker-range', 'end_date'),
-    ], )
-def show_loading(start_date, end_date):
+        # Input('loading-div', 'style'),
+    ],
+    [
+        State('loading-div', 'style'),
+        State('loading-div-2', 'style')
+    ]
+)
+def show_loading(start_date, end_date, loading1, loading2):
     if start_date is not None and end_date is not None:
-        return html.Div(style={
+        loading_child = html.Div(style={
             'display': 'block',
             'position': 'fixed',
             'top': '0',
@@ -478,8 +496,19 @@ def show_loading(start_date, end_date):
             'backgroundColor': '#fff',
             'opacity': '0.8',
             'zIndex': '1002',
-        })
-        # return {'display': 'block'}
+        },
+            children=[html.Img(id="cat_loading_spinner", src="assets/cat-spinner.png")]
+        )
+        display_loading_1 = loading1["display"]
+        display_loading_2 = loading2["display"]
+        if display_loading_1 != "none":
+            loading_1_child = loading_child
+            loading_2_child = ""
+            return loading_1_child, loading_2_child
+        elif display_loading_2 != "none":
+            loading_1_child = ""
+            loading_2_child = loading_child
+            return loading_1_child, loading_2_child
     else:
         return {'display': 'none'}
 
@@ -520,12 +549,17 @@ def handle_df(start_date, end_date):
         Output('uc-s31', 'children'),
         Output('uc-s32', 'children'),
         Output(component_id='loading-div', component_property='style'),
+        Output(component_id='loading-div-2', component_property='style'),
     ],
     [
         Input('df-data', 'children')
     ],
+    [
+        State('loading-div', 'style'),
+        State('loading-div-2', 'style')
+    ]
 )
-def update_output(df):
+def update_output(df, loading1, loading2):
     if df is not None:
         df = pd.read_json(df, orient="split")
 
@@ -558,12 +592,20 @@ def update_output(df):
         uc31_df = generate_table(uc31_df)
         uc32_df = generate_table(uc32_df)
 
+        loading_1_display = ""
+        loading_2_display = ""
+        if loading1["display"] == "none":
+            loading_1_display = {'display': 'block'}
+            loading_2_display = {'display': 'none'}
+        elif loading2["display"] == "none":
+            loading_1_display = {'display': 'none'}
+            loading_2_display = {'display': 'block'}
+
         return uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
-               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, {
-                   'display': 'none'}
+               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, loading_1_display, loading_2_display
     else:
         return "", "", "", "", "", "", \
-               "", "", "", "", "", "", "", "", "", ""
+               "", "", "", "", "", "", "", "", "", "", "", ""
 
 
 if __name__ == '__main__':
