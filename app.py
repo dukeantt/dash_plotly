@@ -150,6 +150,8 @@ app.layout = html.Div(
             ]
         ),
         html.Div(id='df-data', style={'display': 'none'}),
+        html.P(id='custom-from-date-data', style={'display': 'none'}),
+        html.P(id='custom-to-date-data', style={'display': 'none'}),
 
     ])
 
@@ -472,6 +474,8 @@ def get_conversation_each_usecase(df: pd.DataFrame):
     [
         Output(component_id='loading-div', component_property='children'),
         Output(component_id='loading-div-2', component_property='children'),
+        Output(component_id='custom-from-date-data', component_property='children'),
+        Output(component_id='custom-to-date-data', component_property='children'),
 
     ],
     [
@@ -504,11 +508,11 @@ def show_loading(start_date, end_date, loading1, loading2):
         if display_loading_1 != "none":
             loading_1_child = loading_child
             loading_2_child = ""
-            return loading_1_child, loading_2_child
+            return loading_1_child, loading_2_child, start_date, end_date
         elif display_loading_2 != "none":
             loading_1_child = ""
             loading_2_child = loading_child
-            return loading_1_child, loading_2_child
+            return loading_1_child, loading_2_child, start_date, end_date
     else:
         return {'display': 'none'}
 
@@ -516,8 +520,10 @@ def show_loading(start_date, end_date, loading1, loading2):
 @app.callback(
     Output('df-data', 'children'),
     [
-        Input('my-date-picker-range', 'start_date'),
-        Input('my-date-picker-range', 'end_date'),
+        # Input('my-date-picker-range', 'start_date'),
+        # Input('my-date-picker-range', 'end_date'),
+        Input('custom-from-date-data', 'children'),
+        Input('custom-to-date-data', 'children'),
     ],
 )
 def handle_df(start_date, end_date):
@@ -605,7 +611,7 @@ def update_output(df, loading1, loading2):
                thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, loading_1_display, loading_2_display
     else:
         return "", "", "", "", "", "", \
-               "", "", "", "", "", "", "", "", "", "", "", ""
+               "", "", "", "", "", "", "", "", "", "", {'display': loading1["display"]}, {'display': loading2["display"]}
 
 
 if __name__ == '__main__':
