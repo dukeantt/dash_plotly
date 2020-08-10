@@ -287,6 +287,7 @@ class RasaChalogProcessor():
         ]
         for id in conversation_ids:
             sub_conversation_df = rasa_chatlog_df[rasa_chatlog_df["conversation_id"] == id]
+            sub_conversation_df = sub_conversation_df.dropna(subset=["bot_message", "user_message"], how="all")
             last_turn = max(list(sub_conversation_df["turn"]))
             last_turn_message_df = sub_conversation_df[sub_conversation_df["turn"] == last_turn]
             last_turn_message_df = last_turn_message_df.dropna(subset=["bot_message", "user_message"], how="all")
@@ -331,7 +332,7 @@ class RasaChalogProcessor():
         :return:
         """
         logger.info("Start process chatlog")
-        rasa_chatlog_by_month_df = df
+        rasa_chatlog_by_month_df = df.dropna(subset=["bot_message", "user_message", "intent"], how="all")
 
         # rasa_chatlog_by_month_df = self.get_chatlog_by_month(input_month, raw_chatlog)
         rasa_chatlog_by_month_df = self.split_chatlog_to_conversations(rasa_chatlog_by_month_df)

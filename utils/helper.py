@@ -263,7 +263,7 @@ def crawl_rasa_chatlog():
 def get_chatloag_from_db(from_date, to_date):
     client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
     db = client['chatlog_db']
-    collection = db['new_rasa_chatlog_7']
+    collection = db['rasa_chatlog_all']
     start = datetime.datetime.strptime(from_date, "%Y-%m-%d")
     end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
 
@@ -273,7 +273,7 @@ def get_chatloag_from_db(from_date, to_date):
 
 
 def upload_single_chatlog():
-    file_name = "../output_data/chatlog_rasa/rasa_chatlog_07.csv"
+    file_name = "../test_input_data/rasa_chatlog_07 (1).csv"
     data = pd.read_csv(file_name)
     date_list = [datetime.datetime.strptime(x[:10], "%Y-%m-%d") for x in list(data["created_time"])]
     data.insert(9, "date", date_list)
@@ -286,3 +286,4 @@ def upload_single_chatlog():
 
 
 # get_chatloag_from_db("2020-07-01", "2020-07-31")
+# upload_single_chatlog()
