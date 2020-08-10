@@ -18,6 +18,7 @@ import dash_bootstrap_components as dbc
 import numpy as np
 from utils.helper import *
 import logging
+from random import randrange
 
 logging.basicConfig(filename="logging_data/rasa_chatlog_processor_log",
                     format='%(asctime)s %(message)s',
@@ -28,7 +29,7 @@ logger.setLevel(logging.INFO)
 month_dict = {"1": "January", "2": "February", "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
               "8": "August",
               "9": "September", "10": "October", "11": "November", "12": "December"}
-
+spinner_list = ["assets/cat-spinner.png", "assets/cat-spinner3.png"]
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 suppress_callback_exceptions = True
 app = dash.Dash(__name__,
@@ -490,6 +491,7 @@ def get_conversation_each_usecase(df: pd.DataFrame):
 )
 def show_loading(start_date, end_date, loading1, loading2):
     if start_date is not None and end_date is not None:
+        spinner = randrange(2)
         loading_child = html.Div(style={
             'display': 'block',
             'position': 'fixed',
@@ -501,7 +503,7 @@ def show_loading(start_date, end_date, loading1, loading2):
             'opacity': '0.8',
             'zIndex': '1002',
         },
-            children=[html.Img(id="cat_loading_spinner", src="assets/cat-spinner.png")]
+            children=[html.Img(id="cat_loading_spinner", src=spinner_list[spinner])]
         )
         display_loading_1 = loading1["display"]
         display_loading_2 = loading2["display"]
@@ -611,7 +613,8 @@ def update_output(df, loading1, loading2):
                thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, loading_1_display, loading_2_display
     else:
         return "", "", "", "", "", "", \
-               "", "", "", "", "", "", "", "", "", "", {'display': loading1["display"]}, {'display': loading2["display"]}
+               "", "", "", "", "", "", "", "", "", "", {'display': loading1["display"]}, {
+                   'display': loading2["display"]}
 
 
 if __name__ == '__main__':
