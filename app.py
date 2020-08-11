@@ -439,8 +439,11 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
             use_case = use_case[0]
         else:
             use_case = "other"
-        outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
-        uc_outcome[use_case][outcome] += 1
+        try:
+            outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
+            uc_outcome[use_case][outcome] += 1
+        except:
+            a= 0
     return uc_outcome
 
 
@@ -554,9 +557,9 @@ def handle_df(is_click, start_date, end_date):
     if is_click == "1" and start_date is not None and end_date is not None:
         df = get_chatloag_from_db(from_date=start_date, to_date=end_date)
         print("Get chatlog from db: --- %s seconds ---" % (time.time() - start_time))
-        processor = RasaChalogProcessor()
-        df = processor.process_rasa_chatlog("06", "abc", df)
-        print("Dashboard handle df: --- %s seconds ---" % (time.time() - start_time))
+        # processor = RasaChalogProcessor()
+        # df = processor.process_rasa_chatlog("06", "abc", df)
+        # print("Dashboard handle df: --- %s seconds ---" % (time.time() - start_time))
         return df.to_json(date_format='iso', orient='split')
     else:
         return None
