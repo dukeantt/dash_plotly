@@ -73,14 +73,21 @@ app.layout = html.Div(
                 html.Img(id="loading_spinner", src="assets/cat-spinner.png")
             ]
         ),
-        dcc.DatePickerRange(
-            id='my-date-picker-range',
-            min_date_allowed=dt(2020, 1, 1),
-            max_date_allowed=dt(2020, 12, 31),
-            initial_visible_month=dt(2020, 7, 1),
-            start_date=dt(2020, 7, 1).date(),
-            end_date=dt(2020, 7, 31).date()
+        html.Div(
+            className="d-flex flex-wrap",
+            children=[
+                dcc.DatePickerRange(
+                    id='my-date-picker-range',
+                    min_date_allowed=dt(2020, 1, 1),
+                    max_date_allowed=dt(2020, 12, 31),
+                    initial_visible_month=dt(2020, 7, 1),
+                    start_date=dt(2020, 7, 1).date(),
+                    end_date=dt(2020, 7, 31).date()
+                ),
+                html.Button('Run', id='run-analytics'),
+            ]
         ),
+
         html.Div(
             className="d-flex flex-wrap",
             children=[
@@ -153,6 +160,7 @@ app.layout = html.Div(
         html.Div(id='df-data', style={'display': 'none'}),
         html.P(id='custom-from-date-data', style={'display': 'none'}),
         html.P(id='custom-to-date-data', style={'display': 'none'}),
+        html.P(id='is-click', style={'display': 'none'}, children=["0"]),
 
     ])
 
@@ -464,17 +472,11 @@ def get_conversation_each_usecase(df: pd.DataFrame):
     uc31_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s31"]["conversation_id"]))][column_list]
     uc32_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s32"]["conversation_id"]))][column_list]
 
-    # uc1_df.to_csv("output_data/chatlog_rasa/uc1_df.csv", index=False)
-    # uc2_df.to_csv("output_data/chatlog_rasa/uc2_df.csv", index=False)
-    # uc31_df.to_csv("output_data/chatlog_rasa/uc31_df.csv", index=False)
-    # uc32_df.to_csv("output_data/chatlog_rasa/uc32_df.csv", index=False)
     return uc1_df, uc2_df, uc31_df, uc32_df
 
 
 @app.callback(
     [
-        Output(component_id='loading-div', component_property='children'),
-        Output(component_id='loading-div-2', component_property='children'),
         Output(component_id='custom-from-date-data', component_property='children'),
         Output(component_id='custom-to-date-data', component_property='children'),
 
@@ -482,14 +484,32 @@ def get_conversation_each_usecase(df: pd.DataFrame):
     [
         Input('my-date-picker-range', 'start_date'),
         Input('my-date-picker-range', 'end_date'),
-        # Input('loading-div', 'style'),
+    ],
+)
+def set_date_data(start_date, end_date):
+    if start_date is not None and end_date is not None:
+        return start_date, end_date
+    else:
+        return "", ""
+
+
+@app.callback(
+    [
+        Output(component_id='loading-div', component_property='children'),
+        Output(component_id='loading-div-2', component_property='children'),
+        Output(component_id='is-click', component_property='children'),
     ],
     [
+        Input(component_id='run-analytics', component_property='n_clicks')
+    ],
+    [
+        State('custom-from-date-data', 'children'),
+        State('custom-to-date-data', 'children'),
         State('loading-div', 'style'),
-        State('loading-div-2', 'style')
+        State('loading-div-2', 'style'),
     ]
 )
-def show_loading(start_date, end_date, loading1, loading2):
+def show_loading(n_clicks, start_date, end_date, loading1, loading2):
     if start_date is not None and end_date is not None:
         spinner = randrange(2)
         loading_child = html.Div(style={
@@ -510,26 +530,27 @@ def show_loading(start_date, end_date, loading1, loading2):
         if display_loading_1 != "none":
             loading_1_child = loading_child
             loading_2_child = ""
-            return loading_1_child, loading_2_child, start_date, end_date
+            return loading_1_child, loading_2_child, "1"
         elif display_loading_2 != "none":
             loading_1_child = ""
             loading_2_child = loading_child
-            return loading_1_child, loading_2_child, start_date, end_date
+            return loading_1_child, loading_2_child, "1"
     else:
-        return {'display': 'none'}
+        return html.Div(style={'display': 'none'}), html.Div(style={'display': 'none'}), "0"
 
 
 @app.callback(
     Output('df-data', 'children'),
     [
-        # Input('my-date-picker-range', 'start_date'),
-        # Input('my-date-picker-range', 'end_date'),
-        Input('custom-from-date-data', 'children'),
-        Input('custom-to-date-data', 'children'),
+        Input('is-click', 'children'),
+    ],
+    [
+        State('custom-from-date-data', 'children'),
+        State('custom-to-date-data', 'children'),
     ],
 )
-def handle_df(start_date, end_date):
-    if start_date is not None and end_date is not None:
+def handle_df(is_click, start_date, end_date):
+    if is_click == "1" and start_date is not None and end_date is not None:
         df = get_chatloag_from_db(from_date=start_date, to_date=end_date)
         processor = RasaChalogProcessor()
         df = processor.process_rasa_chatlog("06", "abc", df)
