@@ -264,11 +264,12 @@ def get_chatloag_from_db(from_date, to_date):
     start_time = time.time()
     client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
     db = client['chatlog_db']
-    collection = db['new_rasa_chatlog_all']
+    collection = db['new_new_rasa_chatlog_all']
     start = datetime.datetime.strptime(from_date, "%Y-%m-%d")
     end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
 
-    chatlog_df = pd.DataFrame([document for document in collection.find({'date': {'$gte': start, '$lte': end, }})])
+    # chatlog_df = pd.DataFrame([document for document in collection.find({'date': {'$gte': start, '$lte': end, }})])
+    chatlog_df = pd.DataFrame([document for document in collection.find({'conversation_begin_date': {'$gte': start, '$lte': end, }})])
     print("Get chatlog from mongo: --- %s seconds ---" % (time.time() - start_time))
 
     chatlog_df = chatlog_df.drop(columns="_id")
