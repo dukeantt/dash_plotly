@@ -553,13 +553,10 @@ def show_loading(n_clicks, start_date, end_date, loading1, loading2):
     ],
 )
 def handle_df(is_click, start_date, end_date):
-    start_time = time.time()
     if is_click == "1" and start_date is not None and end_date is not None:
         df = get_chatloag_from_db(from_date=start_date, to_date=end_date)
-        print("Get chatlog from db: --- %s seconds ---" % (time.time() - start_time))
         # processor = RasaChalogProcessor()
         # df = processor.process_rasa_chatlog("06", "abc", df)
-        # print("Dashboard handle df: --- %s seconds ---" % (time.time() - start_time))
         return df.to_json(date_format='iso', orient='split')
     else:
         return None
@@ -596,7 +593,6 @@ def handle_df(is_click, start_date, end_date):
 )
 def update_output(df, loading1, loading2):
     if df is not None:
-        start_time = time.time()
         df = pd.read_json(df, orient="split")
 
         total, uc1, uc2, uc31, uc32 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
@@ -636,7 +632,6 @@ def update_output(df, loading1, loading2):
         elif loading2["display"] == "none":
             loading_1_display = {'display': 'none'}
             loading_2_display = {'display': 'block'}
-        print("Dashboard update output: --- %s seconds ---" % (time.time() - start_time))
         return uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
                thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, loading_1_display, loading_2_display
     else:

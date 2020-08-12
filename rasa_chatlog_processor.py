@@ -119,7 +119,6 @@ class RasaChalogProcessor():
        :param fb_conversations:
        :return:
        """
-        start_time = time.time()
         logger.info("Split chatlog to conversations")
         rasa_chatlog_df.insert(0, 'conversation_id', 0)
 
@@ -147,7 +146,6 @@ class RasaChalogProcessor():
                     time_diff = (next_time - current_time).total_seconds()
                     if time_diff > 86400:
                         conversation_id += 1
-        print("Split to conversations: --- %s seconds ---" % (time.time() - start_time))
         return rasa_chatlog_df
 
     def split_chatlog_conversations_to_turns(self, rasa_chatlog_df: pd.DataFrame):
@@ -156,7 +154,6 @@ class RasaChalogProcessor():
         :param rasa_chatlog_df:
         :return:
         """
-        start_time = time.time()
         logger.info("Split conversations to turns")
         rasa_chatlog_df.insert(1, "turn", "")
         conversation_ids = list(rasa_chatlog_df["conversation_id"])
@@ -175,12 +172,10 @@ class RasaChalogProcessor():
                 first_item_in_sub_df = False
                 previous_index = index
                 rasa_chatlog_df.at[index, "turn"] = turn
-        print("Split conversations to turns: --- %s seconds ---" % (time.time() - start_time))
         return rasa_chatlog_df
 
     def set_uc1_and_uc2_for_conversations(self, rasa_chatlog_df: pd.DataFrame):
         logger.info("Specify uc for conversations")
-        start_time = time.time()
         conversation_ids = rasa_chatlog_df["conversation_id"].drop_duplicates(keep="first").to_list()
         rasa_chatlog_df.insert(2, "use_case", "")
         for id in conversation_ids:
@@ -251,12 +246,10 @@ class RasaChalogProcessor():
                                     else:
                                         rasa_chatlog_df.at[item_index, "use_case"] = "uc_s32"
                                         break
-        print("Specify usecases: --- %s seconds ---" % (time.time() - start_time))
         return rasa_chatlog_df
 
     def specify_conversation_outcome(self, rasa_chatlog_df: pd.DataFrame):
         logger.info("Specify outcome for conversations")
-        start_time = time.time()
         rasa_chatlog_df.insert(3, "outcome", "")
         conversation_ids = rasa_chatlog_df["conversation_id"].drop_duplicates(keep="first").to_list()
 
@@ -310,7 +303,6 @@ class RasaChalogProcessor():
                     rasa_chatlog_df.at[index, "outcome"] = "other"
                     break
                 message_counter += 1
-        print("Specify outcomes: --- %s seconds ---" % (time.time() - start_time))
         return rasa_chatlog_df
 
     def coordinator(self, rasa_chatlog_df: pd.DataFrame):
@@ -436,7 +428,6 @@ class RasaChalogProcessor():
         :param raw_chatlog:
         :return:
         """
-        start_time = time.time()
         logger.info("Start process chatlog")
         rasa_chatlog_by_month_df = df.dropna(subset=["bot_message", "user_message", "intent"], how="all")
 
@@ -447,5 +438,4 @@ class RasaChalogProcessor():
         rasa_chatlog_by_month_df = self.set_uc1_and_uc2_for_conversations(rasa_chatlog_by_month_df)
         rasa_chatlog_by_month_df = self.specify_conversation_outcome(rasa_chatlog_by_month_df)
 
-        print("Process rasa chatlog: --- %s seconds ---" % (time.time() - start_time))
         return rasa_chatlog_by_month_df
