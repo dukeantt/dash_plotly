@@ -263,14 +263,27 @@ def crawl_rasa_chatlog():
 def get_chatloag_from_db(from_date, to_date):
     client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
     db = client['chatlog_db']
-    collection = db['new_new_rasa_chatlog_all']
+    collection = db['new_new_new_rasa_chatlog_all']
     start = datetime.datetime.strptime(from_date, "%Y-%m-%d")
     end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
 
-    # chatlog_df = pd.DataFrame([document for document in collection.find({'date': {'$gte': start, '$lte': end, }})])
-    chatlog_df = pd.DataFrame([document for document in collection.find({'conversation_begin_date': {'$gte': start, '$lte': end, }})])
+    time_start_morning = datetime.datetime.strptime("09:00:00", "%H:%M:%S")
+    time_end_morning = datetime.datetime.strptime("12:00:00", "%H:%M:%S")
 
-    chatlog_df = chatlog_df.drop(columns="_id")
+    time_start_afternoon = datetime.datetime.strptime("14:00:00", "%H:%M:%S")
+    time_end_afternoon = datetime.datetime.strptime("17:00:00", "%H:%M:%S")
+
+    # chatlog_df = pd.DataFrame([document for document in collection.find({'conversation_begin_date': {'$gte': start, '$lte': end, }})])
+    chatlog_df = pd.DataFrame([document for document in collection.find({
+        '$and': [
+            {'conversation_begin_date': {'$gte': start, '$lte': end}},
+            {'$or': [
+                {'conversation_time': {'$gte': time_start_morning, '$lte': time_end_morning}},
+                {'conversation_time': {'$gte': time_start_afternoon, '$lte': time_end_afternoon}},
+            ]}
+        ]
+    })])
+    chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date"])
     return chatlog_df
 
 
@@ -285,7 +298,6 @@ def upload_single_chatlog():
     collection = db['new_rasa_chatlog_7']
     data_dict = data.to_dict("records")
     collection.insert_many(data_dict)
-
 
 # get_chatloag_from_db("2020-07-01", "2020-07-31")
 # upload_single_chatlog()

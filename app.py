@@ -425,8 +425,6 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
         "uc_s32": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
         "other": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
     }
-    uc1_uc_2_conversation_id = list(df[(df["use_case"] == "uc_s1") | (df["use_case"] == "uc_s2")]["conversation_id"])
-    uc1_uc_2_conversation_id = list(dict.fromkeys(uc1_uc_2_conversation_id))
 
     conversation_id = list(df["conversation_id"])
     conversation_id = list(dict.fromkeys(conversation_id))
@@ -441,9 +439,11 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
             use_case = "other"
         try:
             outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
+            if outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
+                continue
             uc_outcome[use_case][outcome] += 1
         except:
-            a= 0
+            a = 0
     return uc_outcome
 
 
@@ -452,7 +452,11 @@ def get_conversation_each_outcome(df: pd.DataFrame):
 
     column_list = ["conversation_id", "use_case", "sender_id", "user_message", "bot_message", "created_time", "intent",
                    "entities"]
-    thank_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "thanks"]["conversation_id"]))][column_list]
+    qualified_thank = []
+    for id in df[df["outcome"] == "thank"]["conversation_id"].to_list():
+        if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) > 1:
+            qualified_thank.append(id)
+    thank_df = df[df["conversation_id"].isin(qualified_thank)][column_list]
     shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))][
         column_list]
     handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "handover_to_inbox"]["conversation_id"]))][
@@ -596,7 +600,7 @@ def update_output(df, loading1, loading2):
         df = pd.read_json(df, orient="split")
 
         total, uc1, uc2, uc31, uc32 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
-        uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome"]])
+        uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome", "turn"]])
 
         uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32)
         outcome_proportion_in_conversations = create_trace_outcome_proportion_in_all_conversation(uc_outcome)
@@ -608,7 +612,7 @@ def update_output(df, loading1, loading2):
 
         thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df = get_conversation_each_outcome(df[[
             "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
-            "intent", "entities"]])
+            "intent", "entities", "turn"]])
         thank_df = generate_table(thank_df)
         shipping_order_df = generate_table(shipping_order_df)
         handover_df = generate_table(handover_df)
