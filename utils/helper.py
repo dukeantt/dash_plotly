@@ -280,10 +280,11 @@ def get_chatloag_from_db(from_date, to_date):
             {'$or': [
                 {'conversation_time': {'$gte': time_start_morning, '$lte': time_end_morning}},
                 {'conversation_time': {'$gte': time_start_afternoon, '$lte': time_end_afternoon}},
-            ]}
+            ]},
+            {'week_day': {'$gte': 0, '$lte': 4}},
         ]
     })])
-    chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date"])
+    chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date", "week_day"])
     return chatlog_df
 
 
