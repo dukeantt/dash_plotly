@@ -336,7 +336,8 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
                 figure={
                     "data": [trace],
                     'layout': {
-                        'height': "500"
+                        'height': "500",
+                        'width': "592.07",
                     }
                 },
                 style={"height": "90%", "width": "98%"},
@@ -364,7 +365,8 @@ def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: in
                 figure={
                     "data": [trace],
                     'layout': {
-                        'height': "500"
+                        'height': "500",
+                        'width': "592.07",
                     }
                 },
                 style={"width": "98%"},
@@ -411,7 +413,8 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
                 figure={
                     "data": [trace],
                     'layout': {
-                        'height': "500"
+                        'height': "500",
+                        'width': "592.07",
                     }
                 },
                 style={"height": "90%", "width": "98%"},
@@ -439,7 +442,8 @@ def create_trace_outcome_proportion_bar_chart(no_each_outcome: list):
                 figure={
                     "data": [trace],
                     'layout': {
-                        'height': "500"
+                        'height': "500",
+                        'width': "592.07",
                     }
                 },
                 style={"width": "98%"},
