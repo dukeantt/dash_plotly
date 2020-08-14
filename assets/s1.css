@@ -677,6 +677,14 @@ hr {
     margin-top: 20px;
 }
 
+.overall-text-info{
+    margin-top: 180px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
 #outcome-uc1-pie_title{
     display: none;
 }

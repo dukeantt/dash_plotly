@@ -100,6 +100,27 @@ app.layout = html.Div(
                 html.Button('Run', id='run-analytics'),
             ]
         ),
+
+        html.Div(
+            className="d-flex flex-wrap",
+            children=[
+                html.Div(
+                    className="col-md-6 h-50 overall-text-info",
+                    children=[
+                        html.P(id="no-conversations"),
+                        html.P(id="no-users"),
+                        html.P(id="success-rate"),
+                    ]
+                ),
+                html.Div(
+                    className="col-md-6 h-50",
+                    children=[
+                        html.Div(id='success-proportion-in-conversations'),
+                    ]
+                ),
+            ]
+        ),
+
         html.Hr(),
 
         html.Div(
@@ -192,14 +213,16 @@ app.layout = html.Div(
                 html.Div(
                     className="col-md-6 h-50 outcome-uc-pie",
                     children=[
-                        html.P(id="outcome-uc1-pie_title", className="outcome_uc_pie_title", children=["Outcome of UC-S1"]),
+                        html.P(id="outcome-uc1-pie_title", className="outcome_uc_pie_title",
+                               children=["Outcome of UC-S1"]),
                         html.Div(id='outcome-uc1-pie'),
                     ]
                 ),
                 html.Div(
                     className="col-md-6 h-50 outcome-uc-pie",
                     children=[
-                        html.P(id="outcome-uc2-pie_title", className="outcome_uc_pie_title", children=["Outcome of UC-S2"]),
+                        html.P(id="outcome-uc2-pie_title", className="outcome_uc_pie_title",
+                               children=["Outcome of UC-S2"]),
                         html.Div(id='outcome-uc2-pie'),
                     ]
                 ),
@@ -211,14 +234,16 @@ app.layout = html.Div(
                 html.Div(
                     className="col-md-6 h-50 outcome-uc-pie",
                     children=[
-                        html.P(id="outcome-uc31-pie_title", className="outcome_uc_pie_title", children=["Outcome of UC-S3.1"]),
+                        html.P(id="outcome-uc31-pie_title", className="outcome_uc_pie_title",
+                               children=["Outcome of UC-S3.1"]),
                         html.Div(id='outcome-uc31-pie'),
                     ]
                 ),
                 html.Div(
                     className="col-md-6 h-50 outcome-uc-pie",
                     children=[
-                        html.P(id="outcome-uc32-pie_title", className="outcome_uc_pie_title", children=["Outcome of UC-S3.2"]),
+                        html.P(id="outcome-uc32-pie_title", className="outcome_uc_pie_title",
+                               children=["Outcome of UC-S3.2"]),
                         html.Div(id='outcome-uc32-pie'),
                     ]
                 ),
@@ -300,7 +325,37 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
             ),
         ],
     ),
-    return second_pie
+    return second_pie, values
+
+
+def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
+    # 'thanks', 'shipping', 'handover', "silence", "other", "agree"
+    no_success = no_each_outcome[0] + no_each_outcome[1]
+    no_other = no_each_outcome[2] + no_each_outcome[3] + no_each_outcome[4] + no_each_outcome[5]
+    success_rate = str('{0:.2f}'.format((no_success * 100) / (no_other + no_success))) + "%"
+    trace = go.Pie(
+        labels=['Successful', 'Other'],
+        values=[no_success, no_other],
+        direction="clockwise",
+        sort=False,
+        rotation=120,
+        hoverinfo='label+percent',
+        textinfo='label+value',
+        textfont_size=15,
+        marker=dict(line=dict(
+            # color=plotly.colors.diverging.Portland,
+            width=1)))
+    pie = html.Div(
+        className="six columns chart_div pretty_container",
+        children=[
+            dcc.Graph(
+                figure={"data": [trace]},
+                style={"height": "90%", "width": "98%"},
+                config=dict(displayModeBar=False),
+            ),
+        ],
+    ),
+    return pie, success_rate
 
 
 def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
@@ -642,6 +697,10 @@ def handle_df(is_click, start_date, end_date):
 
 @app.callback(
     [
+        Output("success-proportion-in-conversations", 'children'),
+        Output("no-conversations", 'children'),
+        Output("no-users", 'children'),
+        Output("success-rate", 'children'),
         Output('uc-proportion-in-month', 'children'),
         Output('outcome_proportion-in-conversations', 'children'),
         Output('outcome-uc1-pie', 'children'),
@@ -676,17 +735,21 @@ def handle_df(is_click, start_date, end_date):
 def update_output(df, loading1, loading2):
     if df is not None:
         df = pd.read_json(df, orient="split")
-
+        no_conversations = str(len(df["conversation_id"].drop_duplicates(keep='first')))
+        no_customers = str(len(df["sender_id"].drop_duplicates(keep='first')))
         total, uc1, uc2, uc31, uc32 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
         uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome", "turn"]])
 
         uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32)
-        outcome_proportion_in_conversations = create_trace_outcome_proportion_in_all_conversation(uc_outcome)
+        outcome_proportion_in_conversations, number_of_each_outcome = create_trace_outcome_proportion_in_all_conversation(
+            uc_outcome)
+        success_proportion_in_conversations, success_rate = create_trace_success_proportion_in_all_conversations(
+            number_of_each_outcome)
+
         outcome_uc1_pie = create_trace_outcome_uc(uc_outcome, "uc_s1", "UC S1", "Outcomes of UC-S1")
         outcome_uc2_pie = create_trace_outcome_uc(uc_outcome, "uc_s2", "UC S2", "Outcomes of UC-S2")
         outcome_uc31_pie = create_trace_outcome_uc(uc_outcome, "uc_s31", "UC S31", "Outcomes of UC-S31")
         outcome_uc32_pie = create_trace_outcome_uc(uc_outcome, "uc_s32", "UC S32", "Outcomes of UC-S32")
-        # fifth_pie =
 
         thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df = get_conversation_each_outcome(df[[
             "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
@@ -714,12 +777,18 @@ def update_output(df, loading1, loading2):
         elif loading2["display"] == "none":
             loading_1_display = {'display': 'none'}
             loading_2_display = {'display': 'block'}
-        return uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
-               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df,\
-               loading_1_display, loading_2_display,\
+
+        no_conversations = "Number of conversations: " + no_conversations
+        no_customers = "Number of users: " + no_customers
+        success_rate = "Success rate: " + success_rate
+        return success_proportion_in_conversations, no_conversations, no_customers, success_rate, \
+               uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
+               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, \
+               loading_1_display, loading_2_display, \
                {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
     else:
-        return "", "", "", "", "", "", \
+        return "", "", "", "",\
+               "", "", "", "", "", "",\
                "", "", "", "", "", "", "", "", "", "", \
                {'display': loading1["display"]}, {'display': loading2["display"]}, \
                {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
