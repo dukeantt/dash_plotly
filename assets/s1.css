@@ -14,7 +14,7 @@ body {
     /* Likely future */
     /*-webkit-transform: scale(0.67);*/
     /*   -moz-transform: scale(0.67);*/
-            transform: scale(0.9);
+            transform: scale(0.75);
             transform-origin: top center;
 
 }
@@ -22,7 +22,7 @@ body {
 .pretty_container {
     border-radius: 5px;
     background-color: white;
-    /*margin: 0.5rem;*/
+    margin: 1.5rem;
     /*padding: 1rem;*/
     position: relative;
     border: 1px solid #f1f1f1;
@@ -602,8 +602,8 @@ table {
 #main-div {
     display: flex;
     flex-direction: column;
-    width: 80%;
-    margin-left: auto;
+    width: 116%;
+    margin-left: -130px;
     margin-right: auto;
     margin-bottom: 30%;
     margin-top: 5%;

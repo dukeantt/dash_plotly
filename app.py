@@ -117,7 +117,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5 h-50 overall-text-info",
-                    style={"marginLeft": "95px"},
+                    style={"marginLeft": "118px"},
                     children=[
                         html.P(id="no-conversations"),
                         html.P(id="no-users"),
@@ -159,7 +159,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5",
-                    style={"marginLeft": "95px"},
+                    style={"marginLeft": "118px"},
                     children=[
                         html.Div(id='outcome-proportion-bar-chart')
                     ]
@@ -226,7 +226,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5 h-50",
-                    style={"marginLeft": "95px"},
+                    style={"marginLeft": "118px"},
                     children=[
                         html.Div(id='uc-proportion-bar-chart')
                     ]
@@ -264,7 +264,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "95px"},
+                    style={"marginLeft": "118px"},
                     children=[
                         html.P(id="outcome-uc1-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S1"]),
@@ -287,7 +287,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "95px"},
+                    style={"marginLeft": "118px"},
                     children=[
                         html.P(id="outcome-uc31-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S3.1"]),
@@ -608,7 +608,7 @@ def generate_table(df: pd.DataFrame):
             page_size=10,
 
             style_header={
-                'backgroundColor': 'blue',
+                'backgroundColor': '#0c5395',
                 'color': 'white',
                 'fontWeight': 'bold'
             },
@@ -624,13 +624,15 @@ def generate_table(df: pd.DataFrame):
                 'width': '160px', 'maxWidth': '300px',
                 'textAlign': "left",
             },
-            style_cell_conditional=[
+            style_cell_conditional=
+            [
                 {
                     'if': {'column_id': c},
                     'width': '20px'
                 } for c in ['use_case']
 
-            ] + [
+            ] +
+            [
                 {
                     'if': {'column_id': x},
                     'color': 'blue'
@@ -786,13 +788,14 @@ def show_loading(n_clicks, start_date, end_date, loading1, loading2):
             'position': 'fixed',
             'top': '0',
             'bottom': '0',
-            'left': '0',
-            'right': '0',
+            'left': '-200',
+            'right': '-100',
             'backgroundColor': '#f9f9f9',
             'opacity': '0.8',
             'zIndex': '1002',
+            'width': '2000px',
         },
-            children=[html.Img(id="cat_loading_spinner", src=spinner_list[spinner])]
+            children=[html.Img(id="cat_loading_spinner", src=spinner_list[spinner], style={"position": "sticky"})]
         )
         display_loading_1 = loading1["display"]
         display_loading_2 = loading2["display"]
