@@ -67,10 +67,18 @@ app.layout = html.Div(
             id="main_title",
             className="markdown-title",
             children=[
-                dcc.Markdown(''' # Salesbot performance '''),
+                # dcc.Markdown(''' # Salesbot performance '''),
+                html.H1(
+                    className='gradient-text',
+                    style={},
+                    children=["Salesbot performance"]),
                 html.Br(),
                 html.Br(),
-                dcc.Markdown(''' ## Overall Performance '''),
+                # dcc.Markdown(''' ## Overall Performance '''),
+                html.H2(
+                    className='gradient-text',
+                    style={},
+                    children=["Overall Performance"]),
                 html.Br(),
                 html.Br(),
             ]
@@ -103,9 +111,13 @@ app.layout = html.Div(
 
         html.Div(
             className="d-flex flex-wrap",
+            style={
+                "marginBottom": "30px"
+            },
             children=[
                 html.Div(
-                    className="col-md-6 h-50 overall-text-info",
+                    className="col-md-5 h-50 overall-text-info",
+                    style={"marginLeft": "74px"},
                     children=[
                         html.P(id="no-conversations"),
                         html.P(id="no-users"),
@@ -113,7 +125,8 @@ app.layout = html.Div(
                     ]
                 ),
                 html.Div(
-                    className="col-md-6 h-50",
+                    className="col-md-5 h-50",
+                    style={"marginLeft": "58px"},
                     children=[
                         html.Div(id='success-proportion-in-conversations'),
                     ]
@@ -130,22 +143,30 @@ app.layout = html.Div(
                 "marginBottom": "25px"
             },
             children=[
-                dcc.Markdown(''' ## Bot performance by Outcomes '''),
+                html.H2(
+                    className='gradient-text',
+                    style={},
+                    children=["Bot performance by Outcomes"]),
                 html.Br(),
                 html.Br(),
             ]
         ),
         html.Div(
             className="d-flex flex-wrap",
+            style={
+                "marginBottom": "30px"
+            },
             children=[
                 html.Div(
-                    className="col-md-6 h-50",
+                    className="col-md-5",
+                    style={"marginLeft": "74px"},
                     children=[
                         html.Div(id='outcome-proportion-bar-chart')
                     ]
                 ),
                 html.Div(
-                    className="col-md-6 h-50",
+                    className="col-md-5",
+                    style={"marginLeft": "58px"},
                     children=[
                         html.Div(id='outcome-proportion-in-conversations'),
                     ]
@@ -178,6 +199,8 @@ app.layout = html.Div(
             ],
         ),
 
+        html.Br(),
+        html.Br(),
         html.Hr(),
 
         html.Div(
@@ -187,22 +210,30 @@ app.layout = html.Div(
                 "marginBottom": "25px"
             },
             children=[
-                dcc.Markdown(''' ## Bot performance by Use case '''),
+                html.H2(
+                    className='gradient-text',
+                    style={},
+                    children=["Bot performance by Use case"]),
                 html.Br(),
                 html.Br(),
             ]
         ),
         html.Div(
             className="d-flex flex-wrap",
+            style={
+                "marginBottom": "30px"
+            },
             children=[
                 html.Div(
-                    className="col-md-6 h-50",
+                    className="col-md-5 h-50",
+                    style={"marginLeft": "74px"},
                     children=[
                         html.Div(id='uc-proportion-bar-chart')
                     ]
                 ),
                 html.Div(
-                    className="col-md-6 h-50",
+                    className="col-md-5 h-50",
+                    style={"marginLeft": "58px"},
                     children=[
                         html.Div(id='uc-proportion-in-month'),
                     ]
@@ -232,17 +263,19 @@ app.layout = html.Div(
             className="d-flex flex-wrap",
             children=[
                 html.Div(
-                    className="col-md-6 h-50 outcome-uc-pie",
+                    className="col-md-5 h-50 outcome-uc-pie",
+                    style={"marginLeft": "74px"},
                     children=[
-                        html.P(id="outcome-uc1-pie_title", className="outcome_uc_pie_title",
+                        html.P(id="outcome-uc1-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S1"]),
                         html.Div(id='outcome-uc1-pie'),
                     ]
                 ),
                 html.Div(
-                    className="col-md-6 h-50 outcome-uc-pie",
+                    className="col-md-5 h-50 outcome-uc-pie",
+                    style={"marginLeft": "58px"},
                     children=[
-                        html.P(id="outcome-uc2-pie_title", className="outcome_uc_pie_title",
+                        html.P(id="outcome-uc2-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S2"]),
                         html.Div(id='outcome-uc2-pie'),
                     ]
@@ -253,17 +286,19 @@ app.layout = html.Div(
             className="d-flex flex-wrap",
             children=[
                 html.Div(
-                    className="col-md-6 h-50 outcome-uc-pie",
+                    className="col-md-5 h-50 outcome-uc-pie",
+                    style={"marginLeft": "74px"},
                     children=[
-                        html.P(id="outcome-uc31-pie_title", className="outcome_uc_pie_title",
+                        html.P(id="outcome-uc31-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S3.1"]),
                         html.Div(id='outcome-uc31-pie'),
                     ]
                 ),
                 html.Div(
-                    className="col-md-6 h-50 outcome-uc-pie",
+                    className="col-md-5 h-50 outcome-uc-pie",
+                    style={"marginLeft": "58px"},
                     children=[
-                        html.P(id="outcome-uc32-pie_title", className="outcome_uc_pie_title",
+                        html.P(id="outcome-uc32-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S3.2"]),
                         html.Div(id='outcome-uc32-pie'),
                     ]
@@ -296,9 +331,14 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
     first_pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
-            html.P("Usecases proportion in month"),
+            # html.P("Usecases proportion in month"),
             dcc.Graph(
-                figure={"data": [trace]},
+                figure={
+                    "data": [trace],
+                    'layout': {
+                        'height': "500"
+                    }
+                },
                 style={"height": "90%", "width": "98%"},
                 config=dict(displayModeBar=False),
             ),
@@ -321,8 +361,13 @@ def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: in
         className="six columns chart_div pretty_container",
         children=[
             dcc.Graph(
-                figure={"data": [trace]},
-                style={"height": "500", "width": "98%"},
+                figure={
+                    "data": [trace],
+                    'layout': {
+                        'height': "500"
+                    }
+                },
+                style={"width": "98%"},
                 config=dict(displayModeBar=False),
             ),
         ],
@@ -361,9 +406,14 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
     second_pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
-            html.P("Outcomes proportion in all conversations"),
+            # html.P("Outcomes proportion in all conversations"),
             dcc.Graph(
-                figure={"data": [trace]},
+                figure={
+                    "data": [trace],
+                    'layout': {
+                        'height': "500"
+                    }
+                },
                 style={"height": "90%", "width": "98%"},
                 config=dict(displayModeBar=False),
             ),
@@ -386,8 +436,13 @@ def create_trace_outcome_proportion_bar_chart(no_each_outcome: list):
         className="six columns chart_div pretty_container",
         children=[
             dcc.Graph(
-                figure={"data": [trace]},
-                style={"height": "500", "width": "98%"},
+                figure={
+                    "data": [trace],
+                    'layout': {
+                        'height': "500"
+                    }
+                },
+                style={"width": "98%"},
                 config=dict(displayModeBar=False),
             ),
         ],
@@ -722,7 +777,7 @@ def show_loading(n_clicks, start_date, end_date, loading1, loading2):
             'bottom': '0',
             'left': '0',
             'right': '0',
-            'backgroundColor': '#fff',
+            'backgroundColor': '#f9f9f9',
             'opacity': '0.8',
             'zIndex': '1002',
         },

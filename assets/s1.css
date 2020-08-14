@@ -17,8 +17,8 @@ body {
 .pretty_container {
     border-radius: 5px;
     background-color: white;
-    margin: 0.5rem;
-    padding: 1rem;
+    /*margin: 0.5rem;*/
+    /*padding: 1rem;*/
     position: relative;
     border: 1px solid #f1f1f1;
 }
@@ -667,17 +667,17 @@ hr {
     padding: 0;
 }
 
-.outcome_uc_pie_title{
+.outcome_uc_pie_title {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
 }
 
-.outcome-uc-pie{
+.outcome-uc-pie {
     margin-top: 20px;
 }
 
-.overall-text-info{
+.overall-text-info {
     margin-top: 180px;
     text-align: left;
     font-weight: bold;
@@ -685,15 +685,48 @@ hr {
 }
 
 
-#outcome-uc1-pie_title{
+#outcome-uc1-pie_title {
     display: none;
 }
-#outcome-uc2-pie_title{
+
+#outcome-uc2-pie_title {
     display: none;
 }
-#outcome-uc31-pie_title{
+
+#outcome-uc31-pie_title {
     display: none;
 }
-#outcome-uc32-pie_title{
+
+#outcome-uc32-pie_title {
     display: none;
+}
+
+.gradient-text {
+    font-family: "Abril Fatface", sans-serif;
+    background: linear-gradient(to right, crimson, pink, springgreen, orange, yellow, green, cyan, blue, violet);
+    background-size: 200% 200%;
+    animation: rainbow 2s ease-in-out infinite;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: rgba(0, 0, 0, 1);
+    display: block;
+    text-align: center;
+    transition: color .2s ease-in-out;
+    font-weight: 500;
+}
+
+.gradient-text:hover {
+    color: rgba(0, 0, 0, 0);
+}
+
+@keyframes rainbow {
+    0% {
+        background-position: left
+    }
+    50% {
+        background-position: right
+    }
+    100% {
+        background-position: left
+    }
 }
