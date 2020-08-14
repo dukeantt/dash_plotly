@@ -135,11 +135,21 @@ app.layout = html.Div(
                 html.Br(),
             ]
         ),
-
         html.Div(
             className="d-flex flex-wrap",
             children=[
-                html.Div(id='outcome_proportion-in-conversations', className="col-md-12 h-50"),
+                html.Div(
+                    className="col-md-6 h-50",
+                    children=[
+                        html.Div(id='outcome-proportion-bar-chart')
+                    ]
+                ),
+                html.Div(
+                    className="col-md-6 h-50",
+                    children=[
+                        html.Div(id='outcome-proportion-in-conversations'),
+                    ]
+                ),
             ]
         ),
 
@@ -182,13 +192,24 @@ app.layout = html.Div(
                 html.Br(),
             ]
         ),
-
         html.Div(
             className="d-flex flex-wrap",
             children=[
-                html.Div(id='uc-proportion-in-month', className="col-md-12 h-50"),
+                html.Div(
+                    className="col-md-6 h-50",
+                    children=[
+                        html.Div(id='uc-proportion-bar-chart')
+                    ]
+                ),
+                html.Div(
+                    className="col-md-6 h-50",
+                    children=[
+                        html.Div(id='uc-proportion-in-month'),
+                    ]
+                ),
             ]
         ),
+
         dcc.Tabs(
             id="uc_tab_parent",
             value="uc_s1",
@@ -286,6 +307,29 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
     return first_pie
 
 
+def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: int, uc32: int):
+    other = total - uc1 - uc2 - uc31 - uc32
+    y_value = [uc1, uc2, uc31, uc32, other]
+    trace = go.Bar(
+        x=['UC-S1', 'UC-S2', 'UC-S31', "UC-S32", "other"],
+        y=y_value,
+        text=y_value,
+        textposition='outside',
+        texttemplate='%{text:.2s}',
+    )
+    bar_chart = html.Div(
+        className="six columns chart_div pretty_container",
+        children=[
+            dcc.Graph(
+                figure={"data": [trace]},
+                style={"height": "500", "width": "98%"},
+                config=dict(displayModeBar=False),
+            ),
+        ],
+    ),
+    return bar_chart
+
+
 def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
     logger.info("Create trace ourcome proportion in all conversation")
 
@@ -326,6 +370,29 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
         ],
     ),
     return second_pie, values
+
+
+def create_trace_outcome_proportion_bar_chart(no_each_outcome: list):
+    # 'thanks', 'shipping', 'handover', "silence", "other", "agree"
+
+    trace = go.Bar(
+        x=['thanks', 'shipping', 'handover', "silence", "other", "agree"],
+        y=no_each_outcome,
+        text=no_each_outcome,
+        textposition='outside',
+        texttemplate='%{text:.2s}',
+    )
+    bar_chart = html.Div(
+        className="six columns chart_div pretty_container",
+        children=[
+            dcc.Graph(
+                figure={"data": [trace]},
+                style={"height": "500", "width": "98%"},
+                config=dict(displayModeBar=False),
+            ),
+        ],
+    ),
+    return bar_chart
 
 
 def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
@@ -701,8 +768,10 @@ def handle_df(is_click, start_date, end_date):
         Output("no-conversations", 'children'),
         Output("no-users", 'children'),
         Output("success-rate", 'children'),
+        Output("uc-proportion-bar-chart", 'children'),
         Output('uc-proportion-in-month', 'children'),
-        Output('outcome_proportion-in-conversations', 'children'),
+        Output('outcome-proportion-bar-chart', 'children'),
+        Output('outcome-proportion-in-conversations', 'children'),
         Output('outcome-uc1-pie', 'children'),
         Output('outcome-uc2-pie', 'children'),
         Output('outcome-uc31-pie', 'children'),
@@ -741,8 +810,11 @@ def update_output(df, loading1, loading2):
         uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome", "turn"]])
 
         uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32)
+        uc_proportion_bar_chart = create_trace_uc_propotion_bar_chart(total, uc1, uc2, uc31, uc32)
+
         outcome_proportion_in_conversations, number_of_each_outcome = create_trace_outcome_proportion_in_all_conversation(
             uc_outcome)
+        outcome_proportion_bar_chart = create_trace_outcome_proportion_bar_chart(number_of_each_outcome)
         success_proportion_in_conversations, success_rate = create_trace_success_proportion_in_all_conversations(
             number_of_each_outcome)
 
@@ -782,13 +854,13 @@ def update_output(df, loading1, loading2):
         no_customers = "Number of users: " + no_customers
         success_rate = "Success rate: " + success_rate
         return success_proportion_in_conversations, no_conversations, no_customers, success_rate, \
-               uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
+               uc_proportion_bar_chart, uc_proportion_in_month, outcome_proportion_bar_chart, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
                thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, \
                loading_1_display, loading_2_display, \
                {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
     else:
-        return "", "", "", "",\
-               "", "", "", "", "", "",\
+        return "", "", "", "", \
+               "", "", "", "", "", "", "", "", \
                "", "", "", "", "", "", "", "", "", "", \
                {'display': loading1["display"]}, {'display': loading2["display"]}, \
                {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
