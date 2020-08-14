@@ -161,6 +161,8 @@ app.layout = html.Div(
                     className="col-md-5",
                     style={"marginLeft": "118px"},
                     children=[
+                        html.P(id="number-of-outcomes", className="outcome_uc_pie_title gradient-text",
+                               children=["Number of Outcomes"]),
                         html.Div(id='outcome-proportion-bar-chart')
                     ]
                 ),
@@ -168,6 +170,8 @@ app.layout = html.Div(
                     className="col-md-5",
                     style={"marginLeft": "58px"},
                     children=[
+                        html.P(id="percentages-of-outcomes", className="outcome_uc_pie_title gradient-text",
+                               children=["Percentages of Outcomes"]),
                         html.Div(id='outcome-proportion-in-conversations'),
                     ]
                 ),
@@ -228,6 +232,8 @@ app.layout = html.Div(
                     className="col-md-5 h-50",
                     style={"marginLeft": "118px"},
                     children=[
+                        html.P(id="number-of-usecases", className="outcome_uc_pie_title gradient-text",
+                               children=["Number of Use cases"]),
                         html.Div(id='uc-proportion-bar-chart')
                     ]
                 ),
@@ -235,6 +241,8 @@ app.layout = html.Div(
                     className="col-md-5 h-50",
                     style={"marginLeft": "58px"},
                     children=[
+                        html.P(id="percentages-of-usecases", className="outcome_uc_pie_title gradient-text",
+                               children=["Percentages of Use cases"]),
                         html.Div(id='uc-proportion-in-month'),
                     ]
                 ),
@@ -261,6 +269,7 @@ app.layout = html.Div(
         ),
         html.Div(
             className="d-flex flex-wrap",
+            style={"marginBottom": "60px"},
             children=[
                 html.Div(
                     className="col-md-5 h-50 outcome-uc-pie",
@@ -322,11 +331,12 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
         labels=['Other', 'UC S1', 'UC S2', "UC S31", "UC S32"],
         values=[not_uc1_uc2, uc1, uc2, uc31, uc32],
         hoverinfo='label+percent',
-        textinfo='label+value+percent',
+        textinfo='label+percent',
         textfont_size=15,
         marker=dict(
-            colors=plotly.colors.diverging.Portland,
-            line=dict(color='#000000', width=1))
+            # colors=plotly.colors.diverging.Portland,
+            line=dict(color='#f9f9f9', width=1)
+        )
     )
     first_pie = html.Div(
         className="six columns chart_div pretty_container",
@@ -402,9 +412,11 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
         hoverinfo='label+percent',
         textinfo='label+value',
         textfont_size=15,
-        marker=dict(line=dict(
-            color=plotly.colors.diverging.Portland,
-            width=1)))
+        marker=dict(
+            # colors=plotly.colors.diverging.Portland,
+            line=dict(color='#f9f9f9', width=1)
+        )
+    )
     second_pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
@@ -468,9 +480,11 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
         hoverinfo='label+percent',
         textinfo='label+value',
         textfont_size=15,
-        marker=dict(line=dict(
-            # color=plotly.colors.diverging.Portland,
-            width=1)))
+        marker=dict(
+            # colors=plotly.colors.diverging.Portland,
+            line=dict(color='#f9f9f9', width=1)
+        )
+    )
     pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
@@ -490,12 +504,15 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
     outcome_uc = uc_outcome[key]
     values = [value for index, value in outcome_uc.items()]
     labels = ['thanks', 'shipping', 'handover', "silence", "other", "agree"]
-    trace_2 = go.Pie(labels=labels, values=values, scalegroup='one',
-                     name=name, direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
-                     textinfo='label+value', textfont_size=15,
-                     marker=dict(line=dict(
-                         color=plotly.colors.diverging.Portland,
-                         width=1)))
+    trace_2 = go.Pie(
+        labels=labels, values=values, scalegroup='one',
+        name=name, direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
+        textinfo='label+value', textfont_size=15,
+        marker=dict(
+            # colors=plotly.colors.diverging.Portland,
+            line=dict(color='#f9f9f9', width=1)
+        )
+    )
     pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
@@ -861,6 +878,10 @@ def handle_df(is_click, start_date, end_date):
         Output(component_id='outcome-uc2-pie_title', component_property='style'),
         Output(component_id='outcome-uc31-pie_title', component_property='style'),
         Output(component_id='outcome-uc32-pie_title', component_property='style'),
+        Output(component_id='number-of-outcomes', component_property='style'),
+        Output(component_id='percentages-of-outcomes', component_property='style'),
+        Output(component_id='number-of-usecases', component_property='style'),
+        Output(component_id='percentages-of-usecases', component_property='style'),
     ],
     [
         Input('df-data', 'children')
@@ -926,13 +947,13 @@ def update_output(df, loading1, loading2):
                uc_proportion_bar_chart, uc_proportion_in_month, outcome_proportion_bar_chart, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
                thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, \
                loading_1_display, loading_2_display, \
-               {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
+               {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
     else:
         return "", "", "", "", \
                "", "", "", "", "", "", "", "", \
                "", "", "", "", "", "", "", "", "", "", \
                {'display': loading1["display"]}, {'display': loading2["display"]}, \
-               {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
+               {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
 
 if __name__ == '__main__':
