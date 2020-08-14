@@ -604,7 +604,8 @@ def generate_table(df: pd.DataFrame):
             page_size=10,
 
             style_header={
-                'backgroundColor': 'white',
+                'backgroundColor': 'blue',
+                'color': 'white',
                 'fontWeight': 'bold'
             },
             style_data={  # style cho ca header va cell
@@ -624,6 +625,12 @@ def generate_table(df: pd.DataFrame):
                     'if': {'column_id': c},
                     'width': '20px'
                 } for c in ['use_case']
+
+            ] + [
+                {
+                    'if': {'column_id': x},
+                    'color': 'blue'
+                } for x in ["use_case", "user_message", "bot_message"]
             ],
             tooltip_data=[  # hover  data
                 {
