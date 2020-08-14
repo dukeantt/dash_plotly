@@ -62,6 +62,19 @@ app.layout = html.Div(
         'flexDirection': 'column'
     },
     children=[
+
+        html.Div(
+            id="main_title",
+            className="markdown-title",
+            children=[
+                dcc.Markdown(''' # Salesbot performance '''),
+                html.Br(),
+                html.Br(),
+                dcc.Markdown(''' ## Overall Performance '''),
+                html.Br(),
+                html.Br(),
+            ]
+        ),
         html.Div(
             id="loading-div",
             style={"display": "block"},
@@ -85,6 +98,20 @@ app.layout = html.Div(
                     end_date=dt(2020, 7, 31).date()
                 ),
                 html.Button('Run', id='run-analytics'),
+            ]
+        ),
+        html.Hr(),
+
+        html.Div(
+            className="markdown-title",
+            style={
+                "marginTop": "60px",
+                "marginBottom": "25px"
+            },
+            children=[
+                dcc.Markdown(''' ## Bot performance by Outcomes '''),
+                html.Br(),
+                html.Br(),
             ]
         ),
 
@@ -119,6 +146,22 @@ app.layout = html.Div(
                         ),
             ],
         ),
+
+        html.Hr(),
+
+        html.Div(
+            className="markdown-title",
+            style={
+                "marginTop": "60px",
+                "marginBottom": "25px"
+            },
+            children=[
+                dcc.Markdown(''' ## Bot performance by Use case '''),
+                html.Br(),
+                html.Br(),
+            ]
+        ),
+
         html.Div(
             className="d-flex flex-wrap",
             children=[
@@ -146,15 +189,39 @@ app.layout = html.Div(
         html.Div(
             className="d-flex flex-wrap",
             children=[
-                html.Div(id='outcome-uc1-pie', className="col-md-6 h-50"),
-                html.Div(id='outcome-uc2-pie', className="col-md-6 h-50"),
+                html.Div(
+                    className="col-md-6 h-50 outcome-uc-pie",
+                    children=[
+                        html.P(id="outcome-uc1-pie_title", className="outcome_uc_pie_title", children=["Outcome of UC-S1"]),
+                        html.Div(id='outcome-uc1-pie'),
+                    ]
+                ),
+                html.Div(
+                    className="col-md-6 h-50 outcome-uc-pie",
+                    children=[
+                        html.P(id="outcome-uc2-pie_title", className="outcome_uc_pie_title", children=["Outcome of UC-S2"]),
+                        html.Div(id='outcome-uc2-pie'),
+                    ]
+                ),
             ]
         ),
         html.Div(
             className="d-flex flex-wrap",
             children=[
-                html.Div(id='outcome-uc31-pie', className="col-md-6 h-50"),
-                html.Div(id='outcome-uc32-pie', className="col-md-6 h-50"),
+                html.Div(
+                    className="col-md-6 h-50 outcome-uc-pie",
+                    children=[
+                        html.P(id="outcome-uc31-pie_title", className="outcome_uc_pie_title", children=["Outcome of UC-S3.1"]),
+                        html.Div(id='outcome-uc31-pie'),
+                    ]
+                ),
+                html.Div(
+                    className="col-md-6 h-50 outcome-uc-pie",
+                    children=[
+                        html.P(id="outcome-uc32-pie_title", className="outcome_uc_pie_title", children=["Outcome of UC-S3.2"]),
+                        html.Div(id='outcome-uc32-pie'),
+                    ]
+                ),
             ]
         ),
         html.Div(id='df-data', style={'display': 'none'}),
@@ -251,7 +318,7 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
     pie = html.Div(
         className="six columns chart_div pretty_container",
         children=[
-            html.P(title),
+            # html.P(title),
             dcc.Graph(
                 figure={"data": [trace_2]},
                 style={"height": "90%", "width": "98%"},
@@ -358,6 +425,7 @@ def generate_table(df: pd.DataFrame):
             page_action="native",
             page_current=0,
             page_size=10,
+
             style_header={
                 'backgroundColor': 'white',
                 'fontWeight': 'bold'
@@ -380,13 +448,13 @@ def generate_table(df: pd.DataFrame):
                     'width': '20px'
                 } for c in ['use_case']
             ],
-            tooltip_data=[
+            tooltip_data=[  # hover  data
                 {
                     column: {'value': str(value), 'type': 'markdown'}
                     for column, value in row.items()
                 } for row in df.to_dict('rows')
             ],
-            style_data_conditional=[
+            style_data_conditional=[  # stripe style table
                 {
                     'if': {'row_index': 'odd'},
                     'backgroundColor': 'rgb(248, 248, 248)'
@@ -394,8 +462,14 @@ def generate_table(df: pd.DataFrame):
             ],
             tooltip_duration=None,
             fixed_columns={'headers': True, 'data': 1},
-            # style_table={'overflowX': 'auto'},
-            style_table={'minWidth': '100%'},
+            # fixed_rows={'headers': True},
+
+            style_table={
+                'minWidth': '100%',
+                # 'height': '400px',
+                # 'overflowY': 'auto',
+                # 'overflowX': 'auto'
+            },
 
             data=df.to_dict('records'),
             columns=[{'name': i, 'id': i} for i in df.columns]
@@ -586,6 +660,10 @@ def handle_df(is_click, start_date, end_date):
         Output('uc-s32', 'children'),
         Output(component_id='loading-div', component_property='style'),
         Output(component_id='loading-div-2', component_property='style'),
+        Output(component_id='outcome-uc1-pie_title', component_property='style'),
+        Output(component_id='outcome-uc2-pie_title', component_property='style'),
+        Output(component_id='outcome-uc31-pie_title', component_property='style'),
+        Output(component_id='outcome-uc32-pie_title', component_property='style'),
     ],
     [
         Input('df-data', 'children')
@@ -637,11 +715,14 @@ def update_output(df, loading1, loading2):
             loading_1_display = {'display': 'none'}
             loading_2_display = {'display': 'block'}
         return uc_proportion_in_month, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
-               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, loading_1_display, loading_2_display
+               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df,\
+               loading_1_display, loading_2_display,\
+               {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
     else:
         return "", "", "", "", "", "", \
-               "", "", "", "", "", "", "", "", "", "", {'display': loading1["display"]}, {
-                   'display': loading2["display"]}
+               "", "", "", "", "", "", "", "", "", "", \
+               {'display': loading1["display"]}, {'display': loading2["display"]}, \
+               {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
 
 if __name__ == '__main__':

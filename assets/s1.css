@@ -601,6 +601,7 @@ table {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 30%;
+    margin-top: 5%;
 }
 
 .current-page {
@@ -625,12 +626,66 @@ table {
     left: 50%;
     width: 50px;
     height: 80px;
-    margin:-60px 0 0 -60px;
-    -webkit-animation:spin 1s linear infinite;
-    -moz-animation:spin 1s linear infinite;
-    animation:spin 0.8s linear infinite;
+    margin: -60px 0 0 -60px;
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 0.8s linear infinite;
     z-index: 1005;
 }
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); }}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+
+.markdown-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.outcome_uc_pie_title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.outcome-uc-pie{
+    margin-top: 20px;
+}
+
+#outcome-uc1-pie_title{
+    display: none;
+}
+#outcome-uc2-pie_title{
+    display: none;
+}
+#outcome-uc31-pie_title{
+    display: none;
+}
+#outcome-uc32-pie_title{
+    display: none;
+}
