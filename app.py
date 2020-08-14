@@ -117,7 +117,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5 h-50 overall-text-info",
-                    style={"marginLeft": "74px"},
+                    style={"marginLeft": "95px"},
                     children=[
                         html.P(id="no-conversations"),
                         html.P(id="no-users"),
@@ -159,7 +159,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5",
-                    style={"marginLeft": "74px"},
+                    style={"marginLeft": "95px"},
                     children=[
                         html.Div(id='outcome-proportion-bar-chart')
                     ]
@@ -226,7 +226,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5 h-50",
-                    style={"marginLeft": "74px"},
+                    style={"marginLeft": "95px"},
                     children=[
                         html.Div(id='uc-proportion-bar-chart')
                     ]
@@ -264,7 +264,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "74px"},
+                    style={"marginLeft": "95px"},
                     children=[
                         html.P(id="outcome-uc1-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S1"]),
@@ -287,7 +287,7 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "74px"},
+                    style={"marginLeft": "95px"},
                     children=[
                         html.P(id="outcome-uc31-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S3.1"]),

@@ -12,6 +12,11 @@ body {
     /* IE 10+ */
     user-select: none;
     /* Likely future */
+    /*-webkit-transform: scale(0.67);*/
+    /*   -moz-transform: scale(0.67);*/
+            transform: scale(0.9);
+            transform-origin: top center;
+
 }
 
 .pretty_container {
