@@ -70,14 +70,14 @@ app.layout = html.Div(
                 # dcc.Markdown(''' # Salesbot performance '''),
                 html.H1(
                     className='gradient-text',
-                    style={},
+                    style={"fontSize" : "3.5rem"},
                     children=["Salesbot performance"]),
                 html.Br(),
                 html.Br(),
                 # dcc.Markdown(''' ## Overall Performance '''),
                 html.H2(
                     className='gradient-text',
-                    style={},
+                    style={"fontSize" : "2.5rem"},
                     children=["Overall Performance"]),
                 html.Br(),
                 html.Br(),
@@ -145,7 +145,7 @@ app.layout = html.Div(
             children=[
                 html.H2(
                     className='gradient-text',
-                    style={},
+                    style={"fontSize":"2.5rem"},
                     children=["Bot performance by Outcomes"]),
                 html.Br(),
                 html.Br(),
@@ -216,7 +216,7 @@ app.layout = html.Div(
             children=[
                 html.H2(
                     className='gradient-text',
-                    style={},
+                    style={"fontSize":"2.5rem"},
                     children=["Bot performance by Use case"]),
                 html.Br(),
                 html.Br(),
@@ -328,13 +328,15 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
     not_uc1_uc2 = total - uc1 - uc2 - uc31 - uc32
     colors = ['mediumturquoise', 'darkorange', 'lightgreen']
     trace = go.Pie(
-        labels=['Other', 'UC S1', 'UC S2', "UC S31", "UC S32"],
-        values=[not_uc1_uc2, uc1, uc2, uc31, uc32],
+        labels=['UC S1', 'UC S2', "UC S31", "UC S32", 'Other'],
+        values=[uc1, uc2, uc31, uc32, not_uc1_uc2],
         hoverinfo='label+percent',
         textinfo='label+percent',
+        direction="clockwise",
+        sort=False,
         textfont_size=15,
         marker=dict(
-            # colors=plotly.colors.diverging.Portland,
+            colors=["#4385f5","#ea4235","#fabd04","#34a853","#fed966"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
@@ -362,7 +364,7 @@ def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: in
     other = total - uc1 - uc2 - uc31 - uc32
     y_value = [uc1, uc2, uc31, uc32, other]
     trace = go.Bar(
-        x=['UC-S1', 'UC-S2', 'UC-S31', "UC-S32", "other"],
+        x=['UC-S1', 'UC-S2', 'UC-S3.1', "UC-S3.2", "Other"],
         y=y_value,
         text=y_value,
         textposition='outside',
@@ -404,16 +406,16 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
 
     values = [sum(x) for x in zip(uc_s1_values, uc_s2_values, uc_s31_values, uc_s32_values, uc_other_values)]
     trace = go.Pie(
-        labels=['thanks', 'shipping', 'handover', "silence", "other", "agree"],
+        labels=['Thanks', 'Shipping', 'Handover', "Silence", "Other", "agree"],
         values=values,
         direction="clockwise",
         sort=False,
-        rotation=120,
-        hoverinfo='label+percent',
-        textinfo='label+value',
+        # rotation=120,
+        hoverinfo='label+value',
+        textinfo='label+percent',
         textfont_size=15,
         marker=dict(
-            # colors=plotly.colors.diverging.Portland,
+            colors=["#7b92d0","#ea4235","#34a853","#fabd03", "#ff6d00"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
@@ -441,7 +443,7 @@ def create_trace_outcome_proportion_bar_chart(no_each_outcome: list):
     # 'thanks', 'shipping', 'handover', "silence", "other", "agree"
 
     trace = go.Bar(
-        x=['thanks', 'shipping', 'handover', "silence", "other", "agree"],
+        x=['Thanks', 'Shipping', 'Handover', "Silence", "Other", "agree"],
         y=no_each_outcome,
         text=no_each_outcome,
         textposition='outside',
@@ -476,12 +478,12 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
         values=[no_success, no_other],
         direction="clockwise",
         sort=False,
-        rotation=120,
-        hoverinfo='label+percent',
-        textinfo='label+value',
+        # rotation=120,
+        hoverinfo='label+value',
+        textinfo='label+percent',
         textfont_size=15,
         marker=dict(
-            # colors=plotly.colors.diverging.Portland,
+            colors=["#fe0000","#4286f5"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
@@ -503,13 +505,18 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
 
     outcome_uc = uc_outcome[key]
     values = [value for index, value in outcome_uc.items()]
-    labels = ['thanks', 'shipping', 'handover', "silence", "other", "agree"]
+    labels = ['Thanks', 'Shipping', 'Handover', "Silence", "Other", "agree"]
     trace_2 = go.Pie(
         labels=labels, values=values, scalegroup='one',
-        name=name, direction="clockwise", sort=False, rotation=120, hoverinfo='label+percent',
-        textinfo='label+value', textfont_size=15,
+        name=name,
+        direction="clockwise",
+        sort=False,
+        # rotation=120,
+        hoverinfo='label+value',
+        textinfo='label+percent',
+        textfont_size=15,
         marker=dict(
-            # colors=plotly.colors.diverging.Portland,
+            colors=["#7b92d0","#ea4235","#34a853","#fabd03", "#ff6d00"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
