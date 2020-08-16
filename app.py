@@ -45,14 +45,15 @@ tabs_styles = {
 tab_style = {
     'borderBottom': '1px solid #d6d6d6',
     'padding': '6px',
-    'fontWeight': 'bold'
+    'fontWeight': 'bold',
 }
 tab_selected_style = {
     'borderTop': '1px solid #d6d6d6',
     'borderBottom': '1px solid #d6d6d6',
     'backgroundColor': '#119DFF',
     'color': 'white',
-    'padding': '6px'
+    'padding': '6px',
+
 }
 
 app.layout = html.Div(
@@ -183,22 +184,22 @@ app.layout = html.Div(
             value="shipping",
             children=[
                 dcc.Tab(id="thank", label='Thank', value="thank", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='thank-table'), ]
+                        children=[html.Div(id='thank-table', style={'marginTop': "40px"}), ]
                         ),
                 dcc.Tab(label='Shipping', value="shipping", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='shipping-table'), ]
+                        children=[html.Div(id='shipping-table', style={'marginTop': "40px"})]
                         ),
                 dcc.Tab(label='Handover', value="handover", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='handover-table'), ]
+                        children=[html.Div(id='handover-table', style={'marginTop': "40px"}), ]
                         ),
                 dcc.Tab(label='Silence', value="silence", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='silence-table'), ]
+                        children=[html.Div(id='silence-table', style={'marginTop': "40px"}), ]
                         ),
                 dcc.Tab(label='Other', value="other", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='other-table'), ]
+                        children=[html.Div(id='other-table', style={'marginTop': "40px"}), ]
                         ),
                 dcc.Tab(label='Agree', value="agree", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='agree-table'), ]
+                        children=[html.Div(id='agree-table', style={'marginTop': "40px"}), ]
                         ),
             ],
         ),
@@ -254,16 +255,16 @@ app.layout = html.Div(
             value="uc_s1",
             children=[
                 dcc.Tab(id="uc_s1", label='UC_S1', value="uc_s1", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='uc-s1'), ]
+                        children=[html.Div(id='uc-s1', style={'marginTop': "40px"}), ]
                         ),
                 dcc.Tab(id="uc_s2", label='UC_S2', value="uc_s2", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='uc-s2'), ]
+                        children=[html.Div(id='uc-s2', style={'marginTop': "40px"}), ]
                         ),
                 dcc.Tab(id="uc_s31", label='UC_S31', value="uc_s31", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='uc-s31'), ]
+                        children=[html.Div(id='uc-s31', style={'marginTop': "40px"}), ]
                         ),
                 dcc.Tab(id="uc_s32", label='UC_S32', value="uc_s32", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='uc-s32'), ]
+                        children=[html.Div(id='uc-s32', style={'marginTop': "40px"}), ]
                         ),
             ]
         ),
@@ -624,6 +625,12 @@ def generate_table(df: pd.DataFrame):
 
     df = pd.DataFrame.from_dict(info_dict)
     df = df.dropna(subset=["user_message", "bot_message"], how="all")
+    col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message']
+    if "outcome" in df:
+        col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message','outcome']
+
+    df = df.reindex(columns=col_order)
+    df = df.rename(columns={"created_time": "timestamp", "sender_id": "conv_id", "user_message": "input_text","bot_message": "bot_text"})
     return html.Div([
         dash_table.DataTable(
             id='datatable-paging',
@@ -634,34 +641,72 @@ def generate_table(df: pd.DataFrame):
             style_header={
                 'backgroundColor': '#0c5395',
                 'color': 'white',
-                'fontWeight': 'bold'
+                'fontWeight': 'bold',
+                'height': '40px',
             },
             style_data={  # style cho ca header va cell
                 # 'whiteSpace': 'normal',
                 # 'height': 'auto',
                 # 'lineHeight': '15px',
+                'height': '40px',
             },
             style_cell={
                 'overflow': 'hidden',
                 'textOverflow': 'ellipsis',
-                'minWidth': '0px',
-                'width': '160px', 'maxWidth': '300px',
+                # 'minWidth': '0px',
+                # 'width': '160px', 'maxWidth': '300px',
                 'textAlign': "left",
             },
             style_cell_conditional=
             [
                 {
                     'if': {'column_id': c},
-                    'width': '20px'
+                    'minWidth': '60px',
+                    'width': '60px',
+                    'maxWidth': '60px',
                 } for c in ['use_case']
-
             ] +
             [
                 {
                     'if': {'column_id': x},
-                    'color': 'blue'
-                } for x in ["use_case", "user_message", "bot_message"]
-            ],
+                    'color': 'blue',
+                } for x in ["use_case", "input_text", "bot_text"]
+            ] +
+            [
+                {
+                    'if': {'column_id': x},
+                    'minWidth': '130px',
+                    'width': '130px',
+                    'maxWidth': '130px'
+                } for x in ["timestamp", "conv_id"]
+            ] +
+            [
+                {
+                    'if': {'column_id': x},
+                    'minWidth': '260px',
+                    'width': '260px',
+                    'maxWidth': '260px',
+                } for x in ["input_text", "bot_text"]
+            ] +
+            [
+                {
+                    'if': {'column_id': x},
+                    'minWidth': '160px',
+                    'width': '160px',
+                    'maxWidth': '160px',
+
+                } for x in ["intent", "entities"]
+            ] +
+            [
+                {
+                    'if': {'column_id': x},
+                    'minWidth': '80px',
+                    'width': '80px',
+                    'maxWidth': '80px',
+
+                } for x in ["outcome"]
+            ]
+            ,
             tooltip_data=[  # hover  data
                 {
                     column: {'value': str(value), 'type': 'markdown'}
@@ -675,7 +720,7 @@ def generate_table(df: pd.DataFrame):
                 }
             ],
             tooltip_duration=None,
-            fixed_columns={'headers': True, 'data': 1},
+            # fixed_columns={'headers': True, 'data': 1},
             # fixed_rows={'headers': True},
 
             style_table={
