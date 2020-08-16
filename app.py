@@ -198,9 +198,9 @@ app.layout = html.Div(
                 dcc.Tab(label='Other', value="other", style=tab_style, selected_style=tab_selected_style,
                         children=[html.Div(id='other-table', style={'marginTop': "40px"}), ]
                         ),
-                dcc.Tab(label='Agree', value="agree", style=tab_style, selected_style=tab_selected_style,
-                        children=[html.Div(id='agree-table', style={'marginTop': "40px"}), ]
-                        ),
+                # dcc.Tab(label='Agree', value="agree", style=tab_style, selected_style=tab_selected_style,
+                #         children=[html.Div(id='agree-table', style={'marginTop': "40px"}), ]
+                #         ),
             ],
         ),
 
@@ -407,7 +407,7 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
 
     values = [sum(x) for x in zip(uc_s1_values, uc_s2_values, uc_s31_values, uc_s32_values, uc_other_values)]
     trace = go.Pie(
-        labels=['Thanks', 'Shipping', 'Handover', "Silence", "Other", "agree"],
+        labels=['Thanks', 'Shipping', 'Handover', "Silence", "Other"],
         values=values,
         direction="clockwise",
         sort=False,
@@ -444,7 +444,7 @@ def create_trace_outcome_proportion_bar_chart(no_each_outcome: list):
     # 'thanks', 'shipping', 'handover', "silence", "other", "agree"
 
     trace = go.Bar(
-        x=['Thanks', 'Shipping', 'Handover', "Silence", "Other", "agree"],
+        x=['Thanks', 'Shipping', 'Handover', "Silence", "Other"],
         y=no_each_outcome,
         text=no_each_outcome,
         textposition='outside',
@@ -472,7 +472,7 @@ def create_trace_outcome_proportion_bar_chart(no_each_outcome: list):
 def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
     # 'thanks', 'shipping', 'handover', "silence", "other", "agree"
     no_success = no_each_outcome[0] + no_each_outcome[1]
-    no_other = no_each_outcome[2] + no_each_outcome[3] + no_each_outcome[4] + no_each_outcome[5]
+    no_other = no_each_outcome[2] + no_each_outcome[3] + no_each_outcome[4]
     success_rate = str('{0:.2f}'.format((no_success * 100) / (no_other + no_success))) + "%"
     trace = go.Pie(
         labels=['Successful', 'Other'],
@@ -506,7 +506,7 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
 
     outcome_uc = uc_outcome[key]
     values = [value for index, value in outcome_uc.items()]
-    labels = ['Thanks', 'Shipping', 'Handover', "Silence", "Other", "agree"]
+    labels = ['Thanks', 'Shipping', 'Handover', "Silence", "Other"]
     trace_2 = go.Pie(
         labels=labels, values=values, scalegroup='one',
         name=name,
@@ -577,7 +577,8 @@ def generate_table(df: pd.DataFrame):
             user_message = np.NaN
         if bot_message is None or bot_message == "None":
             bot_message = np.NaN
-        if user_message == "user":
+        # if user_message == "user":
+        if str(user_message) == "nan":
             user_counter = 0
             bot_counter += 1
             info_dict["bot_message"].append(bot_message)
@@ -602,7 +603,8 @@ def generate_table(df: pd.DataFrame):
                 info_dict["use_case"].append(use_case)
                 info_dict["sender_id"].append(row.sender_id)
 
-        elif user_message != "user":
+        # elif user_message != "user":
+        elif str(user_message) != "nan":
             user_counter += 1
             bot_counter = 0
             info_dict["conversation_id"].append(row.conversation_id)
@@ -624,6 +626,7 @@ def generate_table(df: pd.DataFrame):
                 info_dict["created_time_bot"].append("")
 
     df = pd.DataFrame.from_dict(info_dict)
+    df = df[df["sender_id"] != 3547113778635846]
     df = df.dropna(subset=["user_message", "bot_message"], how="all")
     col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message']
     if "outcome" in df:
@@ -750,13 +753,13 @@ def get_number_of_each_uc(df: pd.DataFrame):
 def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     logger.info("Count outcome each use_case")
 
-    """ thank -> shipping -> handover -> silence ->  other -> agree"""
+    """ thank -> shipping -> handover -> silence ->  other"""
     uc_outcome = {
-        "uc_s1": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
-        "uc_s2": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
-        "uc_s31": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
-        "uc_s32": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
-        "other": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0, "agree": 0},
+        "uc_s1": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
+        "uc_s2": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
+        "uc_s31": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
+        "uc_s32": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
+        "other": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
     }
 
     conversation_id = list(df["conversation_id"])
@@ -796,9 +799,10 @@ def get_conversation_each_outcome(df: pd.DataFrame):
         column_list]
     silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "silence"]["conversation_id"]))][column_list]
     other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
-    agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
+    # agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
 
-    return thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df
+    return thank_df, shipping_order_df, handover_df, silence_df, other_df,\
+           # agree_df
 
 
 def get_conversation_each_usecase(df: pd.DataFrame):
@@ -919,7 +923,7 @@ def handle_df(is_click, start_date, end_date):
         Output('handover-table', 'children'),
         Output('silence-table', 'children'),
         Output('other-table', 'children'),
-        Output('agree-table', 'children'),
+        # Output('agree-table', 'children'),
         Output('uc-s1', 'children'),
         Output('uc-s2', 'children'),
         Output('uc-s31', 'children'),
@@ -965,7 +969,7 @@ def update_output(df, loading1, loading2):
         outcome_uc31_pie = create_trace_outcome_uc(uc_outcome, "uc_s31", "UC S31", "Outcomes of UC-S31")
         outcome_uc32_pie = create_trace_outcome_uc(uc_outcome, "uc_s32", "UC S32", "Outcomes of UC-S32")
 
-        thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df = get_conversation_each_outcome(df[[
+        thank_df, shipping_order_df, handover_df, silence_df, other_df = get_conversation_each_outcome(df[[
             "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
             "intent", "entities", "turn"]])
         thank_df = generate_table(thank_df)
@@ -973,7 +977,7 @@ def update_output(df, loading1, loading2):
         handover_df = generate_table(handover_df)
         silence_df = generate_table(silence_df)
         other_df = generate_table(other_df)
-        agree_df = generate_table(agree_df)
+        # agree_df = generate_table(agree_df)
 
         uc1_df, uc2_df, uc31_df, uc32_df = get_conversation_each_usecase(
             df[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
@@ -997,13 +1001,13 @@ def update_output(df, loading1, loading2):
         success_rate = "Success rate: " + success_rate
         return success_proportion_in_conversations, no_conversations, no_customers, success_rate, \
                uc_proportion_bar_chart, uc_proportion_in_month, outcome_proportion_bar_chart, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
-               thank_df, shipping_order_df, handover_df, silence_df, other_df, agree_df, uc1_df, uc2_df, uc31_df, uc32_df, \
+               thank_df, shipping_order_df, handover_df, silence_df, other_df, uc1_df, uc2_df, uc31_df, uc32_df, \
                loading_1_display, loading_2_display, \
                {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
     else:
         return "", "", "", "", \
                "", "", "", "", "", "", "", "", \
-               "", "", "", "", "", "", "", "", "", "", \
+               "", "", "", "", "", "", "", "", "",\
                {'display': loading1["display"]}, {'display': loading2["display"]}, \
                {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
