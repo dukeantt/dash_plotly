@@ -338,7 +338,7 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
         textinfo='label+percent',
         direction="clockwise",
         sort=False,
-        textfont_size=15,
+        textfont_size=13,
         marker=dict(
             colors=["#4385f5","#ea4235","#fabd04","#34a853","#fed966"],
             line=dict(color='#f9f9f9', width=1)
@@ -417,7 +417,7 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
         # rotation=120,
         hoverinfo='label+value',
         textinfo='label+percent',
-        textfont_size=15,
+        textfont_size=13,
         marker=dict(
             colors=["#7b92d0","#ea4235","#34a853","#fabd03", "#ff6d00"],
             line=dict(color='#f9f9f9', width=1)
@@ -485,7 +485,7 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
         # rotation=120,
         hoverinfo='label+value',
         textinfo='label+percent',
-        textfont_size=15,
+        textfont_size=13,
         marker=dict(
             colors=["#fe0000","#4286f5"],
             line=dict(color='#f9f9f9', width=1)
@@ -518,7 +518,7 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
         # rotation=120,
         hoverinfo='label+value',
         textinfo='label+percent',
-        textfont_size=15,
+        textfont_size=13,
         marker=dict(
             colors=["#7b92d0","#ea4235","#34a853","#fabd03", "#ff6d00"],
             line=dict(color='#f9f9f9', width=1)
@@ -768,7 +768,6 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     conversation_id = list(df["conversation_id"])
     conversation_id = list(dict.fromkeys(conversation_id))
 
-    # for id in uc1_uc_2_conversation_id:
     for id in conversation_id:
         sub_df = df[df["conversation_id"] == id]
         use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))
@@ -967,11 +966,10 @@ def update_output(df, loading1, loading2):
         uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32)
         uc_proportion_bar_chart = create_trace_uc_propotion_bar_chart(total, uc1, uc2, uc31, uc32)
 
-        outcome_proportion_in_conversations, number_of_each_outcome = create_trace_outcome_proportion_in_all_conversation(
-            uc_outcome)
+        outcome_proportion_in_conversations, number_of_each_outcome = create_trace_outcome_proportion_in_all_conversation(uc_outcome)
         outcome_proportion_bar_chart = create_trace_outcome_proportion_bar_chart(number_of_each_outcome)
-        success_proportion_in_conversations, success_rate = create_trace_success_proportion_in_all_conversations(
-            number_of_each_outcome)
+
+        success_proportion_in_conversations, success_rate = create_trace_success_proportion_in_all_conversations(number_of_each_outcome)
 
         outcome_uc1_pie = create_trace_outcome_uc(uc_outcome, "uc_s1", "UC S1", "Outcomes of UC-S1")
         outcome_uc2_pie = create_trace_outcome_uc(uc_outcome, "uc_s2", "UC S2", "Outcomes of UC-S2")

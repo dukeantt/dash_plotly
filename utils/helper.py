@@ -268,10 +268,10 @@ def get_chatloag_from_db(from_date, to_date):
     end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
 
     time_start_morning = datetime.datetime.strptime("09:00:00", "%H:%M:%S")
-    time_end_morning = datetime.datetime.strptime("12:00:00", "%H:%M:%S")
+    time_end_morning = datetime.datetime.strptime("12:05:00", "%H:%M:%S")
 
     time_start_afternoon = datetime.datetime.strptime("14:00:00", "%H:%M:%S")
-    time_end_afternoon = datetime.datetime.strptime("17:00:00", "%H:%M:%S")
+    time_end_afternoon = datetime.datetime.strptime("17:05:00", "%H:%M:%S")
 
     # chatlog_df = pd.DataFrame([document for document in collection.find({'conversation_begin_date': {'$gte': start, '$lte': end, }})])
     chatlog_df = pd.DataFrame([document for document in collection.find({
