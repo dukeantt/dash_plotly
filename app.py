@@ -266,6 +266,9 @@ app.layout = html.Div(
                 dcc.Tab(id="uc_s32", label='UC_S32', value="uc_s32", style=tab_style, selected_style=tab_selected_style,
                         children=[html.Div(id='uc-s32', style={'marginTop': "40px"}), ]
                         ),
+                dcc.Tab(id="other_usecase_df", label='Other', value="other_usecase_df", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='other-usecase-df', style={'marginTop': "40px"}), ]
+                        ),
             ]
         ),
         html.Div(
@@ -816,7 +819,12 @@ def get_conversation_each_usecase(df: pd.DataFrame):
     uc31_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s31"]["conversation_id"]))][column_list]
     uc32_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s32"]["conversation_id"]))][column_list]
 
-    return uc1_df, uc2_df, uc31_df, uc32_df
+    noticable_usecase_conversation_id = uc1_df["conversation_id"].drop_duplicates().to_list() + uc2_df["conversation_id"].drop_duplicates().to_list()\
+                                        + uc31_df["conversation_id"].drop_duplicates().to_list() + uc32_df["conversation_id"].drop_duplicates().to_list()
+
+    other_usecase_df = df[~df["conversation_id"].isin(noticable_usecase_conversation_id)][column_list]
+
+    return uc1_df, uc2_df, uc31_df, uc32_df, other_usecase_df
 
 
 @app.callback(
@@ -928,6 +936,7 @@ def handle_df(is_click, start_date, end_date):
         Output('uc-s2', 'children'),
         Output('uc-s31', 'children'),
         Output('uc-s32', 'children'),
+        Output('other-usecase-df', 'children'),
         Output(component_id='loading-div', component_property='style'),
         Output(component_id='loading-div-2', component_property='style'),
         Output(component_id='outcome-uc1-pie_title', component_property='style'),
@@ -979,13 +988,14 @@ def update_output(df, loading1, loading2):
         other_df = generate_table(other_df)
         # agree_df = generate_table(agree_df)
 
-        uc1_df, uc2_df, uc31_df, uc32_df = get_conversation_each_usecase(
+        uc1_df, uc2_df, uc31_df, uc32_df, other_usecase_df = get_conversation_each_usecase(
             df[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
                 "bot_message", "created_time", "intent", "entities"]])
         uc1_df = generate_table(uc1_df)
         uc2_df = generate_table(uc2_df)
         uc31_df = generate_table(uc31_df)
         uc32_df = generate_table(uc32_df)
+        other_usecase_df = generate_table(other_usecase_df)
 
         loading_1_display = ""
         loading_2_display = ""
@@ -1001,13 +1011,13 @@ def update_output(df, loading1, loading2):
         success_rate = "Success rate: " + success_rate
         return success_proportion_in_conversations, no_conversations, no_customers, success_rate, \
                uc_proportion_bar_chart, uc_proportion_in_month, outcome_proportion_bar_chart, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
-               thank_df, shipping_order_df, handover_df, silence_df, other_df, uc1_df, uc2_df, uc31_df, uc32_df, \
+               thank_df, shipping_order_df, handover_df, silence_df, other_df, uc1_df, uc2_df, uc31_df, uc32_df, other_usecase_df, \
                loading_1_display, loading_2_display, \
                {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
     else:
         return "", "", "", "", \
                "", "", "", "", "", "", "", "", \
-               "", "", "", "", "", "", "", "", "",\
+               "", "", "", "", "", "", "", "", "", "",\
                {'display': loading1["display"]}, {'display': loading2["display"]}, \
                {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
