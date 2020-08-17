@@ -776,8 +776,8 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
             use_case = "other"
         try:
             outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
-            if outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
-                continue
+            # if outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
+            #     continue
             uc_outcome[use_case][outcome] += 1
         except:
             a = 0
