@@ -32,8 +32,7 @@ month_dict = {"1": "January", "2": "February", "3": "March", "4": "April", "5": 
 spinner_list = ["assets/cat-spinner.png", "assets/cat-spinner3.png"]
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 suppress_callback_exceptions = True
-app = dash.Dash(__name__,
-                # external_stylesheets=external_stylesheets
+app = dash.Dash(__name__,  # external_stylesheets=external_stylesheets
                 external_stylesheets=[dbc.themes.BOOTSTRAP]
                 )
 server = app.server
@@ -103,8 +102,8 @@ app.layout = html.Div(
                     min_date_allowed=dt(2020, 1, 1),
                     max_date_allowed=dt(2020, 12, 31),
                     initial_visible_month=dt(2020, 7, 1),
-                    start_date=dt(2020, 7, 1).date(),
-                    end_date=dt(2020, 7, 31).date()
+                    start_date=dt(2020, 8, 10).date(),
+                    end_date=dt(2020, 8, 14).date()
                 ),
                 html.Button('Run', id='run-analytics'),
             ]
