@@ -263,7 +263,7 @@ def crawl_rasa_chatlog():
 def get_chatloag_from_db(from_date, to_date):
     client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
     db = client['chatlog_db']
-    collection = db['rasa_chatlog_all_17_8_ver2']
+    collection = db['rasa_chatlog_all_18_8']
     start = datetime.datetime.strptime(from_date, "%Y-%m-%d")
     end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
 
