@@ -902,7 +902,7 @@ def show_loading(n_clicks, start_date, end_date, loading1, loading2):
 )
 def handle_df(is_click, start_date, end_date):
     if is_click == "1" and start_date is not None and end_date is not None:
-        df = get_chatloag_from_db(from_date=start_date, to_date=end_date)
+        df = get_chatlog_from_db(from_date=start_date, to_date=end_date)
         # processor = RasaChalogProcessor()
         # df = processor.process_rasa_chatlog("06", "abc", df)
         return df.to_json(date_format='iso', orient='split')

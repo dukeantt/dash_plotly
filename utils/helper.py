@@ -260,7 +260,7 @@ def crawl_rasa_chatlog():
     export_conversation_detail()
 
 
-def get_chatloag_from_db(from_date, to_date):
+def get_chatlog_from_db(from_date, to_date):
     client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
     db = client['chatlog_db']
     collection = db['rasa_chatlog_all_18_8']
@@ -284,6 +284,7 @@ def get_chatloag_from_db(from_date, to_date):
             {'week_day': {'$gte': 0, '$lte': 4}},
         ]
     })])
+
     chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date", "week_day"])
     return chatlog_df
 
