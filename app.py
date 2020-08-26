@@ -70,14 +70,14 @@ app.layout = html.Div(
                 # dcc.Markdown(''' # Salesbot performance '''),
                 html.H1(
                     className='gradient-text',
-                    style={"fontSize" : "3.5rem"},
+                    style={"fontSize": "3.5rem"},
                     children=["Salesbot performance"]),
                 html.Br(),
                 html.Br(),
                 # dcc.Markdown(''' ## Overall Performance '''),
                 html.H2(
                     className='gradient-text',
-                    style={"fontSize" : "2.5rem"},
+                    style={"fontSize": "2.5rem"},
                     children=["Overall Performance"]),
                 html.Br(),
                 html.Br(),
@@ -145,7 +145,7 @@ app.layout = html.Div(
             children=[
                 html.H2(
                     className='gradient-text',
-                    style={"fontSize":"2.5rem"},
+                    style={"fontSize": "2.5rem"},
                     children=["Bot performance by Outcomes"]),
                 html.Br(),
                 html.Br(),
@@ -216,7 +216,7 @@ app.layout = html.Div(
             children=[
                 html.H2(
                     className='gradient-text',
-                    style={"fontSize":"2.5rem"},
+                    style={"fontSize": "2.5rem"},
                     children=["Bot performance by Use case"]),
                 html.Br(),
                 html.Br(),
@@ -265,7 +265,14 @@ app.layout = html.Div(
                 dcc.Tab(id="uc_s32", label='UC_S32', value="uc_s32", style=tab_style, selected_style=tab_selected_style,
                         children=[html.Div(id='uc-s32', style={'marginTop': "40px"}), ]
                         ),
-                dcc.Tab(id="other_usecase_df", label='Other', value="other_usecase_df", style=tab_style, selected_style=tab_selected_style,
+                dcc.Tab(id="uc_s4", label='UC_S4', value="uc_s4", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='uc-s4', style={'marginTop': "40px"}), ]
+                        ),
+                dcc.Tab(id="uc_s5", label='UC_S5', value="uc_s5", style=tab_style, selected_style=tab_selected_style,
+                        children=[html.Div(id='uc-s5', style={'marginTop': "40px"}), ]
+                        ),
+                dcc.Tab(id="other_usecase_df", label='Other', value="other_usecase_df", style=tab_style,
+                        selected_style=tab_selected_style,
                         children=[html.Div(id='other-usecase-df', style={'marginTop': "40px"}), ]
                         ),
             ]
@@ -317,6 +324,29 @@ app.layout = html.Div(
                 ),
             ]
         ),
+        html.Div(
+            className="d-flex flex-wrap",
+            children=[
+                html.Div(
+                    className="col-md-5 h-50 outcome-uc-pie",
+                    style={"marginLeft": "118px"},
+                    children=[
+                        html.P(id="outcome-uc4-pie_title", className="outcome_uc_pie_title gradient-text",
+                               children=["Outcome of UC-S4"]),
+                        html.Div(id='outcome-uc4-pie'),
+                    ]
+                ),
+                html.Div(
+                    className="col-md-5 h-50 outcome-uc-pie",
+                    style={"marginLeft": "58px"},
+                    children=[
+                        html.P(id="outcome-uc5-pie_title", className="outcome_uc_pie_title gradient-text",
+                               children=["Outcome of UC-S5"]),
+                        html.Div(id='outcome-uc5-pie'),
+                    ]
+                ),
+            ]
+        ),
         html.Div(id='df-data', style={'display': 'none'}),
         html.P(id='custom-from-date-data', style={'display': 'none'}),
         html.P(id='custom-to-date-data', style={'display': 'none'}),
@@ -325,21 +355,22 @@ app.layout = html.Div(
     ])
 
 
-def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int, uc32: int):
+def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int, uc32: int, uc_s4, uc_s51, uc_s52,
+                                       uc_s53):
     logger.info("Create trace uc proportion in month")
 
-    not_uc1_uc2 = total - uc1 - uc2 - uc31 - uc32
+    other = total - uc1 - uc2 - uc31 - uc32 - uc_s4 - uc_s51 - uc_s52 - uc_s53
     colors = ['mediumturquoise', 'darkorange', 'lightgreen']
     trace = go.Pie(
-        labels=['UC S1', 'UC S2', "UC S31", "UC S32", 'Other'],
-        values=[uc1, uc2, uc31, uc32, not_uc1_uc2],
+        labels=['UC S1', 'UC S2', "UC S3.1", "UC S3.2", "UC S4", "UC S5.1", "UC S5.2", "UC S5.3", 'Other'],
+        values=[uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53, other],
         hoverinfo='label+percent',
         textinfo='label+percent',
         direction="clockwise",
         sort=False,
         textfont_size=13,
         marker=dict(
-            colors=["#4385f5","#ea4235","#fabd04","#34a853","#fed966"],
+            colors=["#4385f5", "#ea4235", "#fabd04", "#34a853", "#fed966"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
@@ -363,11 +394,12 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
     return first_pie
 
 
-def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: int, uc32: int):
-    other = total - uc1 - uc2 - uc31 - uc32
-    y_value = [uc1, uc2, uc31, uc32, other]
+def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: int, uc32: int, uc_s4, uc_s51, uc_s52,
+                                        uc_s53):
+    other = total - uc1 - uc2 - uc31 - uc32 - uc_s4 - uc_s51 - uc_s52 - uc_s53
+    y_value = [uc1, uc2, uc31, uc32, uc_s4, uc_s51 + uc_s52 + uc_s53, other]
     trace = go.Bar(
-        x=['UC-S1', 'UC-S2', 'UC-S3.1', "UC-S3.2", "Other"],
+        x=['UC-S1', 'UC-S2', 'UC-S3.1', "UC-S3.2", "UC S4", "UC S5", "Other"],
         y=y_value,
         text=y_value,
         textposition='outside',
@@ -418,7 +450,7 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
         textinfo='label+percent',
         textfont_size=13,
         marker=dict(
-            colors=["#7b92d0","#ea4235","#34a853","#fabd03", "#ff6d00"],
+            colors=["#7b92d0", "#ea4235", "#34a853", "#fabd03", "#ff6d00"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
@@ -486,7 +518,7 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
         textinfo='label+percent',
         textfont_size=13,
         marker=dict(
-            colors=["#fe0000","#4286f5"],
+            colors=["#fe0000", "#4286f5"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
@@ -519,7 +551,7 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
         textinfo='label+percent',
         textfont_size=13,
         marker=dict(
-            colors=["#7b92d0","#ea4235","#34a853","#fabd03", "#ff6d00"],
+            colors=["#7b92d0", "#ea4235", "#34a853", "#fabd03", "#ff6d00"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
@@ -632,10 +664,12 @@ def generate_table(df: pd.DataFrame):
     df = df.dropna(subset=["user_message", "bot_message"], how="all")
     col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message']
     if "outcome" in df:
-        col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message','outcome']
+        col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message',
+                     'outcome']
 
     df = df.reindex(columns=col_order)
-    df = df.rename(columns={"created_time": "timestamp", "sender_id": "conv_id", "user_message": "input_text","bot_message": "bot_text"})
+    df = df.rename(columns={"created_time": "timestamp", "sender_id": "conv_id", "user_message": "input_text",
+                            "bot_message": "bot_text"})
     return html.Div([
         dash_table.DataTable(
             id='datatable-paging',
@@ -749,7 +783,11 @@ def get_number_of_each_uc(df: pd.DataFrame):
     uc_s2 = len(df[df["use_case"] == "uc_s2"])
     uc_s31 = len(df[df["use_case"] == "uc_s31"])
     uc_s32 = len(df[df["use_case"] == "uc_s32"])
-    return total, uc_s1, uc_s2, uc_s31, uc_s32
+    uc_s4 = len([x for x in df["uc4"] if x != ""])
+    uc_s51 = len([x for x in df["uc5"] if x == "uc_s5.1"])
+    uc_s52 = len([x for x in df["uc5"] if x == "uc_s5.2"])
+    uc_s53 = len([x for x in df["uc5"] if x == "uc_s5.3"])
+    return total, uc_s1, uc_s2, uc_s31, uc_s32, uc_s4, uc_s51, uc_s52, uc_s53
 
 
 def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
@@ -761,6 +799,8 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
         "uc_s2": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
         "uc_s31": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
         "uc_s32": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
+        "uc_s4": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
+        "uc_s5": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
         "other": {"thank": 0, "shipping_order": 0, "handover_to_inbox": 0, "silence": 0, "other": 0},
     }
 
@@ -770,8 +810,15 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     for id in conversation_id:
         sub_df = df[df["conversation_id"] == id]
         use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))
+        use_case_4 = list(filter(lambda x: x != "", list(sub_df["uc4"])))
+        use_case_5 = list(filter(lambda x: x != "", list(sub_df["uc5"])))
+
         if len(use_case) > 0:
             use_case = use_case[0]
+        elif len(use_case_4) > 0:
+            use_case = "uc_s4"
+        elif len(use_case_5) > 0:
+            use_case = "uc_s5"
         else:
             use_case = "other"
         try:
@@ -781,6 +828,7 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
             uc_outcome[use_case][outcome] += 1
         except:
             a = 0
+
     return uc_outcome
 
 
@@ -802,8 +850,8 @@ def get_conversation_each_outcome(df: pd.DataFrame):
     other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
     # agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
 
-    return thank_df, shipping_order_df, handover_df, silence_df, other_df,\
-           # agree_df
+    return thank_df, shipping_order_df, handover_df, silence_df, other_df, \
+        # agree_df
 
 
 def get_conversation_each_usecase(df: pd.DataFrame):
@@ -816,13 +864,19 @@ def get_conversation_each_usecase(df: pd.DataFrame):
     uc2_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s2"]["conversation_id"]))][column_list]
     uc31_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s31"]["conversation_id"]))][column_list]
     uc32_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s32"]["conversation_id"]))][column_list]
+    uc4_df = df[df["conversation_id"].isin(list(df[df["uc4"] != ""]["conversation_id"]))][column_list]
+    uc5_df = df[df["conversation_id"].isin(list(df[df["uc5"] != ""]["conversation_id"]))][column_list]
 
-    noticable_usecase_conversation_id = uc1_df["conversation_id"].drop_duplicates().to_list() + uc2_df["conversation_id"].drop_duplicates().to_list()\
-                                        + uc31_df["conversation_id"].drop_duplicates().to_list() + uc32_df["conversation_id"].drop_duplicates().to_list()
+    noticable_usecase_conversation_id = uc1_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc2_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc31_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc32_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc4_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc5_df["conversation_id"].drop_duplicates().to_list()
 
     other_usecase_df = df[~df["conversation_id"].isin(noticable_usecase_conversation_id)][column_list]
 
-    return uc1_df, uc2_df, uc31_df, uc32_df, other_usecase_df
+    return uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df
 
 
 @app.callback(
@@ -924,6 +978,8 @@ def handle_df(is_click, start_date, end_date):
         Output('outcome-uc2-pie', 'children'),
         Output('outcome-uc31-pie', 'children'),
         Output('outcome-uc32-pie', 'children'),
+        Output('outcome-uc4-pie', 'children'),
+        Output('outcome-uc5-pie', 'children'),
         Output('thank-table', 'children'),
         Output('shipping-table', 'children'),
         Output('handover-table', 'children'),
@@ -934,6 +990,8 @@ def handle_df(is_click, start_date, end_date):
         Output('uc-s2', 'children'),
         Output('uc-s31', 'children'),
         Output('uc-s32', 'children'),
+        Output('uc-s4', 'children'),
+        Output('uc-s5', 'children'),
         Output('other-usecase-df', 'children'),
         Output(component_id='loading-div', component_property='style'),
         Output(component_id='loading-div-2', component_property='style'),
@@ -959,21 +1017,29 @@ def update_output(df, loading1, loading2):
         df = pd.read_json(df, orient="split")
         no_conversations = str(len(df["conversation_id"].drop_duplicates(keep='first')))
         no_customers = str(len(df["sender_id"].drop_duplicates(keep='first')))
-        total, uc1, uc2, uc31, uc32 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
-        uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome", "turn"]])
+        total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53 = get_number_of_each_uc(
+            df[["conversation_id", "use_case", "uc4", "uc5"]])
+        uc_outcome = get_number_of_each_outcome_each_uc(
+            df[["conversation_id", "use_case", "outcome", "turn", "uc4", "uc5"]])
 
-        uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32)
-        uc_proportion_bar_chart = create_trace_uc_propotion_bar_chart(total, uc1, uc2, uc31, uc32)
+        uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52,
+                                                                    uc_s53)
+        uc_proportion_bar_chart = create_trace_uc_propotion_bar_chart(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51,
+                                                                      uc_s52, uc_s53)
 
-        outcome_proportion_in_conversations, number_of_each_outcome = create_trace_outcome_proportion_in_all_conversation(uc_outcome)
+        outcome_proportion_in_conversations, number_of_each_outcome = create_trace_outcome_proportion_in_all_conversation(
+            uc_outcome)
         outcome_proportion_bar_chart = create_trace_outcome_proportion_bar_chart(number_of_each_outcome)
 
-        success_proportion_in_conversations, success_rate = create_trace_success_proportion_in_all_conversations(number_of_each_outcome)
+        success_proportion_in_conversations, success_rate = create_trace_success_proportion_in_all_conversations(
+            number_of_each_outcome)
 
         outcome_uc1_pie = create_trace_outcome_uc(uc_outcome, "uc_s1", "UC S1", "Outcomes of UC-S1")
         outcome_uc2_pie = create_trace_outcome_uc(uc_outcome, "uc_s2", "UC S2", "Outcomes of UC-S2")
         outcome_uc31_pie = create_trace_outcome_uc(uc_outcome, "uc_s31", "UC S31", "Outcomes of UC-S31")
         outcome_uc32_pie = create_trace_outcome_uc(uc_outcome, "uc_s32", "UC S32", "Outcomes of UC-S32")
+        outcome_uc_s4_pie = create_trace_outcome_uc(uc_outcome, "uc_s4", "UC S4", "Outcomes of UC-S4")
+        outcome_uc_s5_pie = create_trace_outcome_uc(uc_outcome, "uc_s5", "UC S5", "Outcomes of UC-S5")
 
         thank_df, shipping_order_df, handover_df, silence_df, other_df = get_conversation_each_outcome(df[[
             "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
@@ -985,13 +1051,15 @@ def update_output(df, loading1, loading2):
         other_df = generate_table(other_df)
         # agree_df = generate_table(agree_df)
 
-        uc1_df, uc2_df, uc31_df, uc32_df, other_usecase_df = get_conversation_each_usecase(
-            df[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
+        uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df = get_conversation_each_usecase(
+            df[["conversation_id", "use_case","uc4","uc5", "outcome", "sender_id", "user_message",
                 "bot_message", "created_time", "intent", "entities"]])
         uc1_df = generate_table(uc1_df)
         uc2_df = generate_table(uc2_df)
         uc31_df = generate_table(uc31_df)
         uc32_df = generate_table(uc32_df)
+        uc4_df = generate_table(uc4_df)
+        uc5_df = generate_table(uc5_df)
         other_usecase_df = generate_table(other_usecase_df)
 
         loading_1_display = ""
@@ -1007,16 +1075,18 @@ def update_output(df, loading1, loading2):
         no_customers = "Number of users: " + no_customers
         success_rate = "Success rate: " + success_rate
         return success_proportion_in_conversations, no_conversations, no_customers, success_rate, \
-               uc_proportion_bar_chart, uc_proportion_in_month, outcome_proportion_bar_chart, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, \
-               thank_df, shipping_order_df, handover_df, silence_df, other_df, uc1_df, uc2_df, uc31_df, uc32_df, other_usecase_df, \
+               uc_proportion_bar_chart, uc_proportion_in_month, outcome_proportion_bar_chart, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, outcome_uc_s4_pie, outcome_uc_s5_pie, \
+               thank_df, shipping_order_df, handover_df, silence_df, other_df, uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df, \
                loading_1_display, loading_2_display, \
-               {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
+               {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {
+                   'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
     else:
         return "", "", "", "", \
-               "", "", "", "", "", "", "", "", \
-               "", "", "", "", "", "", "", "", "", "",\
+               "", "", "", "", "", "", "", "", "", "", \
+               "", "", "", "", "", "", "", "", "", "", "", "", \
                {'display': loading1["display"]}, {'display': loading2["display"]}, \
-               {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
+               {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {
+                   'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
 
 if __name__ == '__main__':
