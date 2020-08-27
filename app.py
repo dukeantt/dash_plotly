@@ -625,7 +625,7 @@ def generate_table(df: pd.DataFrame):
                         info_dict["outcome"].remove('')
                     info_dict["outcome"].append(row.outcome)
 
-            if bot_counter > 1:
+            if bot_counter > 1 or counter == 1:
                 info_dict["conversation_id"].append(row.conversation_id)
                 info_dict["user_message"].append(np.NaN)
                 info_dict["created_time"].append("")
