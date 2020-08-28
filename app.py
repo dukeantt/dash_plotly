@@ -439,15 +439,19 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
     outcome_uc2 = uc_outcome["uc_s2"]
     outcome_uc31 = uc_outcome["uc_s31"]
     outcome_uc32 = uc_outcome["uc_s32"]
+    outcome_uc4 = uc_outcome["uc_s4"]
+    outcome_uc5 = uc_outcome["uc_s5"]
     outcome_other = uc_outcome["other"]
 
     uc_s1_values = [value for index, value in outcome_uc1.items()]
     uc_s2_values = [value for index, value in outcome_uc2.items()]
     uc_s31_values = [value for index, value in outcome_uc31.items()]
     uc_s32_values = [value for index, value in outcome_uc32.items()]
+    uc_s4_values = [value for index, value in outcome_uc4.items()]
+    uc_s5_values = [value for index, value in outcome_uc5.items()]
     uc_other_values = [value for index, value in outcome_other.items()]
 
-    values = [sum(x) for x in zip(uc_s1_values, uc_s2_values, uc_s31_values, uc_s32_values, uc_other_values)]
+    values = [sum(x) for x in zip(uc_s1_values, uc_s2_values, uc_s31_values, uc_s32_values,uc_s4_values,uc_s5_values, uc_other_values)]
     trace = go.Pie(
         labels=['Thanks', 'Shipping', 'Handover', "Silence", "Other"],
         values=values,
@@ -1061,19 +1065,16 @@ def update_output(df, loading1, loading2):
         no_conversations = str(len(df["conversation_id"].drop_duplicates(keep='first')))
         no_customers = str(len(df["sender_id"].drop_duplicates(keep='first')))
         total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
+
         uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome", "turn"]])
 
-        uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52,
-                                                                    uc_s53)
-        uc_proportion_bar_chart = create_trace_uc_propotion_bar_chart(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51,
-                                                                      uc_s52, uc_s53)
+        uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53)
+        uc_proportion_bar_chart = create_trace_uc_propotion_bar_chart(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53)
 
-        outcome_proportion_in_conversations, number_of_each_outcome = create_trace_outcome_proportion_in_all_conversation(
-            uc_outcome)
+        outcome_proportion_in_conversations, number_of_each_outcome = create_trace_outcome_proportion_in_all_conversation(uc_outcome)
         outcome_proportion_bar_chart = create_trace_outcome_proportion_bar_chart(number_of_each_outcome)
 
-        success_proportion_in_conversations, success_rate = create_trace_success_proportion_in_all_conversations(
-            number_of_each_outcome)
+        success_proportion_in_conversations, success_rate = create_trace_success_proportion_in_all_conversations(number_of_each_outcome)
 
         outcome_uc1_pie = create_trace_outcome_uc(uc_outcome, "uc_s1", "UC S1", "Outcomes of UC-S1")
         outcome_uc2_pie = create_trace_outcome_uc(uc_outcome, "uc_s2", "UC S2", "Outcomes of UC-S2")
@@ -1090,7 +1091,6 @@ def update_output(df, loading1, loading2):
         handover_df = generate_table(handover_df)
         silence_df = generate_table(silence_df)
         other_df = generate_table(other_df)
-        # agree_df = generate_table(agree_df)
 
         uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df = get_conversation_each_usecase(df[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
                 "bot_message", "created_time", "intent", "entities"]])
