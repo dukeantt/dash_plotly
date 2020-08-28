@@ -284,8 +284,8 @@ def get_chatlog_from_db(from_date, to_date):
             {'week_day': {'$gte': 0, '$lte': 4}},
         ]
     })])
-
-    chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date", "week_day"])
+    if len(chatlog_df) > 0:
+        chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date", "week_day"])
     return chatlog_df
 
 

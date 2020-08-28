@@ -590,76 +590,166 @@ def parse_contents(contents, filename, date):
     return df
 
 
+def reformat_df_output_for_table(df: pd.DataFrame):
+    sub_df_list = []
+    conversation_ids = df["conversation_id"].drop_duplicates().to_list()
+    for conversation_id in conversation_ids:
+        info_dict = {x: [] for x in list(df.columns)}
+        info_dict.pop('turn', None)
+        info_dict.pop('message_id', None)
+        info_dict.pop('sender', None)
+        info_dict.pop('attachments', None)
+        user_counter = 0
+        bot_counter = 0
+        counter = 0
+        conversation_outcome = []
+
+        sub_df = df[df["conversation_id"] == conversation_id]
+        sub_df["user_message"] = sub_df["user_message"].astype(str)
+        sub_df["bot_message"] = sub_df["bot_message"].astype(str)
+        sub_df = sub_df[(sub_df['user_message'] != sub_df['bot_message'])]
+        try:
+            conversation_uc = [x for x in sub_df["use_case"].drop_duplicates().to_list() if x != ''][0]
+        except:
+            conversation_uc = ""
+        if "outcome" in sub_df:
+            conversation_outcome = [x for x in sub_df["outcome"].drop_duplicates().to_list() if x != '']
+            if conversation_outcome:
+                conversation_outcome = conversation_outcome[0]
+            else:
+                conversation_outcome = ""
+
+        sender_id = df[df["conversation_id"] == conversation_id]["sender_id"].drop_duplicates().to_list()[0]
+        for row in sub_df.itertuples():
+            counter += 1
+            user_message = row.user_message
+            bot_message = row.bot_message
+            if user_message is None or user_message == "None":
+                user_message = np.NaN
+            if bot_message is None or bot_message == "None":
+                bot_message = np.NaN
+            if str(user_message) == str(bot_message) == "nan":
+                continue
+            if str(user_message) != "nan" and str(bot_message) == "nan":
+                bot_counter = 0
+                user_counter += 1
+
+                info_dict["user_message"].append(user_message)
+                info_dict["intent"].append(row.intent)
+                info_dict["entities"].append(row.entities)
+                info_dict["created_time"].append(row.created_time)
+
+                if user_counter > 1:
+                    info_dict["bot_message"].append(np.NaN)
+                    info_dict["created_time_bot"].append("")
+
+                if counter == len(sub_df):
+                    info_dict["bot_message"].append(np.NaN)
+                    info_dict["created_time_bot"].append("")
+
+            elif str(user_message) == "nan" and str(bot_message) != "nan":
+                bot_counter += 1
+                user_counter = 0
+
+                info_dict["bot_message"].append(bot_message)
+                info_dict["created_time_bot"].append(row.created_time)
+
+                if bot_counter > 1 or counter == 1:
+                    info_dict["user_message"].append(np.NaN)
+                    info_dict["created_time"].append("")
+                    info_dict["intent"].append("")
+                    info_dict["entities"].append("")
+            a = 0
+        dict_len = len(info_dict["user_message"])
+        info_dict["conversation_id"] += [conversation_id] * dict_len
+        info_dict["sender_id"] += [sender_id] * dict_len
+        info_dict["use_case"].append(conversation_uc)
+        info_dict["use_case"] += [""] * (dict_len - 1)
+        if "outcome" in sub_df:
+            info_dict["outcome"].append(conversation_outcome)
+            info_dict["outcome"] += [""] * (dict_len - 1)
+
+        new_sub_df = pd.DataFrame.from_dict(info_dict)
+
+        sub_df_list.append(new_sub_df)
+    if sub_df_list:
+        new_df = pd.concat(sub_df_list)
+        return new_df
+    return df
+
+
 def generate_table(df: pd.DataFrame):
     logger.info("Generate table")
 
     df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
-    info_dict = {x: [] for x in list(df.columns)}
-    info_dict.pop('turn', None)
-    info_dict.pop('message_id', None)
-    info_dict.pop('sender', None)
-    info_dict.pop('attachments', None)
+    df = reformat_df_output_for_table(df)
 
-    user_counter = 0
-    bot_counter = 0
-    counter = 0
-    for row in df.itertuples():
-        counter += 1
-        user_message = row.user_message
-        bot_message = row.bot_message
-        if user_message is None or user_message == "None":
-            user_message = np.NaN
-        if bot_message is None or bot_message == "None":
-            bot_message = np.NaN
-        # if user_message == "user":
-        if str(user_message) == "nan":
-            user_counter = 0
-            bot_counter += 1
-            info_dict["bot_message"].append(bot_message)
-            info_dict["created_time_bot"].append(row.created_time)
-            use_case = row.use_case
-            if "outcome" in info_dict:
-                outcome = row.outcome
-                if outcome != '':
-                    if bot_counter <= 1 and '' in info_dict["outcome"]:
-                        info_dict["outcome"].remove('')
-                    info_dict["outcome"].append(row.outcome)
-
-            if bot_counter > 1 or counter == 1:
-                info_dict["conversation_id"].append(row.conversation_id)
-                info_dict["user_message"].append(np.NaN)
-                info_dict["created_time"].append("")
-                info_dict["intent"].append("")
-                info_dict["entities"].append("")
-                if "outcome" in info_dict and row.outcome == '':
-                    info_dict["outcome"].append(row.outcome)
-
-                info_dict["use_case"].append(use_case)
-                info_dict["sender_id"].append(row.sender_id)
-
-        # elif user_message != "user":
-        elif str(user_message) != "nan":
-            user_counter += 1
-            bot_counter = 0
-            info_dict["conversation_id"].append(row.conversation_id)
-            info_dict["user_message"].append(user_message)
-            info_dict["created_time"].append(row.created_time)
-            info_dict["intent"].append(row.intent)
-            info_dict["entities"].append(row.entities)
-            info_dict["use_case"].append(row.use_case)
-            info_dict["sender_id"].append(row.sender_id)
-            if "outcome" in info_dict:
-                info_dict["outcome"].append(row.outcome)
-
-            if user_counter > 1 or counter == len(df):
-                info_dict["bot_message"].append(np.NaN)
-                info_dict["created_time_bot"].append("")
-
-            if counter == len(df) and user_counter > 1:
-                info_dict["bot_message"].append(np.NaN)
-                info_dict["created_time_bot"].append("")
-
-    df = pd.DataFrame.from_dict(info_dict)
+    # info_dict = {x: [] for x in list(df.columns)}
+    # info_dict.pop('turn', None)
+    # info_dict.pop('message_id', None)
+    # info_dict.pop('sender', None)
+    # info_dict.pop('attachments', None)
+    #
+    # user_counter = 0
+    # bot_counter = 0
+    # counter = 0
+    # for row in df.itertuples():
+    #     counter += 1
+    #     user_message = row.user_message
+    #     bot_message = row.bot_message
+    #     if user_message is None or user_message == "None":
+    #         user_message = np.NaN
+    #     if bot_message is None or bot_message == "None":
+    #         bot_message = np.NaN
+    #     # if user_message == "user":
+    #     if str(user_message) == "nan":
+    #         user_counter = 0
+    #         bot_counter += 1
+    #         info_dict["bot_message"].append(bot_message)
+    #         info_dict["created_time_bot"].append(row.created_time)
+    #         use_case = row.use_case
+    #         if "outcome" in info_dict:
+    #             outcome = row.outcome
+    #             if outcome != '':
+    #                 if bot_counter <= 1 and '' in info_dict["outcome"]:
+    #                     info_dict["outcome"].remove('')
+    #                 info_dict["outcome"].append(row.outcome)
+    #
+    #         if bot_counter > 1 or counter == 1:
+    #             info_dict["conversation_id"].append(row.conversation_id)
+    #             info_dict["user_message"].append(np.NaN)
+    #             info_dict["created_time"].append("")
+    #             info_dict["intent"].append("")
+    #             info_dict["entities"].append("")
+    #             if "outcome" in info_dict and row.outcome == '':
+    #                 info_dict["outcome"].append(row.outcome)
+    #
+    #             info_dict["use_case"].append(use_case)
+    #             info_dict["sender_id"].append(row.sender_id)
+    #
+    #     # elif user_message != "user":
+    #     elif str(user_message) != "nan":
+    #         user_counter += 1
+    #         bot_counter = 0
+    #         info_dict["conversation_id"].append(row.conversation_id)
+    #         info_dict["user_message"].append(user_message)
+    #         info_dict["created_time"].append(row.created_time)
+    #         info_dict["intent"].append(row.intent)
+    #         info_dict["entities"].append(row.entities)
+    #         info_dict["use_case"].append(row.use_case)
+    #         info_dict["sender_id"].append(row.sender_id)
+    #         if "outcome" in info_dict:
+    #             info_dict["outcome"].append(row.outcome)
+    #
+    #         if user_counter > 1 or counter == len(df):
+    #             info_dict["bot_message"].append(np.NaN)
+    #             info_dict["created_time_bot"].append("")
+    #
+    #         if counter == len(df) and user_counter > 1:
+    #             info_dict["bot_message"].append(np.NaN)
+    #             info_dict["created_time_bot"].append("")
+    #
+    # df = pd.DataFrame.from_dict(info_dict)
     df = df[df["sender_id"] != 3547113778635846]
     df = df.dropna(subset=["user_message", "bot_message"], how="all")
     col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message']
@@ -959,6 +1049,8 @@ def handle_df(is_click, start_date, end_date):
         df = get_chatlog_from_db(from_date=start_date, to_date=end_date)
         # processor = RasaChalogProcessor()
         # df = processor.process_rasa_chatlog("06", "abc", df)
+        if len(df) == 0:
+            return None
         return df.to_json(date_format='iso', orient='split')
     else:
         return None
@@ -1052,7 +1144,7 @@ def update_output(df, loading1, loading2):
         # agree_df = generate_table(agree_df)
 
         uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df = get_conversation_each_usecase(
-            df[["conversation_id", "use_case","uc4","uc5", "outcome", "sender_id", "user_message",
+            df[["conversation_id", "use_case", "uc4", "uc5", "outcome", "sender_id", "user_message",
                 "bot_message", "created_time", "intent", "entities"]])
         uc1_df = generate_table(uc1_df)
         uc2_df = generate_table(uc2_df)
@@ -1081,10 +1173,18 @@ def update_output(df, loading1, loading2):
                {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {
                    'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
     else:
+        loading_1_display = ""
+        loading_2_display = ""
+        if loading1["display"] == "none":
+            loading_1_display = {'display': 'block'}
+            loading_2_display = {'display': 'none'}
+        elif loading2["display"] == "none":
+            loading_1_display = {'display': 'none'}
+            loading_2_display = {'display': 'block'}
         return "", "", "", "", \
                "", "", "", "", "", "", "", "", "", "", \
                "", "", "", "", "", "", "", "", "", "", "", "", \
-               {'display': loading1["display"]}, {'display': loading2["display"]}, \
+               loading_1_display, loading_2_display, \
                {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {
                    'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
