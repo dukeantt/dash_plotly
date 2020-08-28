@@ -621,7 +621,7 @@ def generate_table(df: pd.DataFrame):
             if "outcome" in info_dict:
                 outcome = row.outcome
                 if outcome != '':
-                    if bot_counter <= 1:
+                    if bot_counter <= 1 and '' in info_dict["outcome"]:
                         info_dict["outcome"].remove('')
                     info_dict["outcome"].append(row.outcome)
 
