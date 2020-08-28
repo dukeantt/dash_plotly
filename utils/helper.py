@@ -16,7 +16,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
+db_name = "rasa_chatlog_all_28_8"
 
 def get_all_conv():
     with open('../data/rasa_chatlog/raw_data/all_conv.pkl', 'rb') as f:
@@ -263,7 +263,7 @@ def crawl_rasa_chatlog():
 def get_chatlog_from_db(from_date, to_date):
     client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
     db = client['chatlog_db']
-    collection = db['rasa_chatlog_all_26_8']
+    collection = db[db_name]
     start = datetime.datetime.strptime(from_date, "%Y-%m-%d")
     end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
 

@@ -659,7 +659,7 @@ def reformat_df_output_for_table(df: pd.DataFrame):
                     info_dict["created_time"].append("")
                     info_dict["intent"].append("")
                     info_dict["entities"].append("")
-            a = 0
+
         dict_len = len(info_dict["user_message"])
         info_dict["conversation_id"] += [conversation_id] * dict_len
         info_dict["sender_id"] += [sender_id] * dict_len
@@ -873,10 +873,18 @@ def get_number_of_each_uc(df: pd.DataFrame):
     uc_s2 = len(df[df["use_case"] == "uc_s2"])
     uc_s31 = len(df[df["use_case"] == "uc_s31"])
     uc_s32 = len(df[df["use_case"] == "uc_s32"])
-    uc_s4 = len([x for x in df["uc4"] if x != ""])
-    uc_s51 = len([x for x in df["uc5"] if x == "uc_s5.1"])
-    uc_s52 = len([x for x in df["uc5"] if x == "uc_s5.2"])
-    uc_s53 = len([x for x in df["uc5"] if x == "uc_s5.3"])
+    uc_s41 = len(df[df["use_case"] == "uc_s4.1"])
+    uc_s42 = len(df[df["use_case"] == "uc_s4.2"])
+    uc_s43 = len(df[df["use_case"] == "uc_s4.3"])
+    uc_s51 = len(df[df["use_case"] == "uc_s5.1"])
+    uc_s52 = len(df[df["use_case"] == "uc_s5.2"])
+    uc_s53 = len(df[df["use_case"] == "uc_s5.3"])
+
+    uc_s4 = uc_s41 + uc_s42 + uc_s43
+    # uc_s4 = len([x for x in df["uc4"] if x != ""])
+    # uc_s51 = len([x for x in df["uc5"] if x == "uc_s5.1"])
+    # uc_s52 = len([x for x in df["uc5"] if x == "uc_s5.2"])
+    # uc_s53 = len([x for x in df["uc5"] if x == "uc_s5.3"])
     return total, uc_s1, uc_s2, uc_s31, uc_s32, uc_s4, uc_s51, uc_s52, uc_s53
 
 
@@ -900,18 +908,22 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     for id in conversation_id:
         sub_df = df[df["conversation_id"] == id]
         use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))
-        use_case_4 = list(filter(lambda x: x != "", list(sub_df["uc4"])))
-        use_case_5 = list(filter(lambda x: x != "", list(sub_df["uc5"])))
+        # use_case_4 = list(filter(lambda x: x != "", list(sub_df["uc4"])))
+        # use_case_5 = list(filter(lambda x: x != "", list(sub_df["uc5"])))
 
         if len(use_case) > 0:
             use_case = use_case[0]
-        elif len(use_case_4) > 0:
-            use_case = "uc_s4"
-        elif len(use_case_5) > 0:
-            use_case = "uc_s5"
+        # elif len(use_case_4) > 0:
+        #     use_case = "uc_s4"
+        # elif len(use_case_5) > 0:
+        #     use_case = "uc_s5"
         else:
             use_case = "other"
         try:
+            if use_case in ["uc_s4.1", "uc_s4.2", "uc_s4.3"]:
+                use_case = "uc_s4"
+            if use_case in ["uc_s5.1", "uc_s5.2", "uc_s5.3"]:
+                use_case = "uc_s5"
             outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
             # if outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
             #     continue
@@ -954,8 +966,8 @@ def get_conversation_each_usecase(df: pd.DataFrame):
     uc2_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s2"]["conversation_id"]))][column_list]
     uc31_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s31"]["conversation_id"]))][column_list]
     uc32_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s32"]["conversation_id"]))][column_list]
-    uc4_df = df[df["conversation_id"].isin(list(df[df["uc4"] != ""]["conversation_id"]))][column_list]
-    uc5_df = df[df["conversation_id"].isin(list(df[df["uc5"] != ""]["conversation_id"]))][column_list]
+    uc4_df = df[df["conversation_id"].isin(list(df[df["use_case"].isin(["uc_s4.1", "uc_s4.2", "uc_s4.3"])]["conversation_id"]))][column_list]
+    uc5_df = df[df["conversation_id"].isin(list(df[df["use_case"].isin(["uc_s5.1", "uc_s5.2", "uc_s5.3"])]["conversation_id"]))][column_list]
 
     noticable_usecase_conversation_id = uc1_df["conversation_id"].drop_duplicates().to_list() \
                                         + uc2_df["conversation_id"].drop_duplicates().to_list() \
@@ -1109,10 +1121,8 @@ def update_output(df, loading1, loading2):
         df = pd.read_json(df, orient="split")
         no_conversations = str(len(df["conversation_id"].drop_duplicates(keep='first')))
         no_customers = str(len(df["sender_id"].drop_duplicates(keep='first')))
-        total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53 = get_number_of_each_uc(
-            df[["conversation_id", "use_case", "uc4", "uc5"]])
-        uc_outcome = get_number_of_each_outcome_each_uc(
-            df[["conversation_id", "use_case", "outcome", "turn", "uc4", "uc5"]])
+        total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
+        uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome", "turn"]])
 
         uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52,
                                                                     uc_s53)
@@ -1143,8 +1153,7 @@ def update_output(df, loading1, loading2):
         other_df = generate_table(other_df)
         # agree_df = generate_table(agree_df)
 
-        uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df = get_conversation_each_usecase(
-            df[["conversation_id", "use_case", "uc4", "uc5", "outcome", "sender_id", "user_message",
+        uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df = get_conversation_each_usecase(df[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
                 "bot_message", "created_time", "intent", "entities"]])
         uc1_df = generate_table(uc1_df)
         uc2_df = generate_table(uc2_df)
