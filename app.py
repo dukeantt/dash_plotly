@@ -188,6 +188,7 @@ app.layout = html.Div(
 
         dcc.Tabs(
             id="tab_parent",
+            style={"width":"1783px"},
             value="shipping",
             children=[
                 dcc.Tab(id="thank", label='Thank', value="thank", style=tab_style, selected_style=tab_selected_style,
@@ -259,6 +260,7 @@ app.layout = html.Div(
 
         dcc.Tabs(
             id="uc_tab_parent",
+            style={"width":"1785px"},
             value="uc_s1",
             children=[
                 dcc.Tab(id="uc_s1", label='UC_S1', value="uc_s1", style=tab_style, selected_style=tab_selected_style,
@@ -538,8 +540,20 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
         className="six columns chart_div pretty_container",
         children=[
             dcc.Graph(
-                figure={"data": [trace]},
-                style={"height": "90%", "width": "98%"},
+                figure={
+                    "data": [trace],
+                    'layout': {
+                        'legend': {
+                            'orientation': "v",
+                            'yanchor': "top",
+                            'y': 0.99,
+                            'xanchor': "right",
+                            'x': 0.89,
+                        },
+
+                    }
+                },
+                style={"height": "90%", "width": "100%"},
                 config=dict(displayModeBar=False),
             ),
         ],
