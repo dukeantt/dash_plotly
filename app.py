@@ -7,6 +7,7 @@ from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
 from datetime import datetime as dt
+from datetime import date, timedelta
 import dash_table
 
 import pandas as pd
@@ -37,7 +38,14 @@ app = dash.Dash(__name__,  # external_stylesheets=external_stylesheets
                 )
 server = app.server
 PAGE_SIZE = 10
-
+today = date.today()
+four_day_before = today - timedelta(4)
+date_start = int(str(four_day_before)[8:10])
+date_end = int(str(today)[8:10])
+month_start = int(str(four_day_before)[5:7])
+month_end = int(str(today)[5:7])
+year_start = int(str(four_day_before)[0:4])
+year_end = int(str(today)[0:4])
 tabs_styles = {
     'height': '44px'
 }
@@ -101,9 +109,9 @@ app.layout = html.Div(
                     id='my-date-picker-range',
                     min_date_allowed=dt(2020, 1, 1),
                     max_date_allowed=dt(2020, 12, 31),
-                    initial_visible_month=dt(2020, 7, 1),
-                    start_date=dt(2020, 8, 10).date(),
-                    end_date=dt(2020, 8, 14).date()
+                    # initial_visible_month=dt(2020, 7, 1),
+                    start_date=dt(year_start, month_start, date_start).date(),
+                    end_date=dt(year_end, month_end, date_end).date()
                 ),
                 html.Button('Run', id='run-analytics'),
             ]
@@ -684,72 +692,6 @@ def generate_table(df: pd.DataFrame):
     df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
     df = reformat_df_output_for_table(df)
 
-    # info_dict = {x: [] for x in list(df.columns)}
-    # info_dict.pop('turn', None)
-    # info_dict.pop('message_id', None)
-    # info_dict.pop('sender', None)
-    # info_dict.pop('attachments', None)
-    #
-    # user_counter = 0
-    # bot_counter = 0
-    # counter = 0
-    # for row in df.itertuples():
-    #     counter += 1
-    #     user_message = row.user_message
-    #     bot_message = row.bot_message
-    #     if user_message is None or user_message == "None":
-    #         user_message = np.NaN
-    #     if bot_message is None or bot_message == "None":
-    #         bot_message = np.NaN
-    #     # if user_message == "user":
-    #     if str(user_message) == "nan":
-    #         user_counter = 0
-    #         bot_counter += 1
-    #         info_dict["bot_message"].append(bot_message)
-    #         info_dict["created_time_bot"].append(row.created_time)
-    #         use_case = row.use_case
-    #         if "outcome" in info_dict:
-    #             outcome = row.outcome
-    #             if outcome != '':
-    #                 if bot_counter <= 1 and '' in info_dict["outcome"]:
-    #                     info_dict["outcome"].remove('')
-    #                 info_dict["outcome"].append(row.outcome)
-    #
-    #         if bot_counter > 1 or counter == 1:
-    #             info_dict["conversation_id"].append(row.conversation_id)
-    #             info_dict["user_message"].append(np.NaN)
-    #             info_dict["created_time"].append("")
-    #             info_dict["intent"].append("")
-    #             info_dict["entities"].append("")
-    #             if "outcome" in info_dict and row.outcome == '':
-    #                 info_dict["outcome"].append(row.outcome)
-    #
-    #             info_dict["use_case"].append(use_case)
-    #             info_dict["sender_id"].append(row.sender_id)
-    #
-    #     # elif user_message != "user":
-    #     elif str(user_message) != "nan":
-    #         user_counter += 1
-    #         bot_counter = 0
-    #         info_dict["conversation_id"].append(row.conversation_id)
-    #         info_dict["user_message"].append(user_message)
-    #         info_dict["created_time"].append(row.created_time)
-    #         info_dict["intent"].append(row.intent)
-    #         info_dict["entities"].append(row.entities)
-    #         info_dict["use_case"].append(row.use_case)
-    #         info_dict["sender_id"].append(row.sender_id)
-    #         if "outcome" in info_dict:
-    #             info_dict["outcome"].append(row.outcome)
-    #
-    #         if user_counter > 1 or counter == len(df):
-    #             info_dict["bot_message"].append(np.NaN)
-    #             info_dict["created_time_bot"].append("")
-    #
-    #         if counter == len(df) and user_counter > 1:
-    #             info_dict["bot_message"].append(np.NaN)
-    #             info_dict["created_time_bot"].append("")
-    #
-    # df = pd.DataFrame.from_dict(info_dict)
     df = df[df["sender_id"] != 3547113778635846]
     df = df.dropna(subset=["user_message", "bot_message"], how="all")
     col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message']
@@ -881,10 +823,7 @@ def get_number_of_each_uc(df: pd.DataFrame):
     uc_s53 = len(df[df["use_case"] == "uc_s5.3"])
 
     uc_s4 = uc_s41 + uc_s42 + uc_s43
-    # uc_s4 = len([x for x in df["uc4"] if x != ""])
-    # uc_s51 = len([x for x in df["uc5"] if x == "uc_s5.1"])
-    # uc_s52 = len([x for x in df["uc5"] if x == "uc_s5.2"])
-    # uc_s53 = len([x for x in df["uc5"] if x == "uc_s5.3"])
+
     return total, uc_s1, uc_s2, uc_s31, uc_s32, uc_s4, uc_s51, uc_s52, uc_s53
 
 
