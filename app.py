@@ -650,9 +650,9 @@ def reformat_df_output_for_table(df: pd.DataFrame):
             counter += 1
             user_message = row.user_message
             bot_message = row.bot_message
-            if user_message is None or user_message == "None":
+            if user_message is None or user_message == "None" or user_message == "":
                 user_message = np.NaN
-            if bot_message is None or bot_message == "None":
+            if bot_message is None or bot_message == "None" or bot_message == "":
                 bot_message = np.NaN
             if str(user_message) == str(bot_message) == "nan":
                 continue
@@ -694,9 +694,10 @@ def reformat_df_output_for_table(df: pd.DataFrame):
         if "outcome" in sub_df:
             info_dict["outcome"].append(conversation_outcome)
             info_dict["outcome"] += [""] * (dict_len - 1)
-
-        new_sub_df = pd.DataFrame.from_dict(info_dict)
-
+        try:
+            new_sub_df = pd.DataFrame.from_dict(info_dict)
+        except:
+            a = 0
         sub_df_list.append(new_sub_df)
     if sub_df_list:
         new_df = pd.concat(sub_df_list)
