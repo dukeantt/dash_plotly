@@ -371,7 +371,7 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
     other = total - uc1 - uc2 - uc31 - uc32 - uc_s4 - uc_s51 - uc_s52 - uc_s53
     colors = ['mediumturquoise', 'darkorange', 'lightgreen']
     trace = go.Pie(
-        labels=['UC S1', 'UC S2', "UC S3.1", "UC S3.2", "UC S4", "UC S5.1", "UC S5.2", "UC S5.3", 'Other'],
+        labels=['UC S1', 'UC S2', "UC S3.1", "UC S3.2", "UC S4", "UC S5.1", "UC S5.2", "UC S5.3", 'Other' + " " * 20],
         values=[uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53, other],
         hoverinfo='label+percent',
         textinfo='label+percent',
@@ -467,7 +467,7 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
 
     values = [sum(x) for x in zip(uc_s1_values, uc_s2_values, uc_s31_values, uc_s32_values,uc_s4_values,uc_s5_values, uc_other_values)]
     trace = go.Pie(
-        labels=['Thanks', 'Shipping', 'Handover', "Silence", "Other"],
+        labels=['Thanks', 'Shipping', 'Handover', "Silence", 'Other' + " " * 20],
         values=values,
         direction="clockwise",
         sort=False,
@@ -584,7 +584,7 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
 
     outcome_uc = uc_outcome[key]
     values = [value for index, value in outcome_uc.items()]
-    labels = ['Thanks', 'Shipping', 'Handover', "Silence", "Other"]
+    labels = ['Thanks', 'Shipping', 'Handover', "Silence", 'Other' + " " * 20]
     trace_2 = go.Pie(
         labels=labels, values=values, scalegroup='one',
         name=name,
