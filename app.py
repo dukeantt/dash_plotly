@@ -116,7 +116,6 @@ app.layout = html.Div(
                 html.Button('Run', id='run-analytics'),
             ]
         ),
-
         html.Div(
             className="d-flex flex-wrap",
             style={
@@ -392,6 +391,19 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
                 figure={
                     "data": [trace],
                     'layout': {
+                        # 'legend': {
+                        #     'orientation': "v",
+                        #     'yanchor': "top",
+                        #     'y': 0.99,
+                        #     'xanchor': "left",
+                        #     'x': 0.01,
+                        #     'width': "500px",
+                        #     "font": {
+                        #         # 'family': "Courier",
+                        #         'size': 20,
+                        #         'color': "black",
+                        #     },
+                        # },
                         'height': "500",
                         'width': "592.07",
                     }
@@ -523,14 +535,14 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
     no_other = no_each_outcome[2] + no_each_outcome[3] + no_each_outcome[4]
     success_rate = str('{0:.2f}'.format((no_success * 100) / (no_other + no_success))) + "%"
     trace = go.Pie(
-        labels=['Successful', 'Other'],
+        labels=['Successful', 'Other' + " " * 20],
         values=[no_success, no_other],
         direction="clockwise",
         sort=False,
         # rotation=120,
         hoverinfo='label+value',
         textinfo='label+percent',
-        textfont_size=13,
+        textfont_size=11,
         marker=dict(
             colors=["#fe0000", "#4286f5"],
             line=dict(color='#f9f9f9', width=1)
@@ -543,13 +555,19 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
                 figure={
                     "data": [trace],
                     'layout': {
-                        'legend': {
-                            'orientation': "v",
-                            'yanchor': "top",
-                            'y': 0.99,
-                            'xanchor': "right",
-                            'x': 0.89,
-                        },
+                        # 'legend': {
+                        #     'orientation': "v",
+                        #     'yanchor': "top",
+                        #     'y': 0.99,
+                        #     'xanchor': "left",
+                        #     'x': 0.01,
+                        #     'width' : "500px",
+                        #     "font": {
+                        #         # 'family': "Courier",
+                        #         'size': 20,
+                        #         'color': "black",
+                        #     },
+                        # },
 
                     }
                 },
