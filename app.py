@@ -123,17 +123,52 @@ app.layout = html.Div(
             },
             children=[
                 html.Div(
-                    className="col-md-5 h-50 overall-text-info",
+                    className="col-md-6 h-50 overall-text-info",
+                    # className="overall-text-info",
                     style={"marginLeft": "118px"},
                     children=[
-                        html.P(id="no-conversations"),
-                        html.P(id="no-users"),
-                        html.P(id="success-rate"),
-                    ]
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    style={"backgroundColor": "#ffffff", "textAlign": "center"},
+                                    className="col-md-4 h-50",
+                                    children=[
+                                        html.Img(src="assets/conversation2.png"),
+                                        html.P("CONVERSATIONS"),
+                                        html.P(id="no-conversations"),
+                                    ]
+                                ),
+                                html.Div(
+                                    style={"backgroundColor": "#80c7e3", "textAlign": "center"},
+                                    className="col-md-4 h-50",
+                                    children=[
+                                        html.Img( src="assets/customer_icon2.png"),
+                                        html.P("USERS"),
+                                        html.P(id="no-users")
+                                    ]
+                                ),
+                                html.Div(
+                                    style={
+                                        "backgroundColor": "#af28ef",
+                                        "backgroundImage": "linear-gradient(#af28ef, #7876fe)",
+                                        "textAlign": "center",
+                                        "height": "294px"
+                                    },
+                                    className="col-md-4 h-50",
+                                    children=[
+                                        html.Img(src="assets/success_icon2.png"),
+                                        html.P("SUCCESS RATE"),
+                                        html.P(id="success-rate"),
+                                    ]
+                                ),
+                            ]
+                        )
+                    ],
                 ),
                 html.Div(
                     className="col-md-5 h-50",
-                    style={"marginLeft": "58px"},
+                    # style={"marginLeft": "58px"},
                     children=[
                         html.Div(id='success-proportion-in-conversations'),
                     ]
@@ -1144,9 +1179,9 @@ def update_output(df, loading1, loading2):
             loading_1_display = {'display': 'none'}
             loading_2_display = {'display': 'block'}
 
-        no_conversations = "Number of conversations: " + no_conversations
-        no_customers = "Number of users: " + no_customers
-        success_rate = "Success rate: " + success_rate
+        # no_conversations = "Number of conversations: " + no_conversations
+        # no_customers = "Number of users: " + no_customers
+        # success_rate = "Success rate: " + success_rate
         return success_proportion_in_conversations, no_conversations, no_customers, success_rate, \
                uc_proportion_bar_chart, uc_proportion_in_month, outcome_proportion_bar_chart, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, outcome_uc_s4_pie, outcome_uc_s5_pie, \
                thank_df, shipping_order_df, handover_df, silence_df, other_df, uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df, \
