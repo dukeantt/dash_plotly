@@ -320,21 +320,44 @@ app.layout = html.Div(
             style={"marginBottom": "60px"},
             children=[
                 html.Div(
-                    className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "118px"},
+                    className="col-md-6 outcome-uc-pie",
                     children=[
                         html.P(id="outcome-uc1-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S1"]),
-                        html.Div(id='outcome-uc1-pie'),
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc1-bar',
+                                ),
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc1-pie'
+                                ),
+                            ]
+                        ),
+
                     ]
                 ),
                 html.Div(
-                    className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "58px"},
+                    className="col-md-6 outcome-uc-pie",
                     children=[
                         html.P(id="outcome-uc2-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S2"]),
-                        html.Div(id='outcome-uc2-pie'),
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc2-bar'
+                                ),
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc2-pie',
+                                ),
+                            ]
+                        ),
                     ]
                 ),
             ]
@@ -343,21 +366,43 @@ app.layout = html.Div(
             className="d-flex flex-wrap",
             children=[
                 html.Div(
-                    className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "118px"},
+                    className="col-md-6 outcome-uc-pie",
                     children=[
                         html.P(id="outcome-uc31-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S3.1"]),
-                        html.Div(id='outcome-uc31-pie'),
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc31-bar'
+                                ),
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc31-pie'
+                                ),
+                            ]
+                        ),
                     ]
                 ),
                 html.Div(
-                    className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "58px"},
+                    className="col-md-6 outcome-uc-pie",
                     children=[
                         html.P(id="outcome-uc32-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S3.2"]),
-                        html.Div(id='outcome-uc32-pie'),
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc32-bar'
+                                ),
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc32-pie'
+                                ),
+                            ]
+                        ),
                     ]
                 ),
             ]
@@ -366,21 +411,43 @@ app.layout = html.Div(
             className="d-flex flex-wrap",
             children=[
                 html.Div(
-                    className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "118px"},
+                    className="col-md-6 h-50 outcome-uc-pie",
                     children=[
                         html.P(id="outcome-uc4-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S4"]),
-                        html.Div(id='outcome-uc4-pie'),
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc4-bar'
+                                ),
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc4-pie'
+                                ),
+                            ]
+                        ),
                     ]
                 ),
                 html.Div(
-                    className="col-md-5 h-50 outcome-uc-pie",
-                    style={"marginLeft": "58px"},
+                    className="col-md-6 outcome-uc-pie",
                     children=[
                         html.P(id="outcome-uc5-pie_title", className="outcome_uc_pie_title gradient-text",
                                children=["Outcome of UC-S5"]),
-                        html.Div(id='outcome-uc5-pie'),
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc5-bar',
+                                ),
+                                html.Div(
+                                    className="col-md-6",
+                                    id='outcome-uc5-pie',
+                                ),
+                            ]
+                        ),
                     ]
                 ),
             ]
@@ -445,8 +512,7 @@ def create_trace_uc_propotion_in_month(total: int, uc1: int, uc2: int, uc31: int
     return first_pie
 
 
-def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: int, uc32: int, uc_s4, uc_s51, uc_s52,
-                                        uc_s53):
+def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: int, uc32: int, uc_s4, uc_s51, uc_s52, uc_s53):
     other = total - uc1 - uc2 - uc31 - uc32 - uc_s4 - uc_s51 - uc_s52 - uc_s53
     y_value = [uc1, uc2, uc31, uc32, uc_s4, uc_s51 + uc_s52 + uc_s53, other]
     trace = go.Bar(
@@ -455,6 +521,7 @@ def create_trace_uc_propotion_bar_chart(total: int, uc1: int, uc2: int, uc31: in
         text=y_value,
         textposition='outside',
         texttemplate='%{text:.2s}',
+        marker_color='#4385f5',
     )
     bar_chart = html.Div(
         className="six columns chart_div pretty_container",
@@ -538,6 +605,7 @@ def create_trace_outcome_proportion_bar_chart(no_each_outcome: list):
         text=no_each_outcome,
         textposition='outside',
         texttemplate='%{text:.2s}',
+        marker_color='#4385f5',
     )
     bar_chart = html.Div(
         className="six columns chart_div pretty_container",
@@ -597,7 +665,6 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
                         #         'color': "black",
                         #     },
                         # },
-
                     }
                 },
                 style={"height": "90%", "width": "100%"},
@@ -622,18 +689,25 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
         # rotation=120,
         hoverinfo='label+value',
         textinfo='label+percent',
-        textfont_size=13,
+        textfont_size=10,
         marker=dict(
             colors=["#7b92d0", "#ea4235", "#34a853", "#fabd03", "#ff6d00"],
             line=dict(color='#f9f9f9', width=1)
         )
     )
     pie = html.Div(
-        className="six columns chart_div pretty_container",
+        # className="six columns chart_div pretty_container",
+        className="six columns chart_div",
         children=[
             # html.P(title),
             dcc.Graph(
-                figure={"data": [trace_2]},
+                figure={
+                    "data": [trace_2],
+                    'layout': {
+                        'height': "300",
+                        'width': "350",
+                    }
+                },
                 style={"height": "90%", "width": "98%"},
                 config=dict(displayModeBar=False),
             ),
@@ -641,6 +715,42 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
     ),
     return pie
 
+
+def create_trace_outcome_uc_bar_chart(uc_outcome: dict, key: str, name: str, title: str):
+    outcome_uc = uc_outcome[key]
+    values = [value for index, value in outcome_uc.items()]
+    trace = go.Bar(
+        x=['Thanks', 'Shipping', 'Handover', "Silence", "Other"],
+        y=values,
+        text=values,
+        textposition='inside',
+        texttemplate='%{text:.2s}',
+        marker_color='#4385f5',
+    )
+    bar_chart = html.Div(
+        # className="six columns chart_div pretty_container",
+        className="six columns chart_div",
+        children=[
+            dcc.Graph(
+                figure={
+                    "data": [trace],
+                    'layout': {
+                        'height': "300",
+                        'width': "350",
+                        'xaxis': {
+                            "tickfont": {
+                                "size": "8"
+                            }
+                        }
+                    },
+
+                },
+                style={"width": "98%"},
+                config=dict(displayModeBar=False),
+            ),
+        ],
+    ),
+    return bar_chart
 
 def parse_contents(contents, filename, date):
     content_type, content_string = contents.split(',')
@@ -913,15 +1023,9 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     for id in conversation_id:
         sub_df = df[df["conversation_id"] == id]
         use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))
-        # use_case_4 = list(filter(lambda x: x != "", list(sub_df["uc4"])))
-        # use_case_5 = list(filter(lambda x: x != "", list(sub_df["uc5"])))
 
         if len(use_case) > 0:
             use_case = use_case[0]
-        # elif len(use_case_4) > 0:
-        #     use_case = "uc_s4"
-        # elif len(use_case_5) > 0:
-        #     use_case = "uc_s5"
         else:
             use_case = "other"
         try:
@@ -1083,24 +1187,34 @@ def handle_df(is_click, start_date, end_date):
         Output('uc-proportion-in-month', 'children'),
         Output('outcome-proportion-bar-chart', 'children'),
         Output('outcome-proportion-in-conversations', 'children'),
+
         Output('outcome-uc1-pie', 'children'),
         Output('outcome-uc2-pie', 'children'),
         Output('outcome-uc31-pie', 'children'),
         Output('outcome-uc32-pie', 'children'),
         Output('outcome-uc4-pie', 'children'),
         Output('outcome-uc5-pie', 'children'),
+
+        Output('outcome-uc1-bar', 'children'),
+        Output('outcome-uc2-bar', 'children'),
+        Output('outcome-uc31-bar', 'children'),
+        Output('outcome-uc32-bar', 'children'),
+        Output('outcome-uc4-bar', 'children'),
+        Output('outcome-uc5-bar', 'children'),
+
         Output('thank-table', 'children'),
         Output('shipping-table', 'children'),
         Output('handover-table', 'children'),
         Output('silence-table', 'children'),
         Output('other-table', 'children'),
-        # Output('agree-table', 'children'),
+
         Output('uc-s1', 'children'),
         Output('uc-s2', 'children'),
         Output('uc-s31', 'children'),
         Output('uc-s32', 'children'),
         Output('uc-s4', 'children'),
         Output('uc-s5', 'children'),
+
         Output('other-usecase-df', 'children'),
         Output(component_id='loading-div', component_property='style'),
         Output(component_id='loading-div-2', component_property='style'),
@@ -1144,6 +1258,13 @@ def update_output(df, loading1, loading2):
         outcome_uc32_pie = create_trace_outcome_uc(uc_outcome, "uc_s32", "UC S32", "Outcomes of UC-S32")
         outcome_uc_s4_pie = create_trace_outcome_uc(uc_outcome, "uc_s4", "UC S4", "Outcomes of UC-S4")
         outcome_uc_s5_pie = create_trace_outcome_uc(uc_outcome, "uc_s5", "UC S5", "Outcomes of UC-S5")
+
+        outcome_uc1_bar = create_trace_outcome_uc_bar_chart(uc_outcome, "uc_s1", "UC S1", "Outcomes of UC-S1")
+        outcome_uc2_bar = create_trace_outcome_uc_bar_chart(uc_outcome, "uc_s2", "UC S2", "Outcomes of UC-S2")
+        outcome_uc31_bar = create_trace_outcome_uc_bar_chart(uc_outcome, "uc_s31", "UC S31", "Outcomes of UC-S31")
+        outcome_uc32_bar = create_trace_outcome_uc_bar_chart(uc_outcome, "uc_s32", "UC S32", "Outcomes of UC-S32")
+        outcome_uc_s4_bar = create_trace_outcome_uc_bar_chart(uc_outcome, "uc_s4", "UC S4", "Outcomes of UC-S4")
+        outcome_uc_s5_bar = create_trace_outcome_uc_bar_chart(uc_outcome, "uc_s5", "UC S5", "Outcomes of UC-S5")
 
         thank_df, shipping_order_df, handover_df, silence_df, other_df = get_conversation_each_outcome(df[[
             "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
@@ -1219,6 +1340,7 @@ def update_output(df, loading1, loading2):
         )
         return success_proportion_in_conversations, no_conversations_div, no_customers_div, success_rate_div, \
                uc_proportion_bar_chart, uc_proportion_in_month, outcome_proportion_bar_chart, outcome_proportion_in_conversations, outcome_uc1_pie, outcome_uc2_pie, outcome_uc31_pie, outcome_uc32_pie, outcome_uc_s4_pie, outcome_uc_s5_pie, \
+               outcome_uc1_bar, outcome_uc2_bar, outcome_uc31_bar, outcome_uc32_bar, outcome_uc_s4_bar, outcome_uc_s5_bar, \
                thank_df, shipping_order_df, handover_df, silence_df, other_df, uc1_df, uc2_df, uc31_df, uc32_df, uc4_df, uc5_df, other_usecase_df, \
                loading_1_display, loading_2_display, \
                {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {
@@ -1234,6 +1356,7 @@ def update_output(df, loading1, loading2):
             loading_2_display = {'display': 'block'}
         return "", "", "", "", \
                "", "", "", "", "", "", "", "", "", "", \
+               "", "", "", "", "", "", \
                "", "", "", "", "", "", "", "", "", "", "", "", \
                loading_1_display, loading_2_display, \
                {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {
