@@ -858,6 +858,8 @@ def reformat_df_output_for_table(df: pd.DataFrame):
             info_dict["outcome"].append(conversation_outcome)
             info_dict["outcome"] += [""] * (dict_len - 1)
         try:
+            # for index, item in info_dict.items():
+            #     info_dict[index].append("")
             new_sub_df = pd.DataFrame.from_dict(info_dict)
         except:
             a = 0
@@ -874,7 +876,7 @@ def generate_table(df: pd.DataFrame):
     df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
     df = reformat_df_output_for_table(df)
 
-    df = df[df["sender_id"] != 3547113778635846]
+    # df = df[df["sender_id"] != 3547113778635846]
     df = df.dropna(subset=["user_message", "bot_message"], how="all")
     col_order = ['created_time', 'sender_id', 'use_case', 'user_message', 'intent', 'entities', 'bot_message']
     if "outcome" in df:
@@ -1040,8 +1042,10 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
             if use_case in ["uc_s5.1", "uc_s5.2", "uc_s5.3"]:
                 use_case = "uc_s5"
             outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
-            # if outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
-            #     continue
+            if outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
+                continue
+            if outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 1:
+                continue
             uc_outcome[use_case][outcome] += 1
         except:
             a = 0
@@ -1055,14 +1059,20 @@ def get_conversation_each_outcome(df: pd.DataFrame):
     column_list = ["conversation_id", "use_case", "sender_id", "user_message", "bot_message", "created_time", "intent",
                    "entities"]
     qualified_thank = []
+    qualified_shipping = []
+
     for id in df[df["outcome"] == "thank"]["conversation_id"].to_list():
         if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) > 1:
             qualified_thank.append(id)
+
+    for id in df[df["outcome"] == "shipping_order"]["conversation_id"].to_list():
+        if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) > 1:
+            qualified_shipping.append(id)
+
     thank_df = df[df["conversation_id"].isin(qualified_thank)][column_list]
-    shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))][
-        column_list]
-    handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "handover_to_inbox"]["conversation_id"]))][
-        column_list]
+    shipping_order_df = df[df["conversation_id"].isin(qualified_shipping)][column_list]
+    # shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))][column_list]
+    handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "handover_to_inbox"]["conversation_id"]))][column_list]
     silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "silence"]["conversation_id"]))][column_list]
     other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
     # agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
@@ -1244,6 +1254,8 @@ def handle_df(is_click, start_date, end_date):
 def update_output(df, loading1, loading2):
     if df is not None:
         df = pd.read_json(df, orient="split")
+        df = df[df["sender_id"] != 3547113778635846]
+
         no_conversations = str(len(df["conversation_id"].drop_duplicates(keep='first')))
         no_customers = str(len(df["sender_id"].drop_duplicates(keep='first')))
         total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
