@@ -569,7 +569,7 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
 
     values = [sum(x) for x in zip(uc_s1_values, uc_s2_values, uc_s31_values, uc_s32_values,uc_s4_values,uc_s5_values, uc_other_values)]
     trace = go.Pie(
-        labels=['Thanks', 'Shipping', 'Handover', "Silence", 'Other' + " " * 8],
+        labels=['Thanks', 'Shipping', 'Handover', "Silence", 'Other' + " " * 10],
         values=values,
         direction="clockwise",
         sort=False,
@@ -638,7 +638,7 @@ def create_trace_success_proportion_in_all_conversations(no_each_outcome: list):
     no_other = no_each_outcome[2] + no_each_outcome[3] + no_each_outcome[4]
     success_rate = str('{0:.2f}'.format((no_success * 100) / (no_other + no_success))) + "%"
     trace = go.Pie(
-        labels=['Successful', 'Other' + " " * 10],
+        labels=['Successful', 'Other' + " " * 13],
         values=[no_success, no_other],
         direction="clockwise",
         sort=False,
@@ -1029,8 +1029,11 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
     conversation_id = list(dict.fromkeys(conversation_id))
 
     for id in conversation_id:
+        greet_first_turn = False
         sub_df = df[df["conversation_id"] == id]
         use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))
+        if sub_df.iloc[0]["intent"] == "start_conversation" or sub_df.iloc[0]["intent"] == "greet":
+            greet_first_turn = True
 
         if len(use_case) > 0:
             use_case = use_case[0]
@@ -1042,9 +1045,13 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
             if use_case in ["uc_s5.1", "uc_s5.2", "uc_s5.3"]:
                 use_case = "uc_s5"
             outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
-            if outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
+            if greet_first_turn and outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 2:
                 continue
-            if outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 1:
+            elif outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
+                continue
+            if greet_first_turn and outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 2:
+                continue
+            elif outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 1:
                 continue
             uc_outcome[use_case][outcome] += 1
         except:
@@ -1256,11 +1263,22 @@ def update_output(df, loading1, loading2):
         df = pd.read_json(df, orient="split")
         df = df[df["sender_id"] != 3547113778635846]
 
+        # not_qualified_thank = []
+        # not_qualified_shipping = []
+        # for id in df[df["outcome"] == "thank"]["conversation_id"].to_list():
+        #     if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
+        #         not_qualified_thank.append(id)
+        #
+        # for id in df[df["outcome"] == "shipping_order"]["conversation_id"].to_list():
+        #     if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
+        #         not_qualified_shipping.append(id)
+        # df = df[~df["conversation_id"].isin(not_qualified_thank+not_qualified_shipping)]
+
         no_conversations = str(len(df["conversation_id"].drop_duplicates(keep='first')))
         no_customers = str(len(df["sender_id"].drop_duplicates(keep='first')))
         total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53 = get_number_of_each_uc(df[["conversation_id", "use_case"]])
 
-        uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id", "use_case", "outcome", "turn"]])
+        uc_outcome = get_number_of_each_outcome_each_uc(df[["conversation_id","user_message", "use_case", "outcome", "turn", "intent"]])
 
         uc_proportion_in_month = create_trace_uc_propotion_in_month(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53)
         uc_proportion_bar_chart = create_trace_uc_propotion_bar_chart(total, uc1, uc2, uc31, uc32, uc_s4, uc_s51, uc_s52, uc_s53)
