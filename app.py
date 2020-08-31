@@ -141,19 +141,25 @@ app.layout = html.Div(
                                 html.Div(
                                     className="col-md-4",
                                     children=[
-                                        html.Div(id="no-conversations",),
+                                        html.Div(
+                                            className="hvr-grow",
+                                            id="no-conversations",),
                                     ]
                                 ),
                                 html.Div(
                                     className="col-md-4",
                                     children=[
-                                        html.Div(id="no-users"),
+                                        html.Div(
+                                            className="hvr-grow",
+                                            id="no-users"),
                                     ]
                                 ),
                                 html.Div(
                                     className="col-md-4",
                                     children=[
-                                        html.Div(id="success-rate"),
+                                        html.Div(
+                                            className="hvr-grow",
+                                            id="success-rate"),
                                     ]
                                 ),
                             ]
