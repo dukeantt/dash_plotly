@@ -680,7 +680,7 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
 
     outcome_uc = uc_outcome[key]
     values = [value for index, value in outcome_uc.items()]
-    labels = ['Thanks', 'Shipping', 'Handover', "Silence", 'Other' + " " * 8]
+    labels = ['Thanks', 'Shipping', 'Handover', "Silence", 'Other' + " " * 10]
     trace_2 = go.Pie(
         labels=labels, values=values, scalegroup='one',
         name=name,
@@ -697,7 +697,7 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
     )
     pie = html.Div(
         # className="six columns chart_div pretty_container",
-        className="six columns chart_div",
+        # className="six columns chart_div",
         children=[
             # html.P(title),
             dcc.Graph(
@@ -705,7 +705,7 @@ def create_trace_outcome_uc(uc_outcome: dict, key: str, name: str, title: str):
                     "data": [trace_2],
                     'layout': {
                         'height': "300",
-                        'width': "350",
+                        'width': "400",
                     }
                 },
                 style={"height": "90%", "width": "98%"},
@@ -729,17 +729,17 @@ def create_trace_outcome_uc_bar_chart(uc_outcome: dict, key: str, name: str, tit
     )
     bar_chart = html.Div(
         # className="six columns chart_div pretty_container",
-        className="six columns chart_div",
+        # className="six columns chart_div",
         children=[
             dcc.Graph(
                 figure={
                     "data": [trace],
                     'layout': {
                         'height': "300",
-                        'width': "350",
+                        'width': "400",
                         'xaxis': {
                             "tickfont": {
-                                "size": "8"
+                                "size": "9"
                             }
                         }
                     },
