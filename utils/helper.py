@@ -18,6 +18,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 db_name = "rasa_chatlog_all_28_8"
 
+
 def get_all_conv():
     with open('../data/rasa_chatlog/raw_data/all_conv.pkl', 'rb') as f:
         data = pickle.load(f)
@@ -267,6 +268,9 @@ def get_chatlog_from_db(from_date, to_date):
     start = datetime.datetime.strptime(from_date, "%Y-%m-%d")
     end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
 
+    start_month = from_date[:7]
+    end_month = to_date[:7]
+    special_month = ["2020-05", "2020-06"]  # 2 thang nay co thoi gian bat bot khac cac thang con lai
     time_start_morning = datetime.datetime.strptime("09:00:00", "%H:%M:%S")
     time_end_morning = datetime.datetime.strptime("12:05:00", "%H:%M:%S")
 
@@ -274,16 +278,51 @@ def get_chatlog_from_db(from_date, to_date):
     time_end_afternoon = datetime.datetime.strptime("17:05:00", "%H:%M:%S")
 
     # chatlog_df = pd.DataFrame([document for document in collection.find({'conversation_begin_date': {'$gte': start, '$lte': end, }})])
-    chatlog_df = pd.DataFrame([document for document in collection.find({
-        '$and': [
-            {'conversation_begin_date': {'$gte': start, '$lte': end}},
-            {'$or': [
-                {'conversation_begin_time': {'$gte': time_start_morning, '$lte': time_end_morning}},
-                {'conversation_begin_time': {'$gte': time_start_afternoon, '$lte': time_end_afternoon}},
-            ]},
-            {'week_day': {'$gte': 0, '$lte': 4}},
-        ]
-    })])
+    if start_month in special_month and end_month in special_month:
+        chatlog_df = pd.DataFrame([document for document in collection.find({
+            '$and': [
+                {'conversation_begin_date': {'$gte': start, '$lte': end}},
+                {'conversation_begin_time': {'$gte': datetime.datetime.strptime("09:00:00", "%H:%M:%S"), '$lte': datetime.datetime.strptime("17:30:00", "%H:%M:%S")}},
+                {'week_day': {'$gte': 0, '$lte': 4}},
+            ]
+        })])
+    elif start_month in special_month:
+        chatlog_df = pd.DataFrame([document for document in collection.find(
+            {
+                '$or': [
+                    {
+                        '$and': [
+                            {'conversation_begin_date': {'$gte': start, '$lte': datetime.datetime.strptime("2020-07-31", "%Y-%m-%d")}},
+                            {'conversation_begin_time': {'$gte': datetime.datetime.strptime("09:00:00", "%H:%M:%S"), '$lte': datetime.datetime.strptime("17:30:00", "%H:%M:%S")}},
+                            {'week_day': {'$gte': 0, '$lte': 4}},
+                        ]
+                    },
+                    {
+                        '$and': [
+                            {'conversation_begin_date': {'$gte': datetime.datetime.strptime("2020-08-01", "%Y-%m-%d"), '$lte': end}},
+                            {'$or': [
+                                {'conversation_begin_time': {'$gte': time_start_morning, '$lte': time_end_morning}},
+                                {'conversation_begin_time': {'$gte': time_start_afternoon, '$lte': time_end_afternoon}},
+                            ]},
+                            {'week_day': {'$gte': 0, '$lte': 4}},
+                        ]
+                    }
+                ]
+            }
+        )])
+    else:
+        chatlog_df = pd.DataFrame([document for document in collection.find({
+            '$and': [
+                {'conversation_begin_date': {'$gte': start, '$lte': end}},
+                {'$or': [
+                    {'conversation_begin_time': {'$gte': time_start_morning, '$lte': time_end_morning}},
+                    {'conversation_begin_time': {'$gte': time_start_afternoon, '$lte': time_end_afternoon}},
+                ]},
+                {'week_day': {'$gte': 0, '$lte': 4}},
+            ]
+        })])
+
+
     if len(chatlog_df) > 0:
         chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date", "week_day"])
     return chatlog_df
@@ -301,5 +340,36 @@ def upload_single_chatlog():
     data_dict = data.to_dict("records")
     collection.insert_many(data_dict)
 
-# get_chatloag_from_db("2020-07-01", "2020-07-31")
-# upload_single_chatlog()
+
+def get_chatlog_from_db2(from_date, to_date):
+    client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
+    db = client['chatlog_db']
+    collection = db[db_name]
+    start = datetime.datetime.strptime(from_date, "%Y-%m-%d")
+    end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
+
+    time_start_morning = datetime.datetime.strptime("09:00:00", "%H:%M:%S")
+    time_end_morning = datetime.datetime.strptime("12:05:00", "%H:%M:%S")
+
+    time_start_afternoon = datetime.datetime.strptime("14:00:00", "%H:%M:%S")
+    time_end_afternoon = datetime.datetime.strptime("17:05:00", "%H:%M:%S")
+
+    chatlog_df = pd.DataFrame(
+        [document for document in collection.find({'conversation_begin_date': {'$gte': start, '$lte': end, }})])
+    # chatlog_df = pd.DataFrame([document for document in collection.find({
+    #     '$and': [
+    #         {'conversation_begin_date': {'$gte': start, '$lte': end}},
+    #         {'$or': [
+    #             {'conversation_begin_time': {'$gte': time_start_morning, '$lte': time_end_morning}},
+    #             {'conversation_begin_time': {'$gte': time_start_afternoon, '$lte': time_end_afternoon}},
+    #         ]},
+    #         {'week_day': {'$gte': 0, '$lte': 4}},
+    #     ]
+    # })])
+
+    if len(chatlog_df) > 0:
+        chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date", "week_day"])
+    # chatlog_df.to_csv("to_tuanh.csv", index=False)
+    return chatlog_df
+
+# get_chatlog_from_db2("2020-08-24", "2020-08-28")

@@ -1049,10 +1049,10 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
                 continue
             elif outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
                 continue
-            if greet_first_turn and outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 2:
-                continue
-            elif outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 1:
-                continue
+            # if greet_first_turn and outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 2:
+            #     continue
+            # elif outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 1:
+            #     continue
             uc_outcome[use_case][outcome] += 1
         except:
             a = 0
@@ -1072,13 +1072,13 @@ def get_conversation_each_outcome(df: pd.DataFrame):
         if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) > 1:
             qualified_thank.append(id)
 
-    for id in df[df["outcome"] == "shipping_order"]["conversation_id"].to_list():
-        if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) > 1:
-            qualified_shipping.append(id)
+    # for id in df[df["outcome"] == "shipping_order"]["conversation_id"].to_list():
+    #     if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) > 1:
+    #         qualified_shipping.append(id)
 
     thank_df = df[df["conversation_id"].isin(qualified_thank)][column_list]
-    shipping_order_df = df[df["conversation_id"].isin(qualified_shipping)][column_list]
-    # shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))][column_list]
+    # shipping_order_df = df[df["conversation_id"].isin(qualified_shipping)][column_list]
+    shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))][column_list]
     handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "handover_to_inbox"]["conversation_id"]))][column_list]
     silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "silence"]["conversation_id"]))][column_list]
     other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
