@@ -1263,16 +1263,16 @@ def update_output(df, loading1, loading2):
         df = pd.read_json(df, orient="split")
         df = df[df["sender_id"] != 3547113778635846]
 
-        # not_qualified_thank = []
-        # not_qualified_shipping = []
-        # for id in df[df["outcome"] == "thank"]["conversation_id"].to_list():
-        #     if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
-        #         not_qualified_thank.append(id)
-        #
-        # for id in df[df["outcome"] == "shipping_order"]["conversation_id"].to_list():
-        #     if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
-        #         not_qualified_shipping.append(id)
-        # df = df[~df["conversation_id"].isin(not_qualified_thank+not_qualified_shipping)]
+        not_qualified_thank = []
+        not_qualified_shipping = []
+        for id in df[df["outcome"] == "thank"]["conversation_id"].to_list():
+            if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
+                not_qualified_thank.append(id)
+
+        for id in df[df["outcome"] == "shipping_order"]["conversation_id"].to_list():
+            if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
+                not_qualified_shipping.append(id)
+        df = df[~df["conversation_id"].isin(not_qualified_thank+not_qualified_shipping)]
 
         no_conversations = str(len(df["conversation_id"].drop_duplicates(keep='first')))
         no_customers = str(len(df["sender_id"].drop_duplicates(keep='first')))
