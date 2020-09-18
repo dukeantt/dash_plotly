@@ -16,8 +16,8 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-db_name = "rasa_chatlog_all_9_9"
-# db_name = "test_crawl_weekly_14_9"
+# db_name = "rasa_chatlog_all_9_9"
+db_name = "test_crawl_weekly_14_9"
 
 
 def get_all_conv():
