@@ -161,6 +161,17 @@ body {
 
 }
 
+.big-title {
+    font-size: 30px;
+    padding-left: 15px;
+}
+
+.sub-title {
+    font-size: 20px;
+    padding-top: 25px;
+    padding-left: 15px;
+}
+
 #part_1_title {
     font-size: 30px;
     padding-left: 15px;
@@ -193,4 +204,18 @@ body {
     padding-left: 19px;
     display: inline;
     font-size: 19px;
+}
+
+#date_picker_and_run {
+    padding-top: 20px;
+    padding-left: 16px;
+}
+
+#show_table_and_filter {
+    padding-top: 20px;
+    padding-left: 16px;
+}
+
+#part_2_title {
+    padding-top: 25px;
 }

@@ -1032,6 +1032,7 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
         greet_first_turn = False
         sub_df = df[df["conversation_id"] == id]
         use_case = list(filter(lambda x: x != "", list(sub_df["use_case"])))
+        use_case = list(filter(lambda x: x is not None, use_case))
         if sub_df.iloc[0]["intent"] == "start_conversation" or sub_df.iloc[0]["intent"] == "greet":
             greet_first_turn = True
 
@@ -1044,11 +1045,13 @@ def get_number_of_each_outcome_each_uc(df: pd.DataFrame):
                 use_case = "uc_s4"
             if use_case in ["uc_s5.1", "uc_s5.2", "uc_s5.3"]:
                 use_case = "uc_s5"
-            outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))[0]
-            if greet_first_turn and outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 2:
-                continue
-            elif outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
-                continue
+            outcome = list(filter(lambda x: x != "", list(sub_df["outcome"])))
+            outcome = list(filter(lambda x: x is not None, outcome))
+            outcome = outcome[0]
+            # if greet_first_turn and outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 2:
+            #     continue
+            # elif outcome == "thank" and len(sub_df["turn"].drop_duplicates()) == 1:
+            #     continue
             # if greet_first_turn and outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 2:
             #     continue
             # elif outcome == "shipping_order" and len(sub_df["turn"].drop_duplicates()) == 1:
@@ -1263,16 +1266,16 @@ def update_output(df, loading1, loading2):
         df = pd.read_json(df, orient="split")
         df = df[df["sender_id"] != 3547113778635846]
 
-        not_qualified_thank = []
-        not_qualified_shipping = []
-        for id in df[df["outcome"] == "thank"]["conversation_id"].to_list():
-            if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
-                not_qualified_thank.append(id)
-
-        for id in df[df["outcome"] == "shipping_order"]["conversation_id"].to_list():
-            if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
-                not_qualified_shipping.append(id)
-        df = df[~df["conversation_id"].isin(not_qualified_thank+not_qualified_shipping)]
+        # not_qualified_thank = []
+        # not_qualified_shipping = []
+        # for id in df[df["outcome"] == "thank"]["conversation_id"].to_list():
+        #     if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
+        #         not_qualified_thank.append(id)
+        #
+        # for id in df[df["outcome"] == "shipping_order"]["conversation_id"].to_list():
+        #     if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) <= 1:
+        #         not_qualified_shipping.append(id)
+        # df = df[~df["conversation_id"].isin(not_qualified_thank+not_qualified_shipping)]
 
         no_conversations = str(len(df["conversation_id"].drop_duplicates(keep='first')))
         no_customers = str(len(df["sender_id"].drop_duplicates(keep='first')))

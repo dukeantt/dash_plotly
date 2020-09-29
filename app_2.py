@@ -197,6 +197,7 @@ app.layout = html.Div(children=[
                 children=["Overall Performance by selected period"],
             ),
             html.Div(
+                id="date_picker_and_run",
                 children=[
                     dcc.DatePickerSingle(
                         id='my_date_picker_start',
@@ -212,10 +213,129 @@ app.layout = html.Div(children=[
                         max_date_allowed=dt(2021, 12, 31),
                         placeholder='End date',
                     ),
-                    html.Button('Run', id='run-analytics', style={"borderRadius": "4px", "backgroundColor": "#448efc", "color": "white"}, ),
+                    html.Button('Run', id='run-analytics',
+                                style={"borderRadius": "4px", "backgroundColor": "#448efc", "color": "white",
+                                       "width": "45px", "height": "45px", "borderStyle": "hidden"}, ),
                 ]
-            )
-
+            ),
+            html.Div(
+                className="basic-metrics",
+                children=[
+                    html.Div(
+                        className="col-md-4",
+                        children=[
+                            html.Div(
+                                id="no_conversations_in_period",
+                                className="sub_basic_metrics",
+                                children=[
+                                    html.Div(
+                                        className="col-md-12",
+                                        children=[
+                                            html.Img(src="assets/icon/conversation_icon.png",
+                                                     className="sub_basic_metrics_img"),
+                                            html.P("Conversations", style={"display": "inline", "paddingLeft": "19px",
+                                                                           "fontSize": "19px"}),
+                                        ]
+                                    )
+                                ]
+                            ),
+                        ]
+                    ),
+                    html.Div(
+                        className="col-md-4",
+                        children=[
+                            html.Div(
+                                id="no_users_in_period",
+                                className="sub_basic_metrics",
+                                children=[
+                                    html.Div(
+                                        className="col-md-12",
+                                        children=[
+                                            html.Img(src="assets/icon/user_icon.png",
+                                                     className="sub_basic_metrics_img"),
+                                            html.P("Users", style={"display": "inline", "paddingLeft": "19px",
+                                                                   "fontSize": "19px"}),
+                                        ]
+                                    )
+                                ]
+                            ),
+                        ]
+                    ),
+                    html.Div(
+                        className="col-md-4",
+                        children=[
+                            html.Div(
+                                id="success_rate_in_period",
+                                className="sub_basic_metrics",
+                                children=[
+                                    html.Div(
+                                        className="col-md-12",
+                                        children=[
+                                            html.Img(src="assets/icon/success_rate_icon.png",
+                                                     className="sub_basic_metrics_img"),
+                                            html.P("Success Rate", style={"display": "inline", "paddingLeft": "19px",
+                                                                          "fontSize": "19px"}),
+                                        ]
+                                    )
+                                ]
+                            ),
+                        ]
+                    ),
+                ]
+            ),
+            html.Div(
+                id="part_2_title",
+                className="big-title",
+                children=["Bot Performance by Outcomes"],
+            ),
+            html.Div(
+                id="",
+                className="basic-metrics",
+                children=[
+                    html.Div(
+                        className="col-md-6",
+                        children=[
+                            html.Div(
+                                id="no_outcome_bar",
+                                className="sub_basic_metrics",
+                                children=[
+                                    html.Div(
+                                        className="col-md-12",
+                                        children=[
+                                            html.P("Number of Outcomes")
+                                        ]
+                                    )
+                                ]
+                            )
+                        ]
+                    ),
+                    html.Div(
+                        className="col-md-6",
+                        children=[
+                            html.Div(
+                                id="percent_outcome_pie ",
+                                className="sub_basic_metrics",
+                                children=[
+                                    html.Div(
+                                        className="col-md-12",
+                                        children=[
+                                            html.P("Percentages of Outcomes")
+                                        ]
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                ]
+            ),
+            html.Div(
+                id="show_table_and_filter",
+                children=[
+                    html.Button('View detail', id='show_hide_table',
+                                style={"borderRadius": "4px", "backgroundColor": "#448efc", "color": "white",
+                                       "width": "213px", "height": "38px", "borderStyle": "hidden"}, ),
+                ]
+            ),
         ],
     ),
 
