@@ -14,6 +14,10 @@ body {
 
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .sidebar {
     margin: 0;
     padding: 0;
@@ -211,11 +215,20 @@ body {
     padding-left: 16px;
 }
 
-#show_table_and_filter {
+#show_table_and_filter_outcome {
+    padding-top: 20px;
+    padding-left: 16px;
+}
+
+#show_table_and_filter_usecase {
     padding-top: 20px;
     padding-left: 16px;
 }
 
 #part_2_title {
+    padding-top: 25px;
+}
+
+#part_3_title {
     padding-top: 25px;
 }
