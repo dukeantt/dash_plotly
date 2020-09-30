@@ -31,10 +31,14 @@ app.layout = html.Div(children=[
                 style={"color": "white"},
                 children=["SALESBOT"]
             ),
-            html.A(id="a1_title_sidebar", href="#part_1_title", className="title_sidebar", children=["Overall Performance"]),
-            html.A(id="a2_title_sidebar", href="#part_2_title", className="title_sidebar", children=["Bot performance by Outcomes"]),
-            html.A(id="a3_title_sidebar", href="#part_3_title", className="title_sidebar", children=["Bot performance by Use cases"]),
-            html.A(id="a4_title_sidebar", href="#part_4_title", className="title_sidebar", children=["Outcome of each Use case"]),
+            html.A(id="a1_title_sidebar", href="#part_1_title", className="title_sidebar",
+                   children=["Overall Performance"]),
+            html.A(id="a2_title_sidebar", href="#part_2_title", className="title_sidebar",
+                   children=["Bot performance by Outcomes"]),
+            html.A(id="a3_title_sidebar", href="#part_3_title", className="title_sidebar",
+                   children=["Bot performance by Use cases"]),
+            html.A(id="a4_title_sidebar", href="#part_4_title", className="title_sidebar",
+                   children=["Outcome of each Use case"]),
         ]
     ),
 
@@ -765,7 +769,7 @@ app.layout = html.Div(children=[
             html.Div(
                 id="space_at_the_end",
                 style={"paddingBottom": "100px"},
-            )
+            ),
         ],
     ),
 
