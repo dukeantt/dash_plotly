@@ -81,6 +81,7 @@ html {
 
 
 #a1_title_sidebar:before {
+    /*content: attr(data-before);*/
     background: url(icon/sidebar/overall_performance_white_icon.png);
     margin: 0 6px 0 0;
     position: sticky;
@@ -98,7 +99,6 @@ html {
     background-repeat: no-repeat;
     background-size: 16px 17px;
 }
-
 
 #a2_title_sidebar:before {
     margin: 0 6px 0 0;
@@ -231,4 +231,8 @@ html {
 
 #part_3_title {
     padding-top: 25px;
+}
+
+.metrics-graph {
+    height: 321px;
 }

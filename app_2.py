@@ -7,7 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
 import numpy as np
-from utils.helper import *
+from utils.helper_2 import *
 import logging
 from random import randrange
 import pandas as pd
@@ -22,6 +22,34 @@ app = dash.Dash(__name__,
                 external_stylesheets=[dbc.themes.BOOTSTRAP]
                 )
 
+today = datetime.date.today()
+monday = today - datetime.timedelta(days=today.weekday())
+last_week_monday = str(monday - datetime.timedelta(days=7))
+last_week_friday = str(monday - datetime.timedelta(days=3))
+
+outcome_data_last_week_df = get_data_from_table("conversation_outcome", last_week_monday, last_week_friday)
+last_week_conversations = get_number_of_conversation(outcome_data_last_week_df)
+# last_week_user = get_number_of_user(outcome_data_last_week_df)
+last_week_success_rate = get_success_rate(outcome_data_last_week_df)
+
+outcome_data = get_data_from_table("conversation_outcome")
+month_list, conversations_by_month = get_number_of_conversation_every_month(outcome_data)
+
+layout = go.Layout(
+    margin=go.layout.Margin(
+        l=0,  # left margin
+        r=0,  # right margin
+        b=0,  # bottom margin
+        t=0,  # top margin
+    ),
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)'
+)
+conversation_by_month_fig = go.Figure(data=[go.Bar(x=month_list, y=conversations_by_month, text=conversations_by_month)], layout=layout)
+conversation_by_month_fig.update_layout(width=350, height=250, yaxis=dict(range=[0, max(conversations_by_month) + 25]))
+conversation_by_month_fig.update_traces(marker_color='#529af2', textposition='outside')
+conversation_by_month_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595')
+conversation_by_month_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595', gridcolor='#f3f3f3')
 app.layout = html.Div(children=[
     html.Div(
         id="sidebar",
@@ -69,8 +97,12 @@ app.layout = html.Div(children=[
                                         children=[
                                             html.Img(src="assets/icon/conversation_icon.png",
                                                      className="sub_basic_metrics_img"),
-                                            html.P("Conversations", style={"display": "inline", "paddingLeft": "19px",
-                                                                           "fontSize": "19px"}),
+                                            html.P("Conversations", style={"display": "block", "paddingLeft": "91px",
+                                                                           "fontSize": "19px", "marginTop": "-67px"}),
+                                            html.P(str(last_week_conversations),
+                                                   style={"display": "block", "paddingLeft": "92px",
+                                                          "fontSize": "27px", "fontWeight": "bold",
+                                                          "marginTop": "-11px"}),
                                         ]
                                     )
                                 ]
@@ -89,8 +121,8 @@ app.layout = html.Div(children=[
                                         children=[
                                             html.Img(src="assets/icon/user_icon.png",
                                                      className="sub_basic_metrics_img"),
-                                            html.P("Users", style={"display": "inline", "paddingLeft": "19px",
-                                                                   "fontSize": "19px"}),
+                                            html.P("Users", style={"display": "block", "paddingLeft": "91px",
+                                                                   "fontSize": "19px", "marginTop": "-67px"}),
                                         ]
                                     )
                                 ]
@@ -109,8 +141,12 @@ app.layout = html.Div(children=[
                                         children=[
                                             html.Img(src="assets/icon/success_rate_icon.png",
                                                      className="sub_basic_metrics_img"),
-                                            html.P("Success Rate", style={"display": "inline", "paddingLeft": "19px",
-                                                                          "fontSize": "19px"}),
+                                            html.P("Success Rate", style={"display": "block", "paddingLeft": "91px",
+                                                                          "fontSize": "19px", "marginTop": "-67px"}),
+                                            html.P(last_week_success_rate,
+                                                   style={"display": "block", "paddingLeft": "92px",
+                                                          "fontSize": "27px", "fontWeight": "bold",
+                                                          "marginTop": "-11px"}),
                                         ]
                                     )
                                 ]
@@ -132,7 +168,7 @@ app.layout = html.Div(children=[
                         children=[
                             html.Div(
                                 id="no_conversations_by_month",
-                                className="sub_basic_metrics",
+                                className="sub_basic_metrics metrics-graph",
                                 children=[
                                     html.Div(
                                         className="col-md-12",
@@ -141,6 +177,11 @@ app.layout = html.Div(children=[
                                             html.P("Conversations by month",
                                                    style={"display": "inline", "paddingLeft": "19px",
                                                           "fontSize": "19px"}),
+                                            html.Hr(),
+                                            dcc.Graph(
+                                                id='conversation_by_month_fig',
+                                                figure=conversation_by_month_fig
+                                            )
                                         ]
                                     )
                                 ]
@@ -152,7 +193,7 @@ app.layout = html.Div(children=[
                         children=[
                             html.Div(
                                 id="no_users_by_month",
-                                className="sub_basic_metrics",
+                                className="sub_basic_metrics metrics-graph",
                                 children=[
                                     html.Div(
                                         className="col-md-12",
@@ -170,7 +211,7 @@ app.layout = html.Div(children=[
                         children=[
                             html.Div(
                                 id="success_rate_by_month",
-                                className="sub_basic_metrics",
+                                className="sub_basic_metrics metrics-graph",
                                 children=[
                                     html.Div(
                                         className="col-md-12",

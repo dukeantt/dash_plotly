@@ -1,4 +1,3 @@
-// alert('If you see this alert, then your custom JavaScript script has run!')
 let mainSections = document.querySelectorAll("main section");
 let lastId;
 let cur = [];
@@ -10,12 +9,8 @@ let entryPoint = document.querySelectorAll("div#react-entry-point");
 window.addEventListener("scroll", event => {
     let mainNavLinks = entryPoint[0].childNodes[0].childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes;
     let fromTop = window.scrollY;
-    // console.log(mainNavLinks);
     mainNavLinks.forEach(link => {
-        // let section = document.querySelector(link.hash);
         let section = link;
-        // console.log(section);
-        // console.log(fromTop);
 
         if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop
         ) {
