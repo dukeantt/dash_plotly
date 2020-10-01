@@ -297,7 +297,7 @@ app.layout = html.Div(children=[
                                                      className="sub_basic_metrics_img"),
                                             html.P("Conversations", style={"display": "block", "paddingLeft": "7rem",
                                                                            "fontSize": "19px", "marginTop": "-4rem"}),
-                                            html.Div(id="no_conversations_in_period_text",),
+                                            html.Div(id="no_conversations_in_period_text", ),
                                         ]
                                     )
                                 ]
@@ -319,7 +319,7 @@ app.layout = html.Div(children=[
                                                      style={"padding-top": "2.5rem"}),
                                             html.P("Users", style={"display": "block", "paddingLeft": "7rem",
                                                                    "fontSize": "19px", "marginTop": "-4rem"}),
-                                            html.Div(id="no_users_in_period_text",),
+                                            html.Div(id="no_users_in_period_text", ),
                                         ]
                                     )
                                 ]
@@ -340,7 +340,7 @@ app.layout = html.Div(children=[
                                                      className="sub_basic_metrics_img"),
                                             html.P("Success Rate", style={"display": "block", "paddingLeft": "7rem",
                                                                           "fontSize": "19px", "marginTop": "-4rem"}),
-                                            html.Div(id="success_rate_in_period_text",),
+                                            html.Div(id="success_rate_in_period_text", ),
                                         ]
                                     )
                                 ]
@@ -367,10 +367,13 @@ app.layout = html.Div(children=[
                                 children=[
                                     html.Div(
                                         className="col-md-12",
+                                        style={"position": "relative", "top": "0.6rem", "left": "1.25rem", "fontSize": "18px"},
                                         children=[
                                             html.P("Number of Outcomes")
                                         ]
-                                    )
+                                    ),
+                                    html.Hr(),
+                                    html.Div(),
                                 ]
                             )
                         ]
@@ -380,14 +383,18 @@ app.layout = html.Div(children=[
                         children=[
                             html.Div(
                                 id="percent_outcome_pie ",
+                                style={"marginLeft": "3%"},
                                 className="sub_basic_metrics",
                                 children=[
                                     html.Div(
                                         className="col-md-12",
+                                        style={"position": "relative", "top": "0.6rem", "left": "1.25rem", "fontSize": "18px"},
                                         children=[
                                             html.P("Percentages of Outcomes")
                                         ]
-                                    )
+                                    ),
+                                    html.Hr(),
+                                    html.Div(),
                                 ]
                             )
                         ]

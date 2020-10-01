@@ -11,6 +11,8 @@ layout = go.Layout(
     plot_bgcolor='rgba(0,0,0,0)'
 )
 
+outcome_list = ["thank", "shipping_order", "handover_to_inbox", "silence", "other"]
+uc_list = ["uc_s1", "uc_s2", "uc_s3", "uc_s4", "uc_s5", "uc_s8", "uc_s9", "other"]
 
 def bar_conversation_by_month(month_list, conversations_by_month):
     conversation_by_month_fig = go.Figure(
@@ -48,3 +50,11 @@ def line_success_rate_over_month(month_list, success_rate_over_month):
     success_rate_over_month_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595', gridcolor='#f3f3f3', tickfont=dict(size=9))
 
     return success_rate_over_month_fig
+
+
+def bar_bot_performance_by_outcome(outcomes_dict):
+    return 0
+
+
+def pie_bot_performance_by_outcome(outcomes_dict):
+    return 0
