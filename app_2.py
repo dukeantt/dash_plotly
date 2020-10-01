@@ -261,11 +261,10 @@ app.layout = html.Div(children=[
                         id='my_date_picker_start',
                         min_date_allowed=dt(2020, 1, 1),
                         max_date_allowed=dt(2021, 12, 31),
-                        style={"borderRadius": "25px"},
                         placeholder='Start date',
                     ),
                     dcc.DatePickerSingle(
-                        style={"paddingLeft": "20px", "borderRadius": "25px", "paddingRight": "20px"},
+                        style={"paddingLeft": "0.8%", "paddingRight": "1%"},
                         id='my_date_picker_end',
                         min_date_allowed=dt(2020, 1, 1),
                         max_date_allowed=dt(2021, 12, 31),
@@ -273,7 +272,7 @@ app.layout = html.Div(children=[
                     ),
                     html.Button('Run', id='run-analytics',
                                 style={"borderRadius": "4px", "backgroundColor": "#448efc", "color": "white",
-                                       "width": "45px", "height": "45px", "borderStyle": "hidden"}, ),
+                                       "width": "3%", "height": "2rem", "borderStyle": "hidden", "fontSize": "12px"}, ),
                 ]
             ),
             html.Div(

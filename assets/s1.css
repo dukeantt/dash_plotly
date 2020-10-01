@@ -258,3 +258,65 @@ html {
 #success_rate_by_month {
     margin-left: 2%;
 }
+
+
+.DateInput {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    position: relative;
+    display: inline-block;
+    width: 116px;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+
+.DateInput_input {
+    font-weight: 200;
+    font-size: 12px;
+    line-height: 0px;
+    color: #484848;
+    background-color: #ffffff;
+    width: 100%;
+    padding: 7px 8px 7px;
+    border: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 2px solid transparent;
+    border-left: 0;
+    border-radius: 5px;
+}
+
+.SingleDatePickerInput__withBorder {
+    border-radius: 5px;
+    border: 1px solid #dbdbdb;
+}
+
+#my_date_picker_end:after {
+    margin: 10% 0 0 -26%;
+    content: "";
+    display: block;
+    position: relative;
+    float: left;
+    width: 11%;
+    height: 0.5rem;
+    background: url(icon/datepicker/datepicker_dropdown.png);
+    background-repeat: no-repeat;
+    background-size: 0.75rem 0.5rem;
+    left: 107%;
+}
+
+#my_date_picker_start:after {
+    margin: 10% 0 0 -26%;
+    content: "";
+    display: block;
+    position: relative;
+    float: left;
+    width: 11%;
+    height: 0.5rem;
+    background: url(icon/datepicker/datepicker_dropdown.png);
+    background-repeat: no-repeat;
+    background-size: 0.75rem 0.5rem;
+    left: 107%;
+}
