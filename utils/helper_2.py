@@ -12,7 +12,9 @@ from pymongo import MongoClient
 client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
 db = client['chatlog_db']
 db_name = ""
-month_dict = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
+month_dict = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct",
+              11: "Nov", 12: "Dec"}
+
 
 def get_data_from_table(db_name, from_date=None, to_date=None):
     # collection = db["conversation_outcome"]
@@ -53,13 +55,25 @@ def get_number_of_user(df):
 def get_number_of_conversation_every_month(df):
     month_list = list(
         range(1, max(pd.DatetimeIndex(df["conversation_begin_date"]).month.drop_duplicates().to_list()) + 1))
+
     no_conversation_list = []
+    success_rate_list = []
+
     for month in month_list:
         sub_df = df[pd.DatetimeIndex(df["conversation_begin_date"]).month == month]
+        sub_df_success = sub_df[(sub_df["thank"] == 1) | (sub_df["shipping_order"] == 1)]
         if len(sub_df) == 0:
             no_conversation_list.append(0)
+            success_rate_list.append(0)
             continue
         no_conversation = get_number_of_conversation(sub_df)
+        success_rate = get_number_of_conversation(sub_df_success) * 100 / no_conversation
+        success_rate = float("{:.1f}".format(success_rate))
+
+        if success_rate == 0.0:
+            success_rate = int(success_rate)
+
         no_conversation_list.append(no_conversation)
+        success_rate_list.append(success_rate)
     month_list = [month_dict[x] for x in month_list]
-    return month_list, no_conversation_list
+    return month_list, no_conversation_list, success_rate_list

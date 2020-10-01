@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
 import numpy as np
 from utils.helper_2 import *
+from utils.draw_chart import *
 import logging
 from random import randrange
 import pandas as pd
@@ -36,25 +37,14 @@ last_week_conversations = get_number_of_conversation(outcome_data_last_week_df)
 last_week_success_rate = get_success_rate(outcome_data_last_week_df)
 
 outcome_data = get_data_from_table("conversation_outcome")
-month_list, conversations_by_month = get_number_of_conversation_every_month(outcome_data)
+month_list, conversations_by_month, success_rate_over_month = get_number_of_conversation_every_month(outcome_data)
 
-layout = go.Layout(
-    margin=go.layout.Margin(
-        l=0,  # left margin
-        r=0,  # right margin
-        b=0,  # bottom margin
-        t=0,  # top margin
-    ),
-    paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)'
-)
-conversation_by_month_fig = go.Figure(
-    data=[go.Bar(x=month_list, y=conversations_by_month, text=conversations_by_month)], layout=layout)
-conversation_by_month_fig.update_layout(width=350, height=215, yaxis=dict(range=[0, max(conversations_by_month) + 25]))
-conversation_by_month_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=10)
-conversation_by_month_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595', tickfont=dict(size=9))
-conversation_by_month_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595', gridcolor='#f3f3f3',
-                                       tickfont=dict(size=9))
+# BAR CHART CONVERSATION BY MONTH
+conversation_by_month_fig = bar_conversation_by_month(month_list, conversations_by_month)
+
+# LINE CHART SUCCESS RATE OVER MONTH
+success_rate_over_month_fig = line_success_rate_over_month(month_list, success_rate_over_month)
+
 app.layout = html.Div(children=[
     html.Div(
         id="sidebar",
@@ -125,9 +115,10 @@ app.layout = html.Div(children=[
                                         className="col-md-12",
                                         children=[
                                             html.Img(src="assets/icon/user_icon.png",
-                                                     className="sub_basic_metrics_img", style={"padding-top": "2.5rem"}),
+                                                     className="sub_basic_metrics_img",
+                                                     style={"padding-top": "2.5rem"}),
                                             html.P("Users", style={"display": "block", "paddingLeft": "7rem",
-                                                                           "fontSize": "19px", "marginTop": "-4rem"}),
+                                                                   "fontSize": "19px", "marginTop": "-4rem"}),
                                         ]
                                     )
                                 ]
@@ -147,7 +138,7 @@ app.layout = html.Div(children=[
                                             html.Img(src="assets/icon/success_rate_icon.png",
                                                      className="sub_basic_metrics_img"),
                                             html.P("Success Rate", style={"display": "block", "paddingLeft": "7rem",
-                                                                           "fontSize": "19px", "marginTop": "-4rem"}),
+                                                                          "fontSize": "19px", "marginTop": "-4rem"}),
                                             html.P(last_week_success_rate,
                                                    style={"display": "block", "paddingLeft": "7rem",
                                                           "fontSize": "27px", "fontWeight": "bold",
@@ -202,7 +193,7 @@ app.layout = html.Div(children=[
                     ),
                     html.Div(
                         className="col-md-4",
-                        style={"marginLeft": "-0.3rem"},
+                        # style={"marginLeft": "-0.3rem"},
                         children=[
                             html.Div(
                                 id="no_users_by_month",
@@ -226,7 +217,7 @@ app.layout = html.Div(children=[
                     ),
                     html.Div(
                         className="col-md-4",
-                        style={"marginLeft": "-0.3rem"},
+                        # style={"marginLeft": "-0.3rem"},
                         children=[
                             html.Div(
                                 id="success_rate_by_month",
@@ -240,6 +231,15 @@ app.layout = html.Div(children=[
                                                 children=[html.P("Success rate by month"), ],
                                             ),
                                             html.Hr(),
+                                            html.Div(
+                                                className="line-3-graph",
+                                                children=[
+                                                    dcc.Graph(
+                                                        id='success_rate_over_month_fig',
+                                                        figure=success_rate_over_month_fig
+                                                    )
+                                                ]
+                                            ),
 
                                         ]
                                     )
@@ -291,8 +291,12 @@ app.layout = html.Div(children=[
                                         children=[
                                             html.Img(src="assets/icon/conversation_icon.png",
                                                      className="sub_basic_metrics_img"),
-                                            html.P("Conversations", style={"display": "inline", "paddingLeft": "19px",
-                                                                           "fontSize": "19px"}),
+                                            html.P("Conversations", style={"display": "block", "paddingLeft": "7rem",
+                                                                           "fontSize": "19px", "marginTop": "-4rem"}),
+                                            html.P("'",
+                                                   style={"display": "block", "paddingLeft": "7rem",
+                                                          "fontSize": "27px", "fontWeight": "bold",
+                                                          "marginTop": "-1rem"}),
                                         ]
                                     )
                                 ]
@@ -311,8 +315,12 @@ app.layout = html.Div(children=[
                                         children=[
                                             html.Img(src="assets/icon/user_icon.png",
                                                      className="sub_basic_metrics_img"),
-                                            html.P("Users", style={"display": "inline", "paddingLeft": "19px",
-                                                                   "fontSize": "19px"}),
+                                            html.P("Users", style={"display": "block", "paddingLeft": "7rem",
+                                                                   "fontSize": "19px", "marginTop": "-4rem"}),
+                                            html.P("'",
+                                                   style={"display": "block", "paddingLeft": "7rem",
+                                                          "fontSize": "27px", "fontWeight": "bold",
+                                                          "marginTop": "-1rem"}),
                                         ]
                                     )
                                 ]
@@ -331,8 +339,12 @@ app.layout = html.Div(children=[
                                         children=[
                                             html.Img(src="assets/icon/success_rate_icon.png",
                                                      className="sub_basic_metrics_img"),
-                                            html.P("Success Rate", style={"display": "inline", "paddingLeft": "19px",
-                                                                          "fontSize": "19px"}),
+                                            html.P("Success Rate", style={"display": "block", "paddingLeft": "7rem",
+                                                                          "fontSize": "19px", "marginTop": "-4rem"}),
+                                            html.P("'",
+                                                   style={"display": "block", "paddingLeft": "7rem",
+                                                          "fontSize": "27px", "fontWeight": "bold",
+                                                          "marginTop": "-1rem"}),
                                         ]
                                     )
                                 ]

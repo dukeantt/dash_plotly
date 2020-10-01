@@ -21,7 +21,7 @@ html {
 .sidebar {
     margin: 0;
     padding: 0;
-    width: 16%;
+    width: 16.3%;
     background-color: #448efc;
     position: fixed;
     height: 100%;
@@ -158,11 +158,10 @@ html {
 }
 
 #page_content_and_graph {
-    margin-left: 340px;
+    margin-left: 20.5%;
     margin-right: 75px;
-    padding-top: 50px;
+    padding-top: 3%;
     font-family: 'Source Sans Pro', sans-serif;
-
 }
 
 .big-title {
@@ -196,8 +195,8 @@ html {
     background-color: #ffffff;
     border-radius: 10px;
     border: 1px solid #bebebe;
-    height: 111%;
-    width: 98%;
+    height: 102%;
+    width: 100%;
 }
 
 .sub_basic_metrics_img {
@@ -235,11 +234,27 @@ html {
 }
 
 .metrics-graph {
-    height: 109%;
-    width: 100%;
+    height: 100%;
+    width: 103%;
 }
 
 .line-3-graph {
     position: relative;
-    top: 0.1rem;
+    top: -0.3rem;
+}
+
+#no_users_lastweek {
+    margin-left: 3%;
+}
+
+#success_rate_lastweek {
+    margin-left: 5%;
+}
+
+#no_users_by_month {
+    margin-left: 1%;
+}
+
+#success_rate_by_month {
+    margin-left: 2%;
 }
