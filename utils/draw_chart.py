@@ -28,18 +28,18 @@ def line_success_rate_over_month(month_list, success_rate_over_month):
     success_rate_over_month_fig.add_trace(go.Scatter(x=month_list, y=success_rate_over_month,
                                                      text=[str(x) + "%" for x in success_rate_over_month],
                                                      marker=dict(
-                                                         # color='#529af2',
+                                                         color='#ffffff',
                                                          size=6,
                                                          line=dict(
                                                              color='#529af2',
-                                                             width=0.5
+                                                             width=1
                                                          )
                                                      ),
+                                                     line=dict(color="#529af2", width=1),
                                                      mode='lines+markers+text',
                                                      name='lines+markers+text'))
-    success_rate_over_month_fig.update_traces(
-        marker_color='#ffffff',
-        textposition='top center', textfont_size=10)
+
+    success_rate_over_month_fig.update_traces(textposition='top center', textfont_size=10)
 
     success_rate_over_month_fig.update_layout(width=320, height=215,
                                               yaxis=dict(range=[-0.9, max(success_rate_over_month) + 25])
