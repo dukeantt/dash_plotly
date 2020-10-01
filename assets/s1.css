@@ -21,7 +21,7 @@ html {
 .sidebar {
     margin: 0;
     padding: 0;
-    width: 264px;
+    width: 16%;
     background-color: #448efc;
     position: fixed;
     height: 100%;
@@ -196,12 +196,13 @@ html {
     background-color: #ffffff;
     border-radius: 10px;
     border: 1px solid #bebebe;
-    height: 120px;
+    height: 111%;
+    width: 98%;
 }
 
 .sub_basic_metrics_img {
-    padding-top: 31px;
-    padding-left: 13px;
+    padding-top: 2rem;
+    padding-left: 1.5rem;
 }
 
 .sub_basic_metrics_text {
@@ -234,5 +235,11 @@ html {
 }
 
 .metrics-graph {
-    height: 321px;
+    height: 109%;
+    width: 100%;
+}
+
+.line-3-graph {
+    position: relative;
+    top: 0.1rem;
 }
