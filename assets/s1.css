@@ -251,6 +251,14 @@ html {
     margin-left: 5%;
 }
 
+#no_users_in_period {
+    margin-left: 3%;
+}
+
+#success_rate_in_period {
+    margin-left: 5%;
+}
+
 #no_users_by_month {
     margin-left: 1%;
 }
