@@ -179,3 +179,72 @@ def pie_bot_performance_by_usecase(usecase_dict):
         figure=pie_bot_performance_by_usecase_fig
     )
     return fig
+
+
+def bar_number_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc):
+    outcome_of_uc = number_of_outcome_of_each_usecase_dict[uc]
+    outcome_value = [outcome_of_uc[x] for x in outcome_list]
+    bar_number_of_outcome_of_usecase_fig = go.Figure(layout=layout)
+
+    bar_number_of_outcome_of_usecase_fig.add_trace(go.Bar(
+        x=["Thanks", "Shipping/Order", "Handover", "Silence", "Other"],
+        y=outcome_value,
+        # width=[0.6] * len(outcome_value),
+        text=outcome_value))
+
+    bar_number_of_outcome_of_usecase_fig.update_layout(width=220, height=125,
+                                                     yaxis=dict(ticks="outside", tickcolor='white', ticklen=10, range=[0, max(outcome_value) + 10, ]),
+                                                     xaxis=dict(ticks="outside", tickcolor='white', ticklen=5, ))
+
+    bar_number_of_outcome_of_usecase_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=5)
+    bar_number_of_outcome_of_usecase_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595',
+                                                    tickfont=dict(size=5))
+    bar_number_of_outcome_of_usecase_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595',
+                                                    gridcolor='#f3f3f3', tickfont=dict(size=5))
+
+
+    fig = dcc.Graph(
+        id='bar_number_of_outcome_of_'+str(uc)+'_fig',
+        figure=bar_number_of_outcome_of_usecase_fig
+    )
+    return fig
+
+
+def pie_percent_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc):
+    outcome_of_uc = number_of_outcome_of_each_usecase_dict[uc]
+    outcome_value = [outcome_of_uc[x] for x in outcome_list]
+
+    pie_percent_of_outcome_of_usecase_fig = go.Figure(layout=layout)
+    pie_percent_of_outcome_of_usecase_fig.add_trace(go.Pie(
+        labels=["Thanks", "Shipping/Order", "Handover", "Silence", "Other"],
+        values=outcome_value,
+        marker=dict(
+            colors=["#7b92d0", "#34a853", "#ea4235", "#fabd03", "#ff6d00"],
+            line=dict(color='#f9f9f9', width=1)
+        ),
+        direction="clockwise",
+        sort=False,
+        hoverinfo='label+value',
+        textinfo='label+percent',
+        text=outcome_value,
+        textfont_size=5,
+        insidetextorientation='horizontal',
+    ))
+
+    pie_percent_of_outcome_of_usecase_fig.update_layout(legend=dict(
+
+        yanchor="top",
+        y=0.99,
+        xanchor="right",
+        x=1.5,
+        font=dict(
+            size=5,
+        ),
+    ))
+    pie_percent_of_outcome_of_usecase_fig.update_layout(width=210, height=150)
+
+    fig = dcc.Graph(
+        id='pie_percent_of_outcome_of_'+str(uc)+'_fig',
+        figure=pie_percent_of_outcome_of_usecase_fig
+    )
+    return fig

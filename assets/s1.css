@@ -30,7 +30,7 @@ html {
 
 .sidebar h5 {
     letter-spacing: 5px;
-    font-weight: 1000;
+    font-weight: 100;
     font-family: 'Source Sans Pro', sans-serif;
     padding: 16px;
 
@@ -385,7 +385,7 @@ html {
     padding-left: 0;
     padding-right: 3.2%;
     padding-bottom: 22.7%;
-    height: 180%;
+    height: 93%;
 }
 
 .second-col {
@@ -393,7 +393,7 @@ html {
     margin-left: -0.8%;
     padding-right: 0.6%;
     padding-bottom: 22.7%;
-    height: 180%;
+    height: 93%;
 }
 
 .third-col {
@@ -401,7 +401,7 @@ html {
     padding-right: 0;
     margin-left: 1.4%;
     padding-bottom: 22.7%;
-    height: 180%;
+    height: 93%;
 }
 
 .fourth-col {
@@ -409,7 +409,7 @@ html {
     padding-right: 0;
     margin-left: 1.8%;
     padding-bottom: 22.7%;
-    height: 180%;
+    height: 93%;
 }
 
 #first_2_uc {
@@ -449,7 +449,50 @@ html {
     top: 2.3rem;
 }
 
-#second_2_uc, #third_2_uc, #fourth_2_uc {
+#second_2_uc {
     padding-top: 3.4%;
     padding-bottom: 0.8%;
+    position: relative;
+    bottom: 9.6rem;
+}
+
+#third_2_uc {
+    padding-top: 3.4%;
+    padding-bottom: 0.8%;
+    position: relative;
+    bottom: 19.2rem;
+}
+
+#fourth_2_uc {
+    padding-top: 3.4%;
+    padding-bottom: 0.8%;
+    position: relative;
+    bottom: 28.7rem;
+}
+
+.outcome_of_uc_sub_title {
+    position: relative;
+    font-size: 13px;
+    top: 0.2rem;
+    margin-bottom: -0.58rem;
+}
+
+.percent-outcome-of-uc-pie {
+    position: relative;
+    bottom: 1rem;
+}
+
+.outcome-of-usecase-text {
+    position: relative;
+    bottom: 9.4rem;
+}
+
+.outcome-of-usecase-text-2 {
+    position: relative;
+    bottom: 19rem;
+}
+
+.outcome-of-usecase-text-3 {
+    position: relative;
+    bottom: 28.6rem;
 }

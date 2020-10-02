@@ -557,6 +557,7 @@ app.layout = html.Div(children=[
                 className="",
                 children=[
                     html.Div(
+                        # className="outcome-of-usecase-text",
                         children=[
                             html.Div(
                                 id="outcome_of_usecase_1_text",
@@ -585,7 +586,14 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Number of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Number of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="no_outcome_of_uc1_bar"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -601,7 +609,15 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Percentages of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Percentages of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="percent_outcome_of_uc1_pie",
+                                                                className="percent-outcome-of-uc-pie"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -622,7 +638,14 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Number of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Number of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="no_outcome_of_uc2_bar"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -638,7 +661,15 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Percentages of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Percentages of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="percent_outcome_of_uc2_pie",
+                                                                className="percent-outcome-of-uc-pie"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -650,6 +681,7 @@ app.layout = html.Div(children=[
                         ]
                     ),
                     html.Div(
+                        className="outcome-of-usecase-text",
                         children=[
                             html.Div(
                                 className="big-column-1-text",
@@ -677,7 +709,14 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Number of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Number of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="no_outcome_of_uc3_bar"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -693,7 +732,15 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Percentages of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Percentages of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="percent_outcome_of_uc3_pie",
+                                                                className="percent-outcome-of-uc-pie"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -714,7 +761,14 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Number of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Number of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="no_outcome_of_uc4_bar"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -730,7 +784,15 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Percentages of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Percentages of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="percent_outcome_of_uc4_pie",
+                                                                className="percent-outcome-of-uc-pie"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -742,6 +804,7 @@ app.layout = html.Div(children=[
                         ]
                     ),
                     html.Div(
+                        className="outcome-of-usecase-text-2",
                         children=[
                             html.Div(
                                 className="big-column-1-text",
@@ -769,7 +832,14 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Number of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Number of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="no_outcome_of_uc5_bar"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -785,7 +855,15 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Percentages of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Percentages of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="percent_outcome_of_uc5_pie",
+                                                                className="percent-outcome-of-uc-pie"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -806,7 +884,14 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Number of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Number of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="no_outcome_of_uc8_bar"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -822,7 +907,15 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Percentages of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Percentages of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="percent_outcome_of_uc8_pie",
+                                                                className="percent-outcome-of-uc-pie"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -834,6 +927,7 @@ app.layout = html.Div(children=[
                         ]
                     ),
                     html.Div(
+                        className="outcome-of-usecase-text-3",
                         children=[
                             html.Div(
                                 className="big-column-1-text",
@@ -860,7 +954,14 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Number of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Number of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="no_outcome_of_uc9_bar"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -876,7 +977,15 @@ app.layout = html.Div(children=[
                                                     html.Div(
                                                         className="col-md-12",
                                                         children=[
-                                                            html.P("Percentages of outcomes")
+                                                            html.Div(
+                                                                className='outcome_of_uc_sub_title',
+                                                                children=[html.P("Percentages of outcomes"), ],
+                                                            ),
+                                                            html.Hr(),
+                                                            html.Div(
+                                                                id="percent_outcome_of_uc9_pie",
+                                                                className="percent-outcome-of-uc-pie"
+                                                            ),
                                                         ]
                                                     )
                                                 ]
@@ -935,7 +1044,7 @@ app.layout = html.Div(children=[
 
             html.Div(
                 id="space_at_the_end",
-                style={"paddingBottom": "10000px"},
+                style={"paddingBottom": "10px"},
             ),
         ],
     ),
@@ -1050,6 +1159,20 @@ def handle_df(is_click, start_date, end_date):
         Output("percent_outcome_pie_fig", 'children'),
         Output("no_usecase_bar_fig", 'children'),
         Output("percent_usecase_pie_fig", 'children'),
+        Output("no_outcome_of_uc1_bar", 'children'),
+        Output("percent_outcome_of_uc1_pie", 'children'),
+        Output("no_outcome_of_uc2_bar", 'children'),
+        Output("percent_outcome_of_uc2_pie", 'children'),
+        Output("no_outcome_of_uc3_bar", 'children'),
+        Output("percent_outcome_of_uc3_pie", 'children'),
+        Output("no_outcome_of_uc4_bar", 'children'),
+        Output("percent_outcome_of_uc4_pie", 'children'),
+        Output("no_outcome_of_uc5_bar", 'children'),
+        Output("percent_outcome_of_uc5_pie", 'children'),
+        Output("no_outcome_of_uc8_bar", 'children'),
+        Output("percent_outcome_of_uc8_pie", 'children'),
+        Output("no_outcome_of_uc9_bar", 'children'),
+        Output("percent_outcome_of_uc9_pie", 'children'),
 
     ],
 
@@ -1076,26 +1199,37 @@ def update_output(df_outcome, df_usecase):
         no_users_in_period_text = html.P("2", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P(str(success_rate_in_period), style=metrics_in_period_text_style)
 
-        # NO EACH OUTCOME IN PERIOD
+        # NUMBER OF EACH OUTCOME IN PERIOD
         number_of_outcome_dict = get_number_of_each_outcome(df_outcome)
         bar_bot_performance_by_outcome_fig = bar_bot_performance_by_outcome(number_of_outcome_dict)
         pie_bot_performance_by_outcome_fig = pie_bot_performance_by_outcome(number_of_outcome_dict)
 
-        # NO EACH USECASE IN PERIOD
+        # NUMBER OF EACH USECASE IN PERIOD
         number_of_usecase_dict = get_number_of_each_usecase(df_usecase)
         bar_bot_performance_by_usecase_fig = bar_bot_performance_by_usecase(number_of_usecase_dict)
         pie_bot_performance_by_usecase_fig = pie_bot_performance_by_usecase(number_of_usecase_dict)
 
-        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text, \
-               bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig, \
-               bar_bot_performance_by_usecase_fig, pie_bot_performance_by_usecase_fig
+        # NUMBER OF OUTCOME OF EACH USECASE
+        graph_list = []
+        number_of_outcome_of_each_usecase_dict = get_number_of_outcome_of_each_usecase(df_outcome, df_usecase)
+        for uc in uc_list[:-1]:
+            bar_number_of_outcome_of_uc_fig = bar_number_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict,
+                                                                               uc)
+            pie_percent_of_outcome_of_uc_fig = pie_percent_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict,
+                                                                                 uc)
+            graph_list.append(bar_number_of_outcome_of_uc_fig)
+            graph_list.append(pie_percent_of_outcome_of_uc_fig)
+
+        return [no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,
+                bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig,
+                bar_bot_performance_by_usecase_fig, pie_bot_performance_by_usecase_fig] + graph_list
     else:
         no_conversations_in_period_text = html.P("'", style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("'", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P("'", style=metrics_in_period_text_style)
-        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text, \
-               "", "", \
-               "", ""
+        return [no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,
+                "", "",
+                "", ""] + [""] * len(uc_list[:-1]) * 2
 
 
 if __name__ == '__main__':
