@@ -65,7 +65,9 @@ def bar_bot_performance_by_outcome(outcomes_dict):
         width=[0.6] * len(outcome_value),
         text=outcome_value))
     bar_bot_performance_by_outcome_fig.update_layout(width=410, height=240,
-                                                     yaxis=dict(range=[0, max(outcome_value) + 15]))
+                                                     yaxis=dict(ticks="outside", tickcolor='white', ticklen=10, range=[0, max(outcome_value) + 10, ]),
+                                                     xaxis=dict(ticks="outside", tickcolor='white', ticklen=5, ))
+
     bar_bot_performance_by_outcome_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=11)
     bar_bot_performance_by_outcome_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595',
                                                     tickfont=dict(size=11))
@@ -125,7 +127,8 @@ def bar_bot_performance_by_usecase(usecase_dict):
         width=[0.6] * len(usecase_value),
         text=usecase_value))
     bar_bot_performance_by_usecase_fig.update_layout(width=410, height=240,
-                                                     yaxis=dict(range=[0, max(usecase_value) + 15]))
+                                                     yaxis=dict(ticks="outside", tickcolor='white', ticklen=10, range=[0, max(usecase_value) + 10]),
+                                                     xaxis=dict(ticks="outside", tickcolor='white', ticklen=5,))
     bar_bot_performance_by_usecase_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=11)
     bar_bot_performance_by_usecase_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595',
                                                     tickfont=dict(size=11))

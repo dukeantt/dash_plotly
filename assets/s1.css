@@ -360,7 +360,7 @@ html {
 #no_outcome_bar_fig {
     position: relative;
     top: 1rem;
-    left: 2.8rem;
+    left: 1.9rem;
 }
 
 #percent_outcome_pie_fig {
@@ -372,7 +372,7 @@ html {
 #no_usecase_bar_fig {
     position: relative;
     top: 1rem;
-    left: 2.8rem;
+    left: 1.9rem;
 }
 
 #percent_usecase_pie_fig {
