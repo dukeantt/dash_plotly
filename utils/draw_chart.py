@@ -60,14 +60,17 @@ def bar_bot_performance_by_outcome(outcomes_dict):
     outcome_value = [outcomes_dict[x] for x in outcome_list]
     bar_bot_performance_by_outcome_fig = go.Figure(layout=layout)
     bar_bot_performance_by_outcome_fig.add_trace(go.Bar(
-        x=["thank", "shipping", "handover", "silence", "other"],
+        x=["Thanks", "Shipping/Order", "Handover", "Silence", "Other"],
         y=outcome_value,
         width=[0.6] * len(outcome_value),
         text=outcome_value))
-    bar_bot_performance_by_outcome_fig.update_layout(width=410, height=240, yaxis=dict(range=[0, max(outcome_value) + 25]))
+    bar_bot_performance_by_outcome_fig.update_layout(width=410, height=240,
+                                                     yaxis=dict(range=[0, max(outcome_value) + 25]))
     bar_bot_performance_by_outcome_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=11)
-    bar_bot_performance_by_outcome_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595', tickfont=dict(size=11))
-    bar_bot_performance_by_outcome_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595', gridcolor='#f3f3f3', tickfont=dict(size=11))
+    bar_bot_performance_by_outcome_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595',
+                                                    tickfont=dict(size=11))
+    bar_bot_performance_by_outcome_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595',
+                                                    gridcolor='#f3f3f3', tickfont=dict(size=11))
 
     fig = dcc.Graph(
         id='bar_bot_performance_by_outcome_fig',
@@ -77,4 +80,37 @@ def bar_bot_performance_by_outcome(outcomes_dict):
 
 
 def pie_bot_performance_by_outcome(outcomes_dict):
-    return 0
+    outcome_value = [outcomes_dict[x] for x in outcome_list]
+    pie_bot_performance_by_outcome_fig = go.Figure(layout=layout)
+    pie_bot_performance_by_outcome_fig.add_trace(go.Pie(
+        labels=["Thanks", "Shipping/Order", "Handover", "Silence", "Other"],
+        values=outcome_value,
+        marker=dict(
+            colors=["#7b92d0", "#34a853", "#ea4235", "#fabd03", "#ff6d00"],
+            line=dict(color='#f9f9f9', width=1)
+        ),
+        direction="clockwise",
+        sort=False,
+        hoverinfo='label+value',
+        textinfo='label+percent',
+        text=outcome_value,
+        textfont_size=11,
+        insidetextorientation='horizontal',
+    ))
+    pie_bot_performance_by_outcome_fig.update_layout(legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="right",
+        x=1.5,
+        font=dict(
+            size=11,
+        ),
+    ))
+
+    pie_bot_performance_by_outcome_fig.update_layout(width=500, height=300)
+
+    fig = dcc.Graph(
+        id='pie_bot_performance_by_outcome_fig',
+        figure=pie_bot_performance_by_outcome_fig
+    )
+    return fig

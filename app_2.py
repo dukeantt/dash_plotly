@@ -387,7 +387,7 @@ app.layout = html.Div(children=[
                         className="col-md-6",
                         children=[
                             html.Div(
-                                id="percent_outcome_pie ",
+                                id="percent_outcome_pie",
                                 style={"marginLeft": "3%"},
                                 className="sub_basic_metrics",
                                 children=[
@@ -399,7 +399,10 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                     html.Hr(),
-                                    html.Div(),
+                                    html.Div(
+                                        className="line-2-graph",
+                                        id="percent_outcome_pie_fig"
+                                    ),
                                 ]
                             )
                         ]
@@ -962,6 +965,7 @@ def handle_df(is_click, start_date, end_date):
         Output("no_users_in_period_text", 'children'),
         Output("success_rate_in_period_text", 'children'),
         Output("no_outcome_bar_fig", 'children'),
+        Output("percent_outcome_pie_fig", 'children'),
 
     ],
 
@@ -992,13 +996,13 @@ def update_output(df):
         pie_bot_performance_by_outcome_fig = pie_bot_performance_by_outcome(number_of_outcome_dict)
 
         return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,\
-               bar_bot_performance_by_outcome_fig
+               bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig
     else:
         no_conversations_in_period_text = html.P("'", style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("'", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P("'", style=metrics_in_period_text_style)
         return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,\
-               ""
+               "", ""
 
 
 if __name__ == '__main__':

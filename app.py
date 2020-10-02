@@ -576,7 +576,7 @@ def create_trace_outcome_proportion_in_all_conversation(uc_outcome: dict):
         # rotation=120,
         hoverinfo='label+value',
         textinfo='label+percent',
-        textfont_size=13,
+        textfont_size=11,
         marker=dict(
             colors=["#7b92d0", "#ea4235", "#34a853", "#fabd03", "#ff6d00"],
             line=dict(color='#f9f9f9', width=1)
