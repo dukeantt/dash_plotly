@@ -65,7 +65,7 @@ def bar_bot_performance_by_outcome(outcomes_dict):
         width=[0.6] * len(outcome_value),
         text=outcome_value))
     bar_bot_performance_by_outcome_fig.update_layout(width=410, height=240,
-                                                     yaxis=dict(range=[0, max(outcome_value) + 25]))
+                                                     yaxis=dict(range=[0, max(outcome_value) + 15]))
     bar_bot_performance_by_outcome_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=11)
     bar_bot_performance_by_outcome_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595',
                                                     tickfont=dict(size=11))
@@ -112,5 +112,67 @@ def pie_bot_performance_by_outcome(outcomes_dict):
     fig = dcc.Graph(
         id='pie_bot_performance_by_outcome_fig',
         figure=pie_bot_performance_by_outcome_fig
+    )
+    return fig
+
+
+def bar_bot_performance_by_usecase(usecase_dict):
+    usecase_value = [usecase_dict[x] for x in uc_list]
+    bar_bot_performance_by_usecase_fig = go.Figure(layout=layout)
+    bar_bot_performance_by_usecase_fig.add_trace(go.Bar(
+        x=["UC-S1", "UC-S2", "UC-S3", "UC-S4", "UC-S5", "UC-S8","UC-S9", "Other"],
+        y=usecase_value,
+        width=[0.6] * len(usecase_value),
+        text=usecase_value))
+    bar_bot_performance_by_usecase_fig.update_layout(width=410, height=240,
+                                                     yaxis=dict(range=[0, max(usecase_value) + 15]))
+    bar_bot_performance_by_usecase_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=11)
+    bar_bot_performance_by_usecase_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595',
+                                                    tickfont=dict(size=11))
+    bar_bot_performance_by_usecase_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595',
+                                                    gridcolor='#f3f3f3', tickfont=dict(size=11))
+
+    fig = dcc.Graph(
+        id='bar_bot_performance_by_usecase_fig',
+        figure=bar_bot_performance_by_usecase_fig
+    )
+    return fig
+
+
+def pie_bot_performance_by_usecase(usecase_dict):
+    usecase_value = [usecase_dict[x] for x in uc_list]
+    pie_bot_performance_by_usecase_fig = go.Figure(layout=layout)
+    pie_bot_performance_by_usecase_fig.add_trace(go.Pie(
+        labels=["UC-S1", "UC-S2", "UC-S3", "UC-S4", "UC-S5", "UC-S8", "UC-S9", "Other"],
+        values=usecase_value,
+        marker=dict(
+            # colors=["#7b92d0", "#34a853", "#ea4235", "#fabd03", "#ff6d00"],
+            line=dict(color='#f9f9f9', width=1)
+        ),
+        direction="clockwise",
+        sort=False,
+        hoverinfo='label+value',
+        textinfo='label+percent',
+        text=usecase_value,
+        textfont_size=11,
+        insidetextorientation='horizontal',
+    ))
+    pie_bot_performance_by_usecase_fig.update_traces(textposition='auto')
+
+    pie_bot_performance_by_usecase_fig.update_layout(legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="right",
+        x=1.5,
+        font=dict(
+            size=11,
+        ),
+    ))
+
+    pie_bot_performance_by_usecase_fig.update_layout(width=500, height=300)
+
+    fig = dcc.Graph(
+        id='pie_bot_performance_by_usecase_fig',
+        figure=pie_bot_performance_by_usecase_fig
     )
     return fig

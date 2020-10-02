@@ -461,7 +461,19 @@ app.layout = html.Div(children=[
                                     html.Div(
                                         className="col-md-12",
                                         children=[
-                                            html.P("Number of Use cases")
+                                            html.Div(
+                                                className="col-md-12",
+                                                style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
+                                                       "fontSize": "19px", "marginBottom": "1.5rem"},
+                                                children=[
+                                                    html.P("Number of Use cases")
+                                                ]
+                                            ),
+                                            html.Hr(),
+                                            html.Div(
+                                                className="line-2-graph",
+                                                id="no_usecase_bar_fig"
+                                            ),
                                         ]
                                     )
                                 ]
@@ -472,13 +484,26 @@ app.layout = html.Div(children=[
                         className="col-md-6",
                         children=[
                             html.Div(
-                                id="percent_usecase_pie ",
+                                id="percent_usecase_pie",
+                                style={"marginLeft": "3%"},
                                 className="sub_basic_metrics",
                                 children=[
                                     html.Div(
                                         className="col-md-12",
                                         children=[
-                                            html.P("Percentages of Use cases")
+                                            html.Div(
+                                                className="col-md-12",
+                                                style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
+                                                       "fontSize": "19px", "marginBottom": "1.5rem"},
+                                                children=[
+                                                    html.P("Percentages of Use cases")
+                                                ]
+                                            ),
+                                            html.Hr(),
+                                            html.Div(
+                                                className="line-2-graph",
+                                                id="percent_usecase_pie_fig"
+                                            ),
                                         ]
                                     )
                                 ]
@@ -852,7 +877,8 @@ app.layout = html.Div(children=[
                 ]
             ),
 
-            html.Div(id='df-data', style={'display': 'none'}),
+            html.Div(id='df-data-outcome', style={'display': 'none'}),
+            html.Div(id='df-data-usecase', style={'display': 'none'}),
             html.P(id='custom_from_date_data', style={'display': 'none'}),
             html.P(id='custom_to_date_data', style={'display': 'none'}),
             html.P(id='is-click', style={'display': 'none'}, children=["0"]),
@@ -939,7 +965,10 @@ def show_loading(n_clicks, start_date, end_date):
 
 
 @app.callback(
-    Output('df-data', 'children'),
+    [
+        Output('df-data-outcome', 'children'),
+        Output('df-data-usecase', 'children'),
+    ],
     [
         Input('is-click', 'children'),
     ],
@@ -950,13 +979,15 @@ def show_loading(n_clicks, start_date, end_date):
 )
 def handle_df(is_click, start_date, end_date):
     if is_click == "1" and start_date is not None and end_date is not None:
-        df = get_data_from_table("conversation_outcome", from_date=start_date, to_date=end_date)
-        if len(df) == 0:
-            return None
-        df = df.drop(columns=["_id"])
-        return df.to_json(date_format='iso', orient='split')
+        df_outcome = get_data_from_table("conversation_outcome", from_date=start_date, to_date=end_date)
+        df_usecase = get_data_from_table("conversation_usecase", from_date=start_date, to_date=end_date)
+        if len(df_outcome) == 0:
+            return None, None
+        df_outcome = df_outcome.drop(columns=["_id"])
+        df_usecase = df_usecase.drop(columns=["_id"])
+        return df_outcome.to_json(date_format='iso', orient='split'), df_usecase.to_json(date_format='iso', orient='split')
     else:
-        return None
+        return None, None
 
 
 @app.callback(
@@ -966,42 +997,53 @@ def handle_df(is_click, start_date, end_date):
         Output("success_rate_in_period_text", 'children'),
         Output("no_outcome_bar_fig", 'children'),
         Output("percent_outcome_pie_fig", 'children'),
+        Output("no_usecase_bar_fig", 'children'),
+        Output("percent_usecase_pie_fig", 'children'),
 
     ],
 
     [
-        Input('df-data', 'children')
+        Input('df-data-outcome', 'children'),
+        Input('df-data-usecase', 'children')
     ],
     # [
     #     State('loading-div', 'style'),
     #     State('loading-div-2', 'style')
     # ]
 )
-def update_output(df):
-    if df is not None:
-        df = pd.read_json(df, orient="split")
+def update_output(df_outcome, df_usecase):
+    if df_outcome is not None:
+        df_outcome = pd.read_json(df_outcome, orient="split")
+        df_usecase = pd.read_json(df_usecase, orient="split")
 
         # no_conversation, users, success rate in period
-        no_conversations_in_period = get_number_of_conversation(df)
+        no_conversations_in_period = get_number_of_conversation(df_outcome)
         # no_users_in_period = get_number_of_user(df)
-        success_rate_in_period = get_success_rate(df)
+        success_rate_in_period = get_success_rate(df_outcome)
 
         no_conversations_in_period_text = html.P(str(no_conversations_in_period), style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("2", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P(str(success_rate_in_period), style=metrics_in_period_text_style)
 
         # NO EACH OUTCOME IN PERIOD
-        number_of_outcome_dict = get_number_of_each_outcome(df)
+        number_of_outcome_dict = get_number_of_each_outcome(df_outcome)
         bar_bot_performance_by_outcome_fig = bar_bot_performance_by_outcome(number_of_outcome_dict)
         pie_bot_performance_by_outcome_fig = pie_bot_performance_by_outcome(number_of_outcome_dict)
 
+        # NO EACH USECASE IN PERIOD
+        number_of_usecase_dict = get_number_of_each_usecase(df_usecase)
+        bar_bot_performance_by_usecase_fig = bar_bot_performance_by_usecase(number_of_usecase_dict)
+        pie_bot_performance_by_usecase_fig = pie_bot_performance_by_usecase(number_of_usecase_dict)
+
         return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,\
-               bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig
+               bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig,\
+               bar_bot_performance_by_usecase_fig, pie_bot_performance_by_usecase_fig
     else:
         no_conversations_in_period_text = html.P("'", style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("'", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P("'", style=metrics_in_period_text_style)
         return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,\
+               "", "",\
                "", ""
 
 
