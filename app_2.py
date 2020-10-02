@@ -369,7 +369,8 @@ app.layout = html.Div(children=[
                                 children=[
                                     html.Div(
                                         className="col-md-12",
-                                        style={"position": "relative", "top": "1.1rem", "left": "1.25rem", "fontSize": "19px", "marginBottom": "1.5rem"},
+                                        style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
+                                               "fontSize": "19px", "marginBottom": "1.5rem"},
                                         children=[
                                             html.P("Number of Outcomes")
                                         ]
@@ -393,7 +394,8 @@ app.layout = html.Div(children=[
                                 children=[
                                     html.Div(
                                         className="col-md-12",
-                                        style={"position": "relative", "top": "1.1rem", "left": "1.25rem", "fontSize": "19px", "marginBottom": "1.5rem"},
+                                        style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
+                                               "fontSize": "19px", "marginBottom": "1.5rem"},
                                         children=[
                                             html.P("Percentages of Outcomes")
                                         ]
@@ -555,6 +557,19 @@ app.layout = html.Div(children=[
                 className="",
                 children=[
                     html.Div(
+                        children=[
+                            html.Div(
+                                id="outcome_of_usecase_1_text",
+                                children=["Use case S1"],
+                            ),
+                            html.Div(
+                                id="outcome_of_usecase_2_text",
+                                children=["Use case S2"],
+                            ),
+                        ]
+                    ),
+
+                    html.Div(
                         id="first_2_uc",
                         className="basic-metrics",
                         children=[
@@ -562,7 +577,7 @@ app.layout = html.Div(children=[
                                 className="col-md-6 basic-metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 first-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -578,7 +593,7 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 second-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -599,7 +614,7 @@ app.layout = html.Div(children=[
                                 className="col-md-6 basic-metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 third-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -615,7 +630,7 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 fourth-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -631,6 +646,18 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                 ]
+                            ),
+                        ]
+                    ),
+                    html.Div(
+                        children=[
+                            html.Div(
+                                className="big-column-1-text",
+                                children=["Use case S3"],
+                            ),
+                            html.Div(
+                                className="big-column-2-text",
+                                children=["Use case S4"],
                             ),
                         ]
                     ),
@@ -642,7 +669,7 @@ app.layout = html.Div(children=[
                                 className="col-md-6 basic-metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 first-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -658,7 +685,7 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 second-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -679,7 +706,7 @@ app.layout = html.Div(children=[
                                 className="col-md-6 basic-metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 third-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -695,7 +722,7 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 fourth-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -711,6 +738,18 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                 ]
+                            ),
+                        ]
+                    ),
+                    html.Div(
+                        children=[
+                            html.Div(
+                                className="big-column-1-text",
+                                children=["Use case S5"],
+                            ),
+                            html.Div(
+                                className="big-column-2-text",
+                                children=["Use case S8"],
                             ),
                         ]
                     ),
@@ -722,7 +761,7 @@ app.layout = html.Div(children=[
                                 className="col-md-6 basic-metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 first-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -738,7 +777,7 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 second-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -759,7 +798,7 @@ app.layout = html.Div(children=[
                                 className="col-md-6 basic-metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 third-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -775,7 +814,7 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 fourth-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -795,6 +834,17 @@ app.layout = html.Div(children=[
                         ]
                     ),
                     html.Div(
+                        children=[
+                            html.Div(
+                                className="big-column-1-text",
+                                children=["Use case S9"],
+                            ),
+                            # html.Div(
+                            #     children=["Use case S2"],
+                            # ),
+                        ]
+                    ),
+                    html.Div(
                         id="fourth_2_uc",
                         className="basic-metrics",
                         children=[
@@ -802,7 +852,7 @@ app.layout = html.Div(children=[
                                 className="col-md-6 basic-metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 first-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -818,7 +868,7 @@ app.layout = html.Div(children=[
                                         ]
                                     ),
                                     html.Div(
-                                        className="col-md-6",
+                                        className="col-md-6 second-col",
                                         children=[
                                             html.Div(
                                                 className="sub_basic_metrics",
@@ -835,43 +885,43 @@ app.layout = html.Div(children=[
                                     ),
                                 ]
                             ),
-                            html.Div(
-                                className="col-md-6 basic-metrics",
-                                children=[
-                                    html.Div(
-                                        className="col-md-6",
-                                        children=[
-                                            html.Div(
-                                                className="sub_basic_metrics",
-                                                children=[
-                                                    html.Div(
-                                                        className="col-md-12",
-                                                        children=[
-                                                            html.P("Number of outcomes")
-                                                        ]
-                                                    )
-                                                ]
-                                            ),
-                                        ]
-                                    ),
-                                    html.Div(
-                                        className="col-md-6",
-                                        children=[
-                                            html.Div(
-                                                className="sub_basic_metrics",
-                                                children=[
-                                                    html.Div(
-                                                        className="col-md-12",
-                                                        children=[
-                                                            html.P("Percentages of outcomes")
-                                                        ]
-                                                    )
-                                                ]
-                                            )
-                                        ]
-                                    ),
-                                ]
-                            ),
+                            # html.Div(
+                            #     className="col-md-6 basic-metrics",
+                            #     children=[
+                            #         html.Div(
+                            #             className="col-md-6 third-col",
+                            #             children=[
+                            #                 html.Div(
+                            #                     className="sub_basic_metrics",
+                            #                     children=[
+                            #                         html.Div(
+                            #                             className="col-md-12",
+                            #                             children=[
+                            #                                 html.P("Number of outcomes")
+                            #                             ]
+                            #                         )
+                            #                     ]
+                            #                 ),
+                            #             ]
+                            #         ),
+                            #         html.Div(
+                            #             className="col-md-6 fourth-col",
+                            #             children=[
+                            #                 html.Div(
+                            #                     className="sub_basic_metrics",
+                            #                     children=[
+                            #                         html.Div(
+                            #                             className="col-md-12",
+                            #                             children=[
+                            #                                 html.P("Percentages of outcomes")
+                            #                             ]
+                            #                         )
+                            #                     ]
+                            #                 )
+                            #             ]
+                            #         ),
+                            #     ]
+                            # ),
                         ]
                     ),
                 ]
@@ -885,7 +935,7 @@ app.layout = html.Div(children=[
 
             html.Div(
                 id="space_at_the_end",
-                style={"paddingBottom": "100px"},
+                style={"paddingBottom": "10000px"},
             ),
         ],
     ),
@@ -985,7 +1035,8 @@ def handle_df(is_click, start_date, end_date):
             return None, None
         df_outcome = df_outcome.drop(columns=["_id"])
         df_usecase = df_usecase.drop(columns=["_id"])
-        return df_outcome.to_json(date_format='iso', orient='split'), df_usecase.to_json(date_format='iso', orient='split')
+        return df_outcome.to_json(date_format='iso', orient='split'), df_usecase.to_json(date_format='iso',
+                                                                                         orient='split')
     else:
         return None, None
 
@@ -1035,15 +1086,15 @@ def update_output(df_outcome, df_usecase):
         bar_bot_performance_by_usecase_fig = bar_bot_performance_by_usecase(number_of_usecase_dict)
         pie_bot_performance_by_usecase_fig = pie_bot_performance_by_usecase(number_of_usecase_dict)
 
-        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,\
-               bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig,\
+        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text, \
+               bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig, \
                bar_bot_performance_by_usecase_fig, pie_bot_performance_by_usecase_fig
     else:
         no_conversations_in_period_text = html.P("'", style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("'", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P("'", style=metrics_in_period_text_style)
-        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,\
-               "", "",\
+        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text, \
+               "", "", \
                "", ""
 
 
