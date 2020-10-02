@@ -264,6 +264,7 @@ app.layout = html.Div(children=[
                         id='my_date_picker_start',
                         min_date_allowed=dt(2020, 1, 1),
                         max_date_allowed=dt(2021, 12, 31),
+                        initial_visible_month=dt(2020, 8, 1),
                         display_format='D/M/Y',
                         placeholder='Start date',
                     ),
@@ -272,6 +273,7 @@ app.layout = html.Div(children=[
                         id='my_date_picker_end',
                         min_date_allowed=dt(2020, 1, 1),
                         max_date_allowed=dt(2021, 12, 31),
+                        initial_visible_month=dt(2020, 8, 31),
                         display_format='D/M/Y',
                         placeholder='End date',
                     ),
@@ -367,13 +369,16 @@ app.layout = html.Div(children=[
                                 children=[
                                     html.Div(
                                         className="col-md-12",
-                                        style={"position": "relative", "top": "0.6rem", "left": "1.25rem", "fontSize": "18px"},
+                                        style={"position": "relative", "top": "1.1rem", "left": "1.25rem", "fontSize": "19px", "marginBottom": "1.5rem"},
                                         children=[
                                             html.P("Number of Outcomes")
                                         ]
                                     ),
                                     html.Hr(),
-                                    html.Div(),
+                                    html.Div(
+                                        className="line-2-graph",
+                                        id="no_outcome_bar_fig"
+                                    ),
                                 ]
                             )
                         ]
@@ -388,7 +393,7 @@ app.layout = html.Div(children=[
                                 children=[
                                     html.Div(
                                         className="col-md-12",
-                                        style={"position": "relative", "top": "0.6rem", "left": "1.25rem", "fontSize": "18px"},
+                                        style={"position": "relative", "top": "1.1rem", "left": "1.25rem", "fontSize": "19px", "marginBottom": "1.5rem"},
                                         children=[
                                             html.P("Percentages of Outcomes")
                                         ]
@@ -956,6 +961,7 @@ def handle_df(is_click, start_date, end_date):
         Output("no_conversations_in_period_text", 'children'),
         Output("no_users_in_period_text", 'children'),
         Output("success_rate_in_period_text", 'children'),
+        Output("no_outcome_bar_fig", 'children'),
 
     ],
 
@@ -971,6 +977,7 @@ def update_output(df):
     if df is not None:
         df = pd.read_json(df, orient="split")
 
+        # no_conversation, users, success rate in period
         no_conversations_in_period = get_number_of_conversation(df)
         # no_users_in_period = get_number_of_user(df)
         success_rate_in_period = get_success_rate(df)
@@ -978,12 +985,20 @@ def update_output(df):
         no_conversations_in_period_text = html.P(str(no_conversations_in_period), style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("2", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P(str(success_rate_in_period), style=metrics_in_period_text_style)
-        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text
+
+        # NO EACH OUTCOME IN PERIOD
+        number_of_outcome_dict = get_number_of_each_outcome(df)
+        bar_bot_performance_by_outcome_fig = bar_bot_performance_by_outcome(number_of_outcome_dict)
+        pie_bot_performance_by_outcome_fig = pie_bot_performance_by_outcome(number_of_outcome_dict)
+
+        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,\
+               bar_bot_performance_by_outcome_fig
     else:
         no_conversations_in_period_text = html.P("'", style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("'", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P("'", style=metrics_in_period_text_style)
-        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text
+        return no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,\
+               ""
 
 
 if __name__ == '__main__':

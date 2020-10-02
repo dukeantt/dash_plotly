@@ -14,6 +14,7 @@ db = client['chatlog_db']
 db_name = ""
 month_dict = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct",
               11: "Nov", 12: "Dec"}
+outcome_list = ["thank", "shipping_order", "handover_to_inbox", "silence", "other"]
 
 
 def get_data_from_table(db_name, from_date=None, to_date=None):
@@ -77,3 +78,10 @@ def get_number_of_conversation_every_month(df):
         success_rate_list.append(success_rate)
     month_list = [month_dict[x] for x in month_list]
     return month_list, no_conversation_list, success_rate_list
+
+
+def get_number_of_each_outcome(df):
+    outcome_dict = {}
+    for outcome in outcome_list:
+        outcome_dict[outcome] = sum(df[outcome].to_list())
+    return outcome_dict

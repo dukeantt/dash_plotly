@@ -243,6 +243,12 @@ html {
     top: -0.3rem;
 }
 
+.line-2-graph {
+    position: relative;
+    top: 1rem;
+    left: 2.8rem;
+}
+
 #no_users_lastweek {
     margin-left: 3%;
 }
@@ -331,13 +337,11 @@ html {
 
 #no_outcome_bar {
     width: 95%;
-    height: 22.1rem;
-
+    height: 22.2rem;
 }
 
 #percent_outcome_pie {
     width: 95%;
     margin-left: 3%;
     height: 22.1rem;
-
 }
