@@ -170,7 +170,7 @@ app.layout = html.Div(children=[
                                 className="sub_basic_metrics metrics-graph",
                                 children=[
                                     html.Div(
-                                        className="col-md-12",
+                                        className="col-md-12 part-1-graph-responsive",
                                         children=[
                                             # html.Img(src="assets/icon/conversation_icon.png", className="sub_basic_metrics_img"),
                                             html.Div(
@@ -180,14 +180,16 @@ app.layout = html.Div(children=[
                                             html.Hr(),
                                             html.Div(
                                                 className="line-3-graph",
+                                                style={"height": "100%"},
                                                 children=[
                                                     dcc.Graph(
+                                                        style={"height": "75%"},
                                                         id='conversation_by_month_fig',
+                                                        responsive=True,
                                                         figure=conversation_by_month_fig
                                                     )
                                                 ]
                                             ),
-
                                         ]
                                     )
                                 ]
@@ -204,14 +206,25 @@ app.layout = html.Div(children=[
                                 className="sub_basic_metrics metrics-graph",
                                 children=[
                                     html.Div(
-                                        className="col-md-12",
+                                        className="col-md-12 part-1-graph-responsive",
                                         children=[
                                             html.Div(
                                                 style={"position": "relative", "top": "0.6rem"},
                                                 children=[html.P("Users by month"), ],
                                             ),
                                             html.Hr(),
-
+                                            # html.Div(
+                                            #     className="line-3-graph",
+                                            #     style={"height": "100%"},
+                                            #     children=[
+                                            #         dcc.Graph(
+                                            #             style={"height": "150%"},
+                                            #             id='conversation_by_month_fig',
+                                            #             responsive=True,
+                                            #             figure=conversation_by_month_fig
+                                            #         )
+                                            #     ]
+                                            # ),
                                         ]
                                     )
                                 ]
@@ -219,7 +232,7 @@ app.layout = html.Div(children=[
                         ]
                     ),
                     html.Div(
-                        className="col-md-4",
+                        className="col-md-4 part-1-graph-responsive",
                         # style={"marginLeft": "-0.3rem"},
                         children=[
                             html.Div(
@@ -227,7 +240,7 @@ app.layout = html.Div(children=[
                                 className="sub_basic_metrics metrics-graph",
                                 children=[
                                     html.Div(
-                                        className="col-md-12",
+                                        className="col-md-12 part-1-graph-responsive",
                                         children=[
                                             html.Div(
                                                 style={"position": "relative", "top": "0.6rem"},
@@ -236,9 +249,12 @@ app.layout = html.Div(children=[
                                             html.Hr(),
                                             html.Div(
                                                 className="line-3-graph",
+                                                style={"height": "100%"},
                                                 children=[
                                                     dcc.Graph(
+                                                        style={"height": "75%"},
                                                         id='success_rate_over_month_fig',
+                                                        responsive=True,
                                                         figure=success_rate_over_month_fig
                                                     )
                                                 ]

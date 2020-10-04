@@ -186,6 +186,10 @@ html {
     padding-left: 15px;
 }
 
+.part-1-graph-responsive{
+    height: 15rem;
+}
+
 .basic-metrics {
     padding-top: 22px;
     display: flex;
