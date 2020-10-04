@@ -35,6 +35,74 @@ def get_data_from_table(db_name, from_date=None, to_date=None):
     })])
     return data_df
 
+def get_chatlog_from_db(db_name, from_date, to_date):
+    client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
+    db = client['chatlog_db']
+    collection = db[db_name]
+    start = datetime.datetime.strptime(from_date, "%Y-%m-%d")
+    end = datetime.datetime.strptime(to_date, "%Y-%m-%d")
+
+    start_month = from_date[:7]
+    end_month = to_date[:7]
+    special_month = ["2020-02", "2020-03", "2020-04", "2020-05", "2020-06"]  # 2 thang nay co thoi gian bat bot khac cac thang con lai
+    time_start_morning = datetime.datetime.strptime("09:00:00", "%H:%M:%S")
+    time_end_morning = datetime.datetime.strptime("12:05:00", "%H:%M:%S")
+
+    time_start_afternoon = datetime.datetime.strptime("14:00:00", "%H:%M:%S")
+    time_end_afternoon = datetime.datetime.strptime("17:05:00", "%H:%M:%S")
+
+    # chatlog_df = pd.DataFrame([document for document in collection.find({'conversation_begin_date': {'$gte': start, '$lte': end, }})])
+    if start_month in special_month and end_month in special_month:
+        chatlog_df = pd.DataFrame([document for document in collection.find({
+            '$and': [
+                {'conversation_begin_date': {'$gte': start, '$lte': end}},
+                {'conversation_begin_time': {'$gte': datetime.datetime.strptime("09:00:00", "%H:%M:%S"),
+                                             '$lte': datetime.datetime.strptime("17:30:00", "%H:%M:%S")}},
+                {'week_day': {'$gte': 0, '$lte': 4}},
+            ]
+        })])
+    elif start_month in special_month:
+        chatlog_df = pd.DataFrame([document for document in collection.find(
+            {
+                '$or': [
+                    {
+                        '$and': [
+                            {'conversation_begin_date': {'$gte': start,
+                                                         '$lte': datetime.datetime.strptime("2020-07-31", "%Y-%m-%d")}},
+                            {'conversation_begin_time': {'$gte': datetime.datetime.strptime("09:00:00", "%H:%M:%S"),
+                                                         '$lte': datetime.datetime.strptime("17:30:00", "%H:%M:%S")}},
+                            {'week_day': {'$gte': 0, '$lte': 4}},
+                        ]
+                    },
+                    {
+                        '$and': [
+                            {'conversation_begin_date': {'$gte': datetime.datetime.strptime("2020-08-01", "%Y-%m-%d"),
+                                                         '$lte': end}},
+                            {'$or': [
+                                {'conversation_begin_time': {'$gte': time_start_morning, '$lte': time_end_morning}},
+                                {'conversation_begin_time': {'$gte': time_start_afternoon, '$lte': time_end_afternoon}},
+                            ]},
+                            {'week_day': {'$gte': 0, '$lte': 4}},
+                        ]
+                    }
+                ]
+            }
+        )])
+    else:
+        chatlog_df = pd.DataFrame([document for document in collection.find({
+            '$and': [
+                {'conversation_begin_date': {'$gte': start, '$lte': end}},
+                {'$or': [
+                    {'conversation_begin_time': {'$gte': time_start_morning, '$lte': time_end_morning}},
+                    {'conversation_begin_time': {'$gte': time_start_afternoon, '$lte': time_end_afternoon}},
+                ]},
+                {'week_day': {'$gte': 0, '$lte': 4}},
+            ]
+        })])
+
+    if len(chatlog_df) > 0:
+        chatlog_df = chatlog_df.drop(columns=["_id", "conversation_time", "conversation_begin_date", "week_day"])
+    return chatlog_df
 
 def get_success_rate(df):
     no_success = len(df[(df["thank"] == 1) | (df["shipping_order"] == 1)])
@@ -115,3 +183,25 @@ def get_number_of_outcome_of_each_usecase(df_outcome, df_usecase):
                 outcome_of_usecase_dict[uc][oc] += 1
 
     return outcome_of_usecase_dict
+
+
+def get_conversation_each_outcome(df: pd.DataFrame):
+    column_list = ["conversation_id", "use_case", "sender_id", "user_message", "bot_message", "created_time", "intent",
+                   "entities"]
+    qualified_thank = []
+    qualified_shipping = []
+
+    for id in df[df["outcome"] == "thank"]["conversation_id"].to_list():
+        if len(df[df["conversation_id"] == id]["turn"].drop_duplicates()) > 1:
+            qualified_thank.append(id)
+
+
+    thank_df = df[df["conversation_id"].isin(qualified_thank)][column_list]
+    # shipping_order_df = df[df["conversation_id"].isin(qualified_shipping)][column_list]
+    shipping_order_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "shipping_order"]["conversation_id"]))][column_list]
+    handover_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "handover_to_inbox"]["conversation_id"]))][column_list]
+    silence_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "silence"]["conversation_id"]))][column_list]
+    other_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "other"]["conversation_id"]))][column_list]
+    # agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
+
+    return thank_df, shipping_order_df, handover_df, silence_df, other_df

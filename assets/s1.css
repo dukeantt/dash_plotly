@@ -219,6 +219,7 @@ html {
     padding-left: 16px;
 }
 
+
 #show_table_and_filter_outcome {
     padding-top: 20px;
     padding-left: 16px;
@@ -327,6 +328,34 @@ html {
 
 #my_date_picker_start:after {
     margin: 10% 0 0 -26%;
+    content: "";
+    display: block;
+    position: relative;
+    float: left;
+    width: 11%;
+    height: 0.5rem;
+    background: url(icon/datepicker/datepicker_dropdown.png);
+    background-repeat: no-repeat;
+    background-size: 0.75rem 0.5rem;
+    left: 107%;
+}
+
+#outcome_dropdown:after {
+    margin: -12.5% 0 0 -13%;
+    content: "";
+    display: block;
+    position: relative;
+    float: left;
+    width: 11%;
+    height: 0.5rem;
+    background: url(icon/datepicker/datepicker_dropdown.png);
+    background-repeat: no-repeat;
+    background-size: 0.75rem 0.5rem;
+    left: 107%;
+}
+
+#usecase_dropdown:after {
+    margin: -12.5% 0 0 -13%;
     content: "";
     display: block;
     position: relative;

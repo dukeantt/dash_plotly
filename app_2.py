@@ -47,7 +47,6 @@ conversation_by_month_fig = bar_conversation_by_month(month_list, conversations_
 
 # LINE CHART SUCCESS RATE OVER MONTH
 success_rate_over_month_fig = line_success_rate_over_month(month_list, success_rate_over_month)
-
 app.layout = html.Div(children=[
     html.Div(
         id="sidebar",
@@ -295,7 +294,7 @@ app.layout = html.Div(children=[
                     ),
                     html.Button('Run', id='run-analytics',
                                 style={"borderRadius": "4px", "backgroundColor": "#448efc", "color": "white",
-                                       "width": "3%", "height": "2rem", "borderStyle": "hidden", "fontSize": "12px"}, ),
+                                       "width": "3%", "height": "2rem", "borderStyle": "hidden", "fontSize": "0.7rem"}, ),
                 ]
             ),
             html.Div(
@@ -433,6 +432,21 @@ app.layout = html.Div(children=[
                     html.Button('View detail', id='show_hide_table_outcome',
                                 style={"borderRadius": "4px", "backgroundColor": "#448efc", "color": "white",
                                        "width": "213px", "height": "38px", "borderStyle": "hidden"}, ),
+                    dcc.Dropdown(
+                        id="outcome_dropdown",
+                        options=[
+                            {'label': 'Thanks', 'value': 'thanks_conv'},
+                            {'label': 'Shipping/Order', 'value': 'shipping_order_conv'},
+                            {'label': 'Handover', 'value': 'handover_conv'},
+                            {'label': 'Silence', 'value': 'silence_conv'},
+                            {'label': 'Others', 'value': 'others_conv'},
+                        ],
+                        style={'height': '2.3rem', 'width': '12rem', 'display': 'inline-block', "padding-top": "0",
+                               "padding-left": "1.5%", 'position': 'relative', 'top': '0.4rem', },
+                        value='shipping_order_conv',
+                        searchable=False,
+                        clearable=False
+                    )
                 ]
             ),
 
@@ -450,7 +464,16 @@ app.layout = html.Div(children=[
                                     html.Div(
                                         className="col-md-12",
                                         children=[
-                                            html.P("Chatlog Data")
+                                            html.P("Chatlog Data"),
+                                            html.Div(
+                                                children=[
+                                                    html.Div(id="thank_table"),
+                                                    html.Div(id="shipping_order_table"),
+                                                    html.Div(id="handover_table"),
+                                                    html.Div(id="silence_table"),
+                                                    html.Div(id="other_table"),
+                                                ]
+                                            )
                                         ]
                                     )
                                 ]
@@ -536,6 +559,24 @@ app.layout = html.Div(children=[
                     html.Button('View detail', id='show_hide_table_usecase',
                                 style={"borderRadius": "4px", "backgroundColor": "#448efc", "color": "white",
                                        "width": "213px", "height": "38px", "borderStyle": "hidden"}, ),
+                    dcc.Dropdown(
+                        id="usecase_dropdown",
+                        options=[
+                            {'label': 'UC-S1', 'value': 'uc_s1'},
+                            {'label': 'UC-S2', 'value': 'uc_s2'},
+                            {'label': 'UC-S3', 'value': 'uc_s3'},
+                            {'label': 'UC-S4', 'value': 'uc_s4'},
+                            {'label': 'UC-S5', 'value': 'uc_s5'},
+                            {'label': 'UC-S8', 'value': 'uc_s8'},
+                            {'label': 'UC-S9', 'value': 'uc_s9'},
+                            {'label': 'Others', 'value': 'others'},
+                        ],
+                        style={'height': '2.3rem', 'width': '12rem', 'display': 'inline-block', "padding-top": "0",
+                               "padding-left": "1.5%", 'position': 'relative', 'top': '0.4rem', },
+                        value='uc_s1',
+                        searchable=False,
+                        clearable=False
+                    )
                 ]
             ),
             html.Div(
@@ -552,7 +593,11 @@ app.layout = html.Div(children=[
                                     html.Div(
                                         className="col-md-12",
                                         children=[
-                                            html.P("Chatlog Data")
+                                            html.P("Chatlog Data"),
+                                            html.Div(
+                                                id="conversation_table_usecase"
+                                            ),
+
                                         ]
                                     )
                                 ]
@@ -1054,6 +1099,7 @@ app.layout = html.Div(children=[
 
             html.Div(id='df-data-outcome', style={'display': 'none'}),
             html.Div(id='df-data-usecase', style={'display': 'none'}),
+            html.Div(id='df-data-conv', style={'display': 'none'}),
             html.P(id='custom_from_date_data', style={'display': 'none'}),
             html.P(id='custom_to_date_data', style={'display': 'none'}),
             html.P(id='is-click', style={'display': 'none'}, children=["0"]),
@@ -1066,6 +1112,7 @@ app.layout = html.Div(children=[
     ),
 
 ])
+
 
 
 # Xu ly kho chon ngay
@@ -1143,6 +1190,7 @@ def show_loading(n_clicks, start_date, end_date):
     [
         Output('df-data-outcome', 'children'),
         Output('df-data-usecase', 'children'),
+        Output('df-data-conv', 'children'),
     ],
     [
         Input('is-click', 'children'),
@@ -1156,14 +1204,16 @@ def handle_df(is_click, start_date, end_date):
     if is_click == "1" and start_date is not None and end_date is not None:
         df_outcome = get_data_from_table("conversation_outcome", from_date=start_date, to_date=end_date)
         df_usecase = get_data_from_table("conversation_usecase", from_date=start_date, to_date=end_date)
+        df_conv = get_chatlog_from_db("rasa_chatlog_all_24_9", from_date=start_date, to_date=end_date)
         if len(df_outcome) == 0:
-            return None, None
+            return None, None, None
         df_outcome = df_outcome.drop(columns=["_id"])
         df_usecase = df_usecase.drop(columns=["_id"])
-        return df_outcome.to_json(date_format='iso', orient='split'), df_usecase.to_json(date_format='iso',
-                                                                                         orient='split')
+        return df_outcome.to_json(date_format='iso', orient='split'),\
+               df_usecase.to_json(date_format='iso', orient='split'),\
+               df_conv.to_json(date_format='iso', orient='split')
     else:
-        return None, None
+        return None, None, None
 
 
 @app.callback(
@@ -1189,22 +1239,29 @@ def handle_df(is_click, start_date, end_date):
         Output("percent_outcome_of_uc8_pie", 'children'),
         Output("no_outcome_of_uc9_bar", 'children'),
         Output("percent_outcome_of_uc9_pie", 'children'),
+        Output("thank_table", 'children'),
+        Output("shipping_order_table", 'children'),
+        Output("handover_table", 'children'),
+        Output("silence_table", 'children'),
+        Output("other_table", 'children'),
 
     ],
 
     [
         Input('df-data-outcome', 'children'),
-        Input('df-data-usecase', 'children')
+        Input('df-data-usecase', 'children'),
+        Input('df-data-conv', 'children')
     ],
     # [
     #     State('loading-div', 'style'),
     #     State('loading-div-2', 'style')
     # ]
 )
-def update_output(df_outcome, df_usecase):
+def update_output(df_outcome, df_usecase, df_conv):
     if df_outcome is not None:
         df_outcome = pd.read_json(df_outcome, orient="split")
         df_usecase = pd.read_json(df_usecase, orient="split")
+        df_conv = pd.read_json(df_conv, orient="split")
 
         # no_conversation, users, success rate in period
         no_conversations_in_period = get_number_of_conversation(df_outcome)
@@ -1236,16 +1293,47 @@ def update_output(df_outcome, df_usecase):
             graph_list.append(bar_number_of_outcome_of_uc_fig)
             graph_list.append(pie_percent_of_outcome_of_uc_fig)
 
+        # TABLE OF OUTCOME
+        thank_df, shipping_order_df, handover_df, silence_df, other_df = get_conversation_each_outcome(df_conv[[
+            "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
+            "intent", "entities", "turn"]])
+        thank_df = generate_table(thank_df)
+        shipping_order_df = generate_table(shipping_order_df)
+        handover_df = generate_table(handover_df)
+        silence_df = generate_table(silence_df)
+        other_df = generate_table(other_df)
+
         return [no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,
                 bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig,
-                bar_bot_performance_by_usecase_fig, pie_bot_performance_by_usecase_fig] + graph_list
+                bar_bot_performance_by_usecase_fig, pie_bot_performance_by_usecase_fig] + graph_list + \
+               [thank_df, shipping_order_df, handover_df, silence_df, other_df]
     else:
         no_conversations_in_period_text = html.P("'", style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("'", style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P("'", style=metrics_in_period_text_style)
         return [no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,
                 "", "",
-                "", ""] + [""] * len(uc_list[:-1]) * 2
+                "", ""] + [""] * len(uc_list[:-1]) * 2 + \
+               ["", "", "", "", ""]
+
+@app.callback(
+    [
+        Output(component_id='thank_table', component_property='style'),
+        Output(component_id='shipping_order_table', component_property='style'),
+        Output(component_id='handover_table', component_property='style'),
+        Output(component_id='silence_table', component_property='style'),
+        Output(component_id='other_table', component_property='style'),
+    ],
+    [
+        Input('outcome_dropdown', 'value'),
+    ],
+)
+def outcome_table_filter(outcome_dropdown_value):
+    outcome_value_list = ["thanks_conv", "shipping_order_conv", "handover_conv", "silence_conv", "others_conv"]
+    style_list = [{'display': 'none'}] * len(outcome_value_list)
+    value_index = outcome_value_list.index(outcome_dropdown_value)
+    style_list[value_index] = {"display":"block"}
+    return style_list
 
 
 if __name__ == '__main__':
