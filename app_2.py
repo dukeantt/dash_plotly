@@ -31,6 +31,9 @@ monday = today - datetime.timedelta(days=today.weekday())
 last_week_monday = str(monday - datetime.timedelta(days=7))
 last_week_friday = str(monday - datetime.timedelta(days=3))
 
+last_week_monday = "2020-08-10"
+last_week_friday = "2020-08-14"
+
 format_last_week_monday = str(datetime.datetime.strptime(last_week_monday, "%Y-%m-%d").strftime("%d/%m/%Y"))
 format_last_week_friday = str(datetime.datetime.strptime(last_week_friday, "%Y-%m-%d").strftime("%d/%m/%Y"))
 
@@ -455,7 +458,7 @@ app.layout = html.Div(children=[
                 className="basic-metrics",
                 children=[
                     html.Div(
-                        className="col-md-12",
+                        className="col-md-12 table-outside-layout",
                         children=[
                             html.Div(
                                 # id="table_content",

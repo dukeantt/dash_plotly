@@ -186,7 +186,7 @@ html {
     padding-left: 15px;
 }
 
-.part-1-graph-responsive{
+.part-1-graph-responsive {
     height: 15rem;
 }
 
@@ -528,4 +528,14 @@ html {
 .outcome-of-usecase-text-3 {
     position: relative;
     bottom: 28.6rem;
+}
+
+.table-outside-layout {
+    padding-left: 0.4rem;
+    padding-right: 0;
+    margin-left: 0.4rem;
+}
+
+.row-0 {
+    margin-left: 0.0rem;
 }

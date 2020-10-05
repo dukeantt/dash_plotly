@@ -4,6 +4,7 @@ import dash_html_components as html
 import dash_table
 import pandas as pd
 import numpy as np
+
 layout = go.Layout(
     margin=go.layout.Margin(
         l=0,  # left margin
@@ -362,37 +363,44 @@ def generate_table(df: pd.DataFrame):
                             "bot_message": "bot_text"})
     return html.Div([
         dash_table.DataTable(
-            id='datatable-paging',
+            id='table',
             page_action="native",
-            page_current=0,
-            page_size=10,
 
             style_header={
-                'backgroundColor': '#0c5395',
+                'backgroundColor': '#448efc',
                 'color': 'white',
                 'fontWeight': 'bold',
-                'height': '40px',
             },
+
             style_data={  # style cho ca header va cell
-                # 'whiteSpace': 'normal',
-                # 'height': 'auto',
-                # 'lineHeight': '15px',
-                'height': '40px',
+                'whiteSpace': 'normal',
+                'height': 'auto',
             },
             style_cell={
-                'overflow': 'hidden',
-                'textOverflow': 'ellipsis',
-                # 'minWidth': '0px',
-                # 'width': '160px', 'maxWidth': '300px',
-                'textAlign': "left",
+                'textAlign': 'left',
+                'minWidth': '0.5rem', 'width': '0.5rem', 'maxWidth': "0.5rem",
+                'font_size': '10px',
+            },
+
+            tooltip_data=[  # hover  data
+                {
+                    column: {'value': str(value), 'type': 'markdown'}
+                    for column, value in row.items()
+                } for row in df.to_dict('rows')
+            ],
+            tooltip_duration=None,
+
+            style_table={
+                'overflowY': 'auto',
+                'minHeight': '23rem', 'height': '23rem', 'maxHeight': "23rem",
             },
             style_cell_conditional=
             [
                 {
                     'if': {'column_id': c},
-                    'minWidth': '60px',
-                    'width': '60px',
-                    'maxWidth': '60px',
+                    'minWidth': '3.75rem',
+                    'width': '3.75rem',
+                    'maxWidth': '3.75rem',
                 } for c in ['use_case']
             ] +
             [
@@ -404,25 +412,25 @@ def generate_table(df: pd.DataFrame):
             [
                 {
                     'if': {'column_id': x},
-                    'minWidth': '130px',
-                    'width': '130px',
-                    'maxWidth': '130px'
+                    'minWidth': '8rem',
+                    'width': '8rem',
+                    'maxWidth': '8rem'
                 } for x in ["timestamp", "conv_id"]
             ] +
             [
                 {
                     'if': {'column_id': x},
-                    'minWidth': '260px',
-                    'width': '260px',
-                    'maxWidth': '260px',
+                    'minWidth': '13rem',
+                    'width': '13rem',
+                    'maxWidth': '13rem',
                 } for x in ["input_text", "bot_text"]
             ] +
             [
                 {
                     'if': {'column_id': x},
-                    'minWidth': '160px',
-                    'width': '160px',
-                    'maxWidth': '160px',
+                    'minWidth': '7rem',
+                    'width': '7rem',
+                    'maxWidth': '7rem',
 
                 } for x in ["intent", "entities"]
             ] +
@@ -434,32 +442,11 @@ def generate_table(df: pd.DataFrame):
                     'maxWidth': '80px',
 
                 } for x in ["outcome"]
-            ]
-            ,
-            tooltip_data=[  # hover  data
-                {
-                    column: {'value': str(value), 'type': 'markdown'}
-                    for column, value in row.items()
-                } for row in df.to_dict('rows')
             ],
-            style_data_conditional=[  # stripe style table
-                {
-                    'if': {'row_index': 'odd'},
-                    'backgroundColor': 'rgb(248, 248, 248)'
-                }
-            ],
-            tooltip_duration=None,
-            # fixed_columns={'headers': True, 'data': 1},
-            # fixed_rows={'headers': True},
-
-            style_table={
-                'minWidth': '100%',
-                # 'height': '400px',
-                # 'overflowY': 'auto',
-                # 'overflowX': 'auto'
-            },
-
+            fixed_rows={'headers': True},
+            style_as_list_view=True,
             data=df.to_dict('records'),
+
             columns=[{'name': i, 'id': i} for i in df.columns]
         ),
     ])
