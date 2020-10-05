@@ -370,16 +370,20 @@ def generate_table(df: pd.DataFrame):
                 'backgroundColor': '#448efc',
                 'color': 'white',
                 'fontWeight': 'bold',
+                'font_size': '0.8rem',
+                'minHeight': '2.7rem', 'height': '2.7rem', 'maxHeight': "2.7rem",
             },
 
             style_data={  # style cho ca header va cell
                 'whiteSpace': 'normal',
-                'height': 'auto',
+                # 'height': 'auto',
             },
             style_cell={
                 'textAlign': 'left',
                 'minWidth': '0.5rem', 'width': '0.5rem', 'maxWidth': "0.5rem",
-                'font_size': '10px',
+                # 'font_size': '0.7rem',
+                'minHeight': '2.9rem', 'height': '2.9rem', 'maxHeight': "2.9rem",
+
             },
 
             tooltip_data=[  # hover  data
@@ -412,10 +416,18 @@ def generate_table(df: pd.DataFrame):
             [
                 {
                     'if': {'column_id': x},
-                    'minWidth': '8rem',
-                    'width': '8rem',
-                    'maxWidth': '8rem'
-                } for x in ["timestamp", "conv_id"]
+                    'minWidth': '7rem',
+                    'width': '7rem',
+                    'maxWidth': '7rem'
+                } for x in ["timestamp"]
+            ] +
+            [
+                {
+                    'if': {'column_id': x},
+                    'minWidth': '6rem',
+                    'width': '6rem',
+                    'maxWidth': '6rem'
+                } for x in ["conv_id"]
             ] +
             [
                 {

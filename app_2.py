@@ -467,7 +467,8 @@ app.layout = html.Div(children=[
                                     html.Div(
                                         className="col-md-12",
                                         children=[
-                                            html.P("Chatlog Data"),
+                                            html.Div(style={'paddingTop': '1rem', 'fontSize': '1.3rem', 'paddingBottom': '0.8rem'},
+                                                     children=["Chatlog Data"]),
                                             html.Div(
                                                 children=[
                                                     html.Div(id="thank_table"),
