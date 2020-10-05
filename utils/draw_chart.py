@@ -370,7 +370,7 @@ def generate_table(df: pd.DataFrame):
                 'backgroundColor': '#448efc',
                 'color': 'white',
                 'fontWeight': 'bold',
-                'font_size': '0.8rem',
+                'font_size': '0.7rem',
                 'minHeight': '2.7rem', 'height': '2.7rem', 'maxHeight': "2.7rem",
             },
 
@@ -381,7 +381,7 @@ def generate_table(df: pd.DataFrame):
             style_cell={
                 'textAlign': 'left',
                 'minWidth': '0.5rem', 'width': '0.5rem', 'maxWidth': "0.5rem",
-                # 'font_size': '0.7rem',
+                'font_size': '0.6rem',
                 'minHeight': '2.9rem', 'height': '2.9rem', 'maxHeight': "2.9rem",
 
             },

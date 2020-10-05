@@ -205,3 +205,28 @@ def get_conversation_each_outcome(df: pd.DataFrame):
     # agree_df = df[df["conversation_id"].isin(list(df[df["outcome"] == "agree"]["conversation_id"]))][column_list]
 
     return thank_df, shipping_order_df, handover_df, silence_df, other_df
+
+
+def get_conversation_each_usecase(df: pd.DataFrame):
+    column_list = ["conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
+                   "intent",
+                   "entities"]
+    uc1_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s1"]["conversation_id"]))][column_list]
+    uc2_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s2"]["conversation_id"]))][column_list]
+    uc3_df = df[df["conversation_id"].isin(list(df[df["use_case"].isin(["uc_s31", "uc_s32"])]["conversation_id"]))][column_list]
+    uc4_df = df[df["conversation_id"].isin(list(df[df["use_case"].isin(["uc_s41", "uc_s42", "uc_s43"])]["conversation_id"]))][column_list]
+    uc5_df = df[df["conversation_id"].isin(list(df[df["use_case"].isin(["uc_s51", "uc_s52", "uc_s53"])]["conversation_id"]))][column_list]
+    uc8_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s8"]["conversation_id"]))][column_list]
+    uc9_df = df[df["conversation_id"].isin(list(df[df["use_case"] == "uc_s9"]["conversation_id"]))][column_list]
+
+    noticable_usecase_conversation_id = uc1_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc2_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc3_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc4_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc5_df["conversation_id"].drop_duplicates().to_list()\
+                                        + uc8_df["conversation_id"].drop_duplicates().to_list() \
+                                        + uc9_df["conversation_id"].drop_duplicates().to_list()
+
+    other_usecase_df = df[~df["conversation_id"].isin(noticable_usecase_conversation_id)][column_list]
+
+    return uc1_df, uc2_df, uc3_df, uc4_df, uc5_df, uc8_df, uc9_df, other_usecase_df

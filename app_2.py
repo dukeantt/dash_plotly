@@ -597,11 +597,20 @@ app.layout = html.Div(children=[
                                     html.Div(
                                         className="col-md-12",
                                         children=[
-                                            html.P("Chatlog Data"),
+                                            html.Div(style={'paddingTop': '1rem', 'fontSize': '1.3rem', 'paddingBottom': '0.8rem'},
+                                                     children=["Chatlog Data"]),
                                             html.Div(
-                                                id="conversation_table_usecase"
+                                                children=[
+                                                    html.Div(id="ucs1_table"),
+                                                    html.Div(id="ucs2_table"),
+                                                    html.Div(id="ucs3_table"),
+                                                    html.Div(id="ucs4_table"),
+                                                    html.Div(id="ucs5_table"),
+                                                    html.Div(id="ucs8_table"),
+                                                    html.Div(id="ucs9_table"),
+                                                    html.Div(id="uc_other_table"),
+                                                ]
                                             ),
-
                                         ]
                                     )
                                 ]
@@ -1243,11 +1252,22 @@ def handle_df(is_click, start_date, end_date):
         Output("percent_outcome_of_uc8_pie", 'children'),
         Output("no_outcome_of_uc9_bar", 'children'),
         Output("percent_outcome_of_uc9_pie", 'children'),
+
         Output("thank_table", 'children'),
         Output("shipping_order_table", 'children'),
         Output("handover_table", 'children'),
         Output("silence_table", 'children'),
         Output("other_table", 'children'),
+
+        Output("ucs1_table", 'children'),
+        Output("ucs2_table", 'children'),
+        Output("ucs3_table", 'children'),
+        Output("ucs4_table", 'children'),
+        Output("ucs5_table", 'children'),
+        Output("ucs8_table", 'children'),
+        Output("ucs9_table", 'children'),
+        Output("uc_other_table", 'children'),
+
 
     ],
 
@@ -1307,10 +1327,24 @@ def update_output(df_outcome, df_usecase, df_conv):
         silence_df = generate_table(silence_df)
         other_df = generate_table(other_df)
 
+        # TABLE OF USECASE
+        uc1_df, uc2_df, uc3_df, uc4_df, uc5_df, uc8_df, uc9_df, other_usecase_df = get_conversation_each_usecase(
+            df_conv[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
+                     "bot_message", "created_time", "intent", "entities"]])
+        uc_s1_df = generate_table(uc1_df)
+        uc_s2_df = generate_table(uc2_df)
+        uc_s3_df = generate_table(uc3_df)
+        uc_s4_df = generate_table(uc4_df)
+        uc_s5_df = generate_table(uc5_df)
+        uc_s8_df = generate_table(uc8_df)
+        uc_s9_df = generate_table(uc9_df)
+        other_usecase_df = generate_table(other_usecase_df)
+
         return [no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,
                 bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig,
                 bar_bot_performance_by_usecase_fig, pie_bot_performance_by_usecase_fig] + graph_list + \
-               [thank_df, shipping_order_df, handover_df, silence_df, other_df]
+               [thank_df, shipping_order_df, handover_df, silence_df, other_df] + \
+               [uc_s1_df, uc_s2_df, uc_s3_df, uc_s4_df, uc_s5_df, uc_s8_df, uc_s9_df, other_usecase_df]
     else:
         no_conversations_in_period_text = html.P("'", style=metrics_in_period_text_style)
         no_users_in_period_text = html.P("'", style=metrics_in_period_text_style)
@@ -1318,7 +1352,8 @@ def update_output(df_outcome, df_usecase, df_conv):
         return [no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,
                 "", "",
                 "", ""] + [""] * len(uc_list[:-1]) * 2 + \
-               ["", "", "", "", ""]
+               [""] * 5 +\
+               [""] * 8
 
 @app.callback(
     [
@@ -1339,6 +1374,28 @@ def outcome_table_filter(outcome_dropdown_value):
     style_list[value_index] = {"display":"block"}
     return style_list
 
+
+@app.callback(
+    [
+        Output(component_id='ucs1_table', component_property='style'),
+        Output(component_id='ucs2_table', component_property='style'),
+        Output(component_id='ucs3_table', component_property='style'),
+        Output(component_id='ucs4_table', component_property='style'),
+        Output(component_id='ucs5_table', component_property='style'),
+        Output(component_id='ucs8_table', component_property='style'),
+        Output(component_id='ucs9_table', component_property='style'),
+        Output(component_id='uc_other_table', component_property='style'),
+    ],
+    [
+        Input('usecase_dropdown', 'value'),
+    ],
+)
+def outcome_table_filter(outcome_dropdown_value):
+    outcome_value_list = ["uc_s1", "uc_s2", "uc_s3", "uc_s4", "uc_s5", "uc_s8", "uc_s9", "others"]
+    style_list = [{'display': 'none'}] * len(outcome_value_list)
+    value_index = outcome_value_list.index(outcome_dropdown_value)
+    style_list[value_index] = {"display":"block"}
+    return style_list
 
 if __name__ == '__main__':
     app.run_server(debug=True)
