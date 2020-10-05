@@ -1397,5 +1397,40 @@ def outcome_table_filter(outcome_dropdown_value):
     style_list[value_index] = {"display":"block"}
     return style_list
 
+
+@app.callback(
+
+    Output(component_id='conversation_table_by_outcome', component_property='style'),
+
+    [
+        Input('show_hide_table_outcome', 'n_clicks'),
+    ],
+)
+def toggle_display_outcome_table(click):
+    if click == None:
+        return {'display': 'block'}
+    if click % 2 == 0:
+        return {'display': 'block'}
+    else:
+        return {'display': 'none'}
+
+
+@app.callback(
+
+    Output(component_id='conversation_table_by_usecase', component_property='style'),
+
+    [
+        Input('show_hide_table_usecase', 'n_clicks'),
+    ],
+)
+def toggle_display_outcome_table(click):
+    if click == None:
+        return {'display': 'block'}
+    if click % 2 == 0:
+        return {'display': 'block'}
+    else:
+        return {'display': 'none'}
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
