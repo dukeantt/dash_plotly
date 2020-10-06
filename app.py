@@ -19,9 +19,9 @@ from datetime import date, timedelta
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 # app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app = dash.Dash(__name__,
-                external_stylesheets=[dbc.themes.BOOTSTRAP]
-                )
+
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 metrics_in_period_text_style = {"display": "block", "paddingLeft": "7rem",
                                 "fontSize": "27px", "fontWeight": "bold",
                                 "marginTop": "-1rem"}
