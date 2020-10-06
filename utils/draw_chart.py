@@ -24,7 +24,8 @@ def bar_conversation_by_month(month_list, conversations_by_month):
     conversation_by_month_fig = go.Figure(
         data=[go.Bar(x=month_list, y=conversations_by_month, text=conversations_by_month)], layout=layout)
     conversation_by_month_fig.update_layout(width=320, height=215,
-                                            yaxis=dict(range=[0, max(conversations_by_month) + 25]))
+                                            yaxis=dict(range=[0, max(conversations_by_month) + 25], ticks="outside", tickcolor='white', ticklen=7, ),
+                                            xaxis=dict(ticks="outside", tickcolor='white', ticklen=5, ))
     conversation_by_month_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=10)
     conversation_by_month_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595', tickfont=dict(size=9))
     conversation_by_month_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595', gridcolor='#f3f3f3',
@@ -81,7 +82,8 @@ def bar_bot_performance_by_outcome(outcomes_dict):
 
     fig = dcc.Graph(
         id='bar_bot_performance_by_outcome_fig',
-        figure=bar_bot_performance_by_outcome_fig
+        figure=bar_bot_performance_by_outcome_fig,
+        responsive=True
     )
     return fig
 
@@ -108,13 +110,13 @@ def pie_bot_performance_by_outcome(outcomes_dict):
         yanchor="top",
         y=0.99,
         xanchor="right",
-        x=1.5,
+        x=2,
         font=dict(
             size=11,
         ),
     ))
 
-    pie_bot_performance_by_outcome_fig.update_layout(width=500, height=300)
+    pie_bot_performance_by_outcome_fig.update_layout(width=450, height=280)
 
     fig = dcc.Graph(
         id='pie_bot_performance_by_outcome_fig',
@@ -178,7 +180,7 @@ def pie_bot_performance_by_usecase(usecase_dict):
         ),
     ))
 
-    pie_bot_performance_by_usecase_fig.update_layout(width=500, height=300)
+    pie_bot_performance_by_usecase_fig.update_layout(width=450, height=280)
 
     fig = dcc.Graph(
         id='pie_bot_performance_by_usecase_fig',

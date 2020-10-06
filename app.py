@@ -121,7 +121,7 @@ app.layout = html.Div(children=[
                                         children=[
                                             html.Img(src="assets/icon/user_icon.png",
                                                      className="sub_basic_metrics_img",
-                                                     style={"padding-top": "2.5rem"}),
+                                                     style={"padding-top": "2.4rem"}),
                                             html.P("Users", style={"display": "block", "paddingLeft": "7rem",
                                                                    "fontSize": "19px", "marginTop": "-4rem"}),
                                         ]
@@ -174,7 +174,6 @@ app.layout = html.Div(children=[
                                     html.Div(
                                         className="col-md-12 part-1-graph-responsive",
                                         children=[
-                                            # html.Img(src="assets/icon/conversation_icon.png", className="sub_basic_metrics_img"),
                                             html.Div(
                                                 style={"position": "relative", "top": "0.6rem"},
                                                 children=[html.P("Conversations by month"), ],
@@ -297,7 +296,7 @@ app.layout = html.Div(children=[
                     ),
                     html.Button('Run', id='run-analytics',
                                 style={"borderRadius": "4px", "backgroundColor": "#448efc", "color": "white",
-                                       "width": "3%", "height": "2rem", "borderStyle": "hidden", "fontSize": "0.7rem"}, ),
+                                       "width": "4%", "height": "2.2rem", "borderStyle": "hidden", "fontSize": "1rem"}, ),
                 ]
             ),
             html.Div(
@@ -313,7 +312,8 @@ app.layout = html.Div(children=[
                                     html.Div(
                                         className="col-md-12",
                                         children=[
-                                            html.Img(src="assets/icon/conversation_icon.png",
+                                            html.Img(id="conversation_img",
+                                                     src="assets/icon/conversation_icon.png",
                                                      className="sub_basic_metrics_img"),
                                             html.P("Conversations", style={"display": "block", "paddingLeft": "7rem",
                                                                            "fontSize": "19px", "marginTop": "-4rem"}),
@@ -336,7 +336,7 @@ app.layout = html.Div(children=[
                                         children=[
                                             html.Img(src="assets/icon/user_icon.png",
                                                      className="sub_basic_metrics_img",
-                                                     style={"padding-top": "2.5rem"}),
+                                                     style={"padding-top": "2.4rem"}),
                                             html.P("Users", style={"display": "block", "paddingLeft": "7rem",
                                                                    "fontSize": "19px", "marginTop": "-4rem"}),
                                             html.Div(id="no_users_in_period_text", ),
