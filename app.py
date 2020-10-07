@@ -1351,14 +1351,19 @@ def update_output(df_outcome, df_usecase, df_conv):
             graph_list.append(pie_percent_of_outcome_of_uc_fig)
 
         # TABLE OF OUTCOME
-        thank_df, shipping_order_df, handover_df, silence_df, other_df = get_conversation_each_outcome(df_conv[[
-            "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
-            "intent", "entities", "turn"]])
-        thank_df = generate_table(thank_df)
-        shipping_order_df = generate_table(shipping_order_df)
-        handover_df = generate_table(handover_df)
-        silence_df = generate_table(silence_df)
-        other_df = generate_table(other_df)
+        # thank_df, shipping_order_df, handover_df, silence_df, other_df = get_conversation_each_outcome(df_conv[[
+        #     "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
+        #     "intent", "entities", "turn"]])
+        thank_conv_id_list = df_outcome[df_outcome["thank"] == 1]["conv_id"].to_list()
+        shipping_order_conv_id_list = df_outcome[df_outcome["shipping_order"] == 1]["conv_id"].to_list()
+        handover_conv_id_list = df_outcome[df_outcome["handover_to_inbox"] == 1]["conv_id"].to_list()
+        silence_conv_id_list = df_outcome[df_outcome["silence"] == 1]["conv_id"].to_list()
+        other_conv_id_list = df_outcome[df_outcome["other"] == 1]["conv_id"].to_list()
+        thank_df = generate_table("thank_table", thank_conv_id_list)
+        shipping_order_df = generate_table("shipping_order_table", shipping_order_conv_id_list)
+        handover_df = generate_table("handover_table", handover_conv_id_list)
+        silence_df = generate_table("silence_table", silence_conv_id_list)
+        other_df = generate_table("other_table", other_conv_id_list)
 
         # TABLE OF USECASE
         uc1_df, uc2_df, uc3_df, uc4_df, uc5_df, uc8_df, uc9_df, other_usecase_df = get_conversation_each_usecase(

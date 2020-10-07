@@ -17,6 +17,10 @@ month_dict = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Ju
 outcome_list = ["thank", "shipping_order", "handover_to_inbox", "silence", "other"]
 uc_list = ["uc_s1", "uc_s2", "uc_s3", "uc_s4", "uc_s5", "uc_s8", "uc_s9", "other"]
 
+def get_data_from_table_by_conv_id(db_name, conv_id_list):
+    collection = db[db_name]
+    data_df = pd.DataFrame([document for document in collection.find({'conversation_id': {'$in': conv_id_list}})])
+    return data_df
 
 def get_data_from_table(db_name, from_date=None, to_date=None):
     # collection = db["conversation_outcome"]

@@ -4,6 +4,7 @@ import dash_html_components as html
 import dash_table
 import pandas as pd
 import numpy as np
+from utils.helper_2 import *
 
 layout = go.Layout(
     margin=go.layout.Margin(
@@ -380,9 +381,10 @@ def reformat_df_output_for_table(df: pd.DataFrame):
     return df
 
 
-def generate_table(df: pd.DataFrame):
-    df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
-    df = reformat_df_output_for_table(df)
+def generate_table(db_name, conv_id_list):
+    df = get_data_from_table_by_conv_id(db_name, conv_id_list)
+    # df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
+    # df = reformat_df_output_for_table(df)
 
     # df = df[df["sender_id"] != 3547113778635846]
     df = df.dropna(subset=["user_message", "bot_message"], how="all")
