@@ -190,6 +190,14 @@ html {
     height: 17rem;
 }
 
+.part-2-graph-responsive {
+    height: 25rem;
+}
+
+.part-3-graph-responsive {
+    height: 25rem;
+}
+
 .basic-metrics {
     padding-top: 22px;
     display: flex;
@@ -397,24 +405,24 @@ html {
 #no_outcome_bar_fig {
     position: relative;
     top: 1rem;
-    left: 1.9rem;
+    left: 1.1rem;
 }
 
 #percent_outcome_pie_fig {
     position: relative;
     top: -1rem;
-    left: 3.3rem;
+    left: -0.2rem;
 }
 
 #no_usecase_bar_fig {
     position: relative;
     top: 1rem;
-    left: 1.9rem;
+    left: 1.1rem;
 }
 
 #percent_usecase_pie_fig {
     position: relative;
-    top: -1rem;
+    top: -0.5rem;
     left: -0.2rem;
 }
 
@@ -543,6 +551,7 @@ html {
 .row-0 {
     margin-left: 0.0rem;
 }
+
 .row-1 {
     margin-left: 0.0rem;
 }

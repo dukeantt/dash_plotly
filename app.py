@@ -37,16 +37,19 @@ last_week_friday = "2020-08-14"
 format_last_week_monday = str(datetime.datetime.strptime(last_week_monday, "%Y-%m-%d").strftime("%d/%m/%Y"))
 format_last_week_friday = str(datetime.datetime.strptime(last_week_friday, "%Y-%m-%d").strftime("%d/%m/%Y"))
 
-outcome_data_last_week_df = get_data_from_table("conversation_outcome", last_week_monday, last_week_friday)
+outcome_data_last_week_df = get_data_from_table("conversation_outcome_3", last_week_monday, last_week_friday)
 last_week_conversations = get_number_of_conversation(outcome_data_last_week_df)
-# last_week_user = get_number_of_user(outcome_data_last_week_df)
+last_week_user = get_number_of_user(outcome_data_last_week_df)
 last_week_success_rate = get_success_rate(outcome_data_last_week_df)
 
-outcome_data = get_data_from_table("conversation_outcome")
-month_list, conversations_by_month, success_rate_over_month = get_number_of_conversation_every_month(outcome_data)
+outcome_data = get_data_from_table("conversation_outcome_3")
+month_list, conversations_by_month, users_by_month, success_rate_over_month = get_number_of_conversation_every_month(outcome_data)
 
 # BAR CHART CONVERSATION BY MONTH
 conversation_by_month_fig = bar_conversation_by_month(month_list, conversations_by_month)
+
+# BAR CHART USER BY MONTH
+user_by_month_fig = bar_user_by_month(month_list, users_by_month)
 
 # LINE CHART SUCCESS RATE OVER MONTH
 success_rate_over_month_fig = line_success_rate_over_month(month_list, success_rate_over_month)
@@ -124,6 +127,10 @@ app.layout = html.Div(children=[
                                                      style={"padding-top": "2.4rem"}),
                                             html.P("Users", style={"display": "block", "paddingLeft": "7rem",
                                                                    "fontSize": "19px", "marginTop": "-4rem"}),
+                                            html.P(str(last_week_user),
+                                                   style={"display": "block", "paddingLeft": "7rem",
+                                                          "fontSize": "27px", "fontWeight": "bold",
+                                                          "marginTop": "-1rem"}),
                                         ]
                                     )
                                 ]
@@ -214,18 +221,18 @@ app.layout = html.Div(children=[
                                                 children=[html.P("Users by month"), ],
                                             ),
                                             html.Hr(),
-                                            # html.Div(
-                                            #     className="line-3-graph",
-                                            #     style={"height": "100%"},
-                                            #     children=[
-                                            #         dcc.Graph(
-                                            #             style={"height": "150%"},
-                                            #             id='conversation_by_month_fig',
-                                            #             responsive=True,
-                                            #             figure=conversation_by_month_fig
-                                            #         )
-                                            #     ]
-                                            # ),
+                                            html.Div(
+                                                className="line-3-graph",
+                                                style={"height": "100%"},
+                                                children=[
+                                                    dcc.Graph(
+                                                        style={"height": "75%"},
+                                                        id='user_by_month_fig',
+                                                        responsive=True,
+                                                        figure=user_by_month_fig
+                                                    )
+                                                ]
+                                            ),
                                         ]
                                     )
                                 ]
@@ -386,17 +393,23 @@ app.layout = html.Div(children=[
                                 className="sub_basic_metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-12",
-                                        style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
-                                               "fontSize": "19px", "marginBottom": "1.5rem"},
+                                        className="col-md-12 part-2-graph-responsive",
                                         children=[
-                                            html.P("Number of Outcomes")
-                                        ]
-                                    ),
-                                    html.Hr(),
-                                    html.Div(
-                                        className="line-2-graph",
-                                        id="no_outcome_bar_fig"
+                                            html.Div(
+                                                # className="col-md-12",
+                                                style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
+                                                       "fontSize": "19px", "marginBottom": "1.5rem"},
+                                                children=[
+                                                    html.P("Number of Outcomes")
+                                                ]
+                                            ),
+                                            html.Hr(),
+                                            html.Div(
+                                                className="line-2-graph",
+                                                style={"height": "85%", "width": "88%"},
+                                                id="no_outcome_bar_fig"
+                                            ),
+                                        ],
                                     ),
                                 ]
                             )
@@ -411,17 +424,22 @@ app.layout = html.Div(children=[
                                 className="sub_basic_metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-12",
-                                        style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
-                                               "fontSize": "19px", "marginBottom": "1.5rem"},
+                                        className="col-md-12 part-2-graph-responsive",
                                         children=[
-                                            html.P("Percentages of Outcomes")
+                                            html.Div(
+                                                style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
+                                                       "fontSize": "19px", "marginBottom": "1.5rem"},
+                                                children=[
+                                                    html.P("Percentages of Outcomes")
+                                                ]
+                                            ),
+                                            html.Hr(),
+                                            html.Div(
+                                                className="line-2-graph",
+                                                style={"height": "97%"},
+                                                id="percent_outcome_pie_fig"
+                                            ),
                                         ]
-                                    ),
-                                    html.Hr(),
-                                    html.Div(
-                                        className="line-2-graph",
-                                        id="percent_outcome_pie_fig"
                                     ),
                                 ]
                             )
@@ -504,10 +522,10 @@ app.layout = html.Div(children=[
                                 className="sub_basic_metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-12",
+                                        className="col-md-12 part-3-graph-responsive",
                                         children=[
                                             html.Div(
-                                                className="col-md-12",
+                                                # className="col-md-12",
                                                 style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
                                                        "fontSize": "19px", "marginBottom": "1.5rem"},
                                                 children=[
@@ -517,6 +535,7 @@ app.layout = html.Div(children=[
                                             html.Hr(),
                                             html.Div(
                                                 className="line-2-graph",
+                                                style={"height": "85%", "width": "88%"},
                                                 id="no_usecase_bar_fig"
                                             ),
                                         ]
@@ -534,10 +553,9 @@ app.layout = html.Div(children=[
                                 className="sub_basic_metrics",
                                 children=[
                                     html.Div(
-                                        className="col-md-12",
+                                        className="col-md-12 part-3-graph-responsive",
                                         children=[
                                             html.Div(
-                                                className="col-md-12",
                                                 style={"position": "relative", "top": "1.1rem", "left": "1.25rem",
                                                        "fontSize": "19px", "marginBottom": "1.5rem"},
                                                 children=[
@@ -547,6 +565,7 @@ app.layout = html.Div(children=[
                                             html.Hr(),
                                             html.Div(
                                                 className="line-2-graph",
+                                                style={"height": "97%"},
                                                 id="percent_usecase_pie_fig"
                                             ),
                                         ]
@@ -1215,8 +1234,8 @@ def show_loading(n_clicks, start_date, end_date):
 )
 def handle_df(is_click, start_date, end_date):
     if is_click == "1" and start_date is not None and end_date is not None:
-        df_outcome = get_data_from_table("conversation_outcome", from_date=start_date, to_date=end_date)
-        df_usecase = get_data_from_table("conversation_usecase", from_date=start_date, to_date=end_date)
+        df_outcome = get_data_from_table("conversation_outcome_3", from_date=start_date, to_date=end_date)
+        df_usecase = get_data_from_table("conversation_usecase_3", from_date=start_date, to_date=end_date)
         df_conv = get_chatlog_from_db("rasa_chatlog_all_24_9", from_date=start_date, to_date=end_date)
         if len(df_outcome) == 0:
             return None, None, None
@@ -1289,11 +1308,11 @@ def update_output(df_outcome, df_usecase, df_conv):
 
         # no_conversation, users, success rate in period
         no_conversations_in_period = get_number_of_conversation(df_outcome)
-        # no_users_in_period = get_number_of_user(df)
+        no_users_in_period = get_number_of_user(df_outcome)
         success_rate_in_period = get_success_rate(df_outcome)
 
         no_conversations_in_period_text = html.P(str(no_conversations_in_period), style=metrics_in_period_text_style)
-        no_users_in_period_text = html.P("2", style=metrics_in_period_text_style)
+        no_users_in_period_text = html.P(str(no_users_in_period), style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P(str(success_rate_in_period), style=metrics_in_period_text_style)
 
         # NUMBER OF EACH OUTCOME IN PERIOD

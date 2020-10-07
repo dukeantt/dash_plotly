@@ -127,6 +127,7 @@ def get_number_of_conversation_every_month(df):
         range(1, max(pd.DatetimeIndex(df["conversation_begin_date"]).month.drop_duplicates().to_list()) + 1))
 
     no_conversation_list = []
+    no_user_list = []
     success_rate_list = []
 
     for month in month_list:
@@ -136,6 +137,7 @@ def get_number_of_conversation_every_month(df):
             no_conversation_list.append(0)
             success_rate_list.append(0)
             continue
+        no_user = get_number_of_user(sub_df)
         no_conversation = get_number_of_conversation(sub_df)
         success_rate = get_number_of_conversation(sub_df_success) * 100 / no_conversation
         success_rate = float("{:.1f}".format(success_rate))
@@ -144,9 +146,10 @@ def get_number_of_conversation_every_month(df):
             success_rate = int(success_rate)
 
         no_conversation_list.append(no_conversation)
+        no_user_list.append(no_user)
         success_rate_list.append(success_rate)
     month_list = [month_dict[x] for x in month_list]
-    return month_list, no_conversation_list, success_rate_list
+    return month_list, no_conversation_list, no_user_list, success_rate_list
 
 
 def get_number_of_each_outcome(df):

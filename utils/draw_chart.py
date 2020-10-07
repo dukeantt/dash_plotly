@@ -33,6 +33,19 @@ def bar_conversation_by_month(month_list, conversations_by_month):
     return conversation_by_month_fig
 
 
+def bar_user_by_month(month_list, users_by_month):
+    bar_user_by_month_fig = go.Figure(
+        data=[go.Bar(x=month_list, y=users_by_month, text=users_by_month)], layout=layout)
+    bar_user_by_month_fig.update_layout(width=320, height=215,
+                                            yaxis=dict(range=[0, max(users_by_month) + 25], ticks="outside", tickcolor='white', ticklen=7, ),
+                                            xaxis=dict(ticks="outside", tickcolor='white', ticklen=5, ))
+    bar_user_by_month_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=10)
+    bar_user_by_month_fig.update_xaxes(showline=True, linewidth=2, linecolor='#959595', tickfont=dict(size=9))
+    bar_user_by_month_fig.update_yaxes(showline=True, linewidth=2, linecolor='#959595', gridcolor='#f3f3f3',
+                                           tickfont=dict(size=9))
+    return bar_user_by_month_fig
+
+
 def line_success_rate_over_month(month_list, success_rate_over_month):
     success_rate_over_month_fig = go.Figure(layout=layout)
     success_rate_over_month_fig.add_trace(go.Scatter(x=month_list, y=success_rate_over_month,
@@ -69,7 +82,7 @@ def bar_bot_performance_by_outcome(outcomes_dict):
         y=outcome_value,
         width=[0.6] * len(outcome_value),
         text=outcome_value))
-    bar_bot_performance_by_outcome_fig.update_layout(width=410, height=240,
+    bar_bot_performance_by_outcome_fig.update_layout(width=300, height=150,
                                                      yaxis=dict(ticks="outside", tickcolor='white', ticklen=10,
                                                                 range=[0, max(outcome_value) + 10, ]),
                                                      xaxis=dict(ticks="outside", tickcolor='white', ticklen=5, ))
@@ -83,6 +96,7 @@ def bar_bot_performance_by_outcome(outcomes_dict):
     fig = dcc.Graph(
         id='bar_bot_performance_by_outcome_fig',
         figure=bar_bot_performance_by_outcome_fig,
+        style={"height": "75%"},
         responsive=True
     )
     return fig
@@ -110,7 +124,7 @@ def pie_bot_performance_by_outcome(outcomes_dict):
         yanchor="top",
         y=0.99,
         xanchor="right",
-        x=2,
+        x=1.7,
         font=dict(
             size=11,
         ),
@@ -120,7 +134,9 @@ def pie_bot_performance_by_outcome(outcomes_dict):
 
     fig = dcc.Graph(
         id='pie_bot_performance_by_outcome_fig',
-        figure=pie_bot_performance_by_outcome_fig
+        figure=pie_bot_performance_by_outcome_fig,
+        responsive=True,
+        style={"height": "75%"},
     )
     return fig
 
@@ -145,7 +161,10 @@ def bar_bot_performance_by_usecase(usecase_dict):
 
     fig = dcc.Graph(
         id='bar_bot_performance_by_usecase_fig',
-        figure=bar_bot_performance_by_usecase_fig
+        figure=bar_bot_performance_by_usecase_fig,
+        style={"height": "75%"},
+        responsive=True,
+
     )
     return fig
 
@@ -174,7 +193,7 @@ def pie_bot_performance_by_usecase(usecase_dict):
         yanchor="top",
         y=0.99,
         xanchor="right",
-        x=1.5,
+        x=1.7,
         font=dict(
             size=11,
         ),
@@ -184,7 +203,9 @@ def pie_bot_performance_by_usecase(usecase_dict):
 
     fig = dcc.Graph(
         id='pie_bot_performance_by_usecase_fig',
-        figure=pie_bot_performance_by_usecase_fig
+        figure=pie_bot_performance_by_usecase_fig,
+        responsive=True,
+        style={"height": "75%"},
     )
     return fig
 
