@@ -135,6 +135,7 @@ def get_number_of_conversation_every_month(df):
         sub_df_success = sub_df[(sub_df["thank"] == 1) | (sub_df["shipping_order"] == 1)]
         if len(sub_df) == 0:
             no_conversation_list.append(0)
+            no_user_list.append(0)
             success_rate_list.append(0)
             continue
         no_user = get_number_of_user(sub_df)

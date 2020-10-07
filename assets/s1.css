@@ -203,8 +203,9 @@ html {
 }
 
 .basic-metrics {
-    padding-top: 22px;
+    padding-top: 1.8%;
     display: flex;
+    padding-bottom: 1%;
 }
 
 .sub_basic_metrics {
@@ -236,13 +237,15 @@ html {
 
 
 #show_table_and_filter_outcome {
-    padding-top: 20px;
-    padding-left: 16px;
+    padding-top: 1.8%;
+    padding-left: 1.5%;
+    padding-bottom: 1%;
 }
 
 #show_table_and_filter_usecase {
-    padding-top: 20px;
-    padding-left: 16px;
+    padding-top: 1.8%;
+    padding-left: 1.5%;
+    padding-bottom: 1%;
 }
 
 #part_2_title {
@@ -463,6 +466,7 @@ html {
 
 #first_2_uc {
     padding-top: 0.5%;
+    padding-bottom: 5%;
 }
 
 #outcome_of_usecase_1_text {
@@ -500,21 +504,21 @@ html {
 
 #second_2_uc {
     padding-top: 3.4%;
-    padding-bottom: 0.8%;
+    padding-bottom: 5%;
     position: relative;
     bottom: 9.6rem;
 }
 
 #third_2_uc {
     padding-top: 3.4%;
-    padding-bottom: 0.8%;
+    padding-bottom: 5%;
     position: relative;
     bottom: 19.2rem;
 }
 
 #fourth_2_uc {
     padding-top: 3.4%;
-    padding-bottom: 0.8%;
+    padding-bottom: 5%;
     position: relative;
     bottom: 28.7rem;
 }
@@ -529,11 +533,13 @@ html {
 .percent-outcome-of-uc-pie {
     position: relative;
     bottom: 1rem;
+    left: 5%;
 }
 
 .outcome-of-usecase-text {
     position: relative;
     bottom: 9.4rem;
+    padding-bottom: 0;
 }
 
 .outcome-of-usecase-text-2 {
@@ -567,4 +573,8 @@ html {
 
 .outcome-of-uc {
     height: 140%;
+}
+
+.outcome-of-uc .legendpoints .legendpie {
+    stroke-width: 5px;
 }

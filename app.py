@@ -488,6 +488,7 @@ app.layout = html.Div(children=[
                                             html.Div(style={'paddingTop': '1rem', 'fontSize': '1.3rem', 'paddingBottom': '0.8rem'},
                                                      children=["Chatlog Data"]),
                                             html.Div(
+                                                style={"paddingBottom": "2%"},
                                                 children=[
                                                     html.Div(id="thank_table"),
                                                     html.Div(id="shipping_order_table"),
@@ -619,6 +620,7 @@ app.layout = html.Div(children=[
                                             html.Div(style={'paddingTop': '1rem', 'fontSize': '1.3rem', 'paddingBottom': '0.8rem'},
                                                      children=["Chatlog Data"]),
                                             html.Div(
+                                                style={"paddingBottom": "2%"},
                                                 children=[
                                                     html.Div(id="ucs1_table"),
                                                     html.Div(id="ucs2_table"),
@@ -709,7 +711,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
-                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
+                                                                style={"height": "97%"},
                                                                 id="percent_outcome_of_uc1_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -763,7 +765,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
-                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
+                                                                style={"height": "97%"},
                                                                 id="percent_outcome_of_uc2_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -836,7 +838,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
-                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
+                                                                style={"height": "97%"},
                                                                 id="percent_outcome_of_uc3_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -890,7 +892,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
-                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
+                                                                style={"height": "97%"},
                                                                 id="percent_outcome_of_uc4_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -963,7 +965,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
-                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
+                                                                style={"height": "97%"},
                                                                 id="percent_outcome_of_uc5_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -1017,7 +1019,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
-                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
+                                                                style={"height": "97%"},
                                                                 id="percent_outcome_of_uc8_pie",
                                                                 className="percent-outcome-of-uc-pie",
                                                             ),
@@ -1089,7 +1091,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
-                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
+                                                                style={"height": "97%"},
                                                                 id="percent_outcome_of_uc9_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
