@@ -90,7 +90,7 @@ def bar_bot_performance_by_outcome(outcomes_dict):
         text=outcome_value))
     bar_bot_performance_by_outcome_fig.update_layout(width=300, height=150,
                                                      yaxis=dict(ticks="outside", tickcolor='white', ticklen=10,
-                                                                range=[0, max(outcome_value) + 10, ]),
+                                                                range=[0, max(outcome_value) + 30, ]),
                                                      xaxis=dict(ticks="outside", tickcolor='white', ticklen=5, ))
 
     bar_bot_performance_by_outcome_fig.update_traces(marker_color='#529af2', textposition='outside', textfont_size=11)
@@ -397,7 +397,7 @@ def generate_table(df: pd.DataFrame):
     return html.Div([
         dash_table.DataTable(
             id='table',
-            page_action="native",
+            # page_action="native",
 
             style_header={
                 'backgroundColor': '#448efc',
