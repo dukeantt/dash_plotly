@@ -177,15 +177,9 @@ def get_number_of_outcome_of_each_usecase(df_outcome, df_usecase):
         columns_to_use = [x for x in df_usecase_column_list if uc in x]
         sub_df_usecase = df_usecase[columns_to_use]
         sub_df_usecase = sub_df_usecase[(sub_df_usecase.T != 0).any()]
-        index_list = sub_df_usecase.index.to_list()
-        for index in index_list:
-            conv_id = df_usecase.loc[index]["conv_id"]
-            outcome_of_uc_df = df_outcome[df_outcome["conv_id"] == conv_id][outcome_list]
-            outcome_of_uc_df = outcome_of_uc_df.loc[:, (outcome_of_uc_df != 0).any(axis=0)]
-            outcome_of_uc_list = outcome_of_uc_df.columns.to_list()
-            for oc in outcome_of_uc_list:
-                outcome_of_usecase_dict[uc][oc] += 1
-
+        outcome_of_usecase = df_usecase.loc[sub_df_usecase.index]["outcome"].to_list()
+        for oc in outcome_of_usecase:
+            outcome_of_usecase_dict[uc][oc] += 1
     return outcome_of_usecase_dict
 
 
