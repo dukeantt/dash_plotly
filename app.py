@@ -1359,6 +1359,7 @@ def update_output(df_outcome, df_usecase, df_conv):
         handover_conv_id_list = df_outcome[df_outcome["handover_to_inbox"] == 1]["conv_id"].to_list()
         silence_conv_id_list = df_outcome[df_outcome["silence"] == 1]["conv_id"].to_list()
         other_conv_id_list = df_outcome[df_outcome["other"] == 1]["conv_id"].to_list()
+
         thank_df = generate_table("thank_table", thank_conv_id_list)
         shipping_order_df = generate_table("shipping_order_table", shipping_order_conv_id_list)
         handover_df = generate_table("handover_table", handover_conv_id_list)
@@ -1366,17 +1367,26 @@ def update_output(df_outcome, df_usecase, df_conv):
         other_df = generate_table("other_table", other_conv_id_list)
 
         # TABLE OF USECASE
-        uc1_df, uc2_df, uc3_df, uc4_df, uc5_df, uc8_df, uc9_df, other_usecase_df = get_conversation_each_usecase(
-            df_conv[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
-                     "bot_message", "created_time", "intent", "entities"]])
-        uc_s1_df = generate_table(uc1_df)
-        uc_s2_df = generate_table(uc2_df)
-        uc_s3_df = generate_table(uc3_df)
-        uc_s4_df = generate_table(uc4_df)
-        uc_s5_df = generate_table(uc5_df)
-        uc_s8_df = generate_table(uc8_df)
-        uc_s9_df = generate_table(uc9_df)
-        other_usecase_df = generate_table(other_usecase_df)
+        # uc1_df, uc2_df, uc3_df, uc4_df, uc5_df, uc8_df, uc9_df, other_usecase_df = get_conversation_each_usecase(
+        #     df_conv[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
+        #              "bot_message", "created_time", "intent", "entities"]])
+        uc_s1_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & (df_usecase["uc_s1"] == 1)]["conv_id"].to_list()
+        uc_s2_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & (df_usecase["uc_s2"] == 1)]["conv_id"].to_list()
+        uc_s3_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & ((df_usecase["uc_s31"] == 1) | (df_usecase["uc_s32"] == 1))]["conv_id"].to_list()
+        uc_s4_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & ((df_usecase["uc_s41"] == 1) | (df_usecase["uc_s42"] == 1) | (df_usecase["uc_s43"] == 1))]["conv_id"].to_list()
+        uc_s5_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & ((df_usecase["uc_s51"] == 1) | (df_usecase["uc_s52"] == 1) | (df_usecase["uc_s53"] == 1))]["conv_id"].to_list()
+        uc_s8_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & (df_usecase["uc_s8"] == 1)]["conv_id"].to_list()
+        uc_s9_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & (df_usecase["uc_s9"] == 1)]["conv_id"].to_list()
+        uc_other_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & (df_usecase["other"] == 1)]["conv_id"].to_list()
+
+        uc_s1_df = generate_table("uc_s1_table", uc_s1_id_list)
+        uc_s2_df = generate_table("uc_s2_table", uc_s2_id_list)
+        uc_s3_df = generate_table("uc_s3_table", uc_s3_id_list)
+        uc_s4_df = generate_table("uc_s4_table", uc_s4_id_list)
+        uc_s5_df = generate_table("uc_s5_table", uc_s5_id_list)
+        uc_s8_df = generate_table("uc_s8_table", uc_s8_id_list)
+        uc_s9_df = generate_table("uc_s9_table", uc_s9_id_list)
+        other_usecase_df = generate_table("uc_other_table", uc_other_id_list)
 
         return [no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,
                 bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig,

@@ -382,6 +382,8 @@ def reformat_df_output_for_table(df: pd.DataFrame):
 
 
 def generate_table(db_name, conv_id_list):
+    if len(conv_id_list) == 0:
+        return ""
     df = get_data_from_table_by_conv_id(db_name, conv_id_list)
     # df.insert(list(df.columns).index("created_time") + 1, "created_time_bot", "")
     # df = reformat_df_output_for_table(df)
