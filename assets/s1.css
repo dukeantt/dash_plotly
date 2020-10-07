@@ -198,6 +198,10 @@ html {
     height: 25rem;
 }
 
+.part-4-graph-responsive {
+    height: 10rem;
+}
+
 .basic-metrics {
     padding-top: 22px;
     display: flex;
@@ -554,4 +558,13 @@ html {
 
 .row-1 {
     margin-left: 0.0rem;
+}
+
+#no_outcome_of_uc1_bar {
+    position: relative;
+    top: 0;
+}
+
+.outcome-of-uc {
+    height: 140%;
 }

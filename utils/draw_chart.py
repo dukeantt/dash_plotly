@@ -234,7 +234,9 @@ def bar_number_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc)
 
     fig = dcc.Graph(
         id='bar_number_of_outcome_of_' + str(uc) + '_fig',
-        figure=bar_number_of_outcome_of_usecase_fig
+        figure=bar_number_of_outcome_of_usecase_fig,
+        responsive=True,
+        style={"height": "75%"},
     )
     return fig
 
@@ -256,7 +258,7 @@ def pie_percent_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc
         hoverinfo='label+value',
         textinfo='label+percent',
         text=outcome_value,
-        textfont_size=5,
+        textfont_size=7,
         insidetextorientation='horizontal',
     ))
 
@@ -265,7 +267,7 @@ def pie_percent_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc
         yanchor="top",
         y=0.99,
         xanchor="right",
-        x=1.5,
+        x=2,
         font=dict(
             size=5,
         ),
@@ -274,7 +276,9 @@ def pie_percent_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc
 
     fig = dcc.Graph(
         id='pie_percent_of_outcome_of_' + str(uc) + '_fig',
-        figure=pie_percent_of_outcome_of_usecase_fig
+        figure=pie_percent_of_outcome_of_usecase_fig,
+        responsive=True,
+        style={"height": "97%"},
     )
     return fig
 

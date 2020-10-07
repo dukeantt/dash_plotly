@@ -674,10 +674,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 first-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -685,6 +685,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%"},
                                                                 id="no_outcome_of_uc1_bar"
                                                             ),
                                                         ]
@@ -697,10 +698,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 second-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -708,6 +709,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
                                                                 id="percent_outcome_of_uc1_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -726,10 +728,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 third-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -737,6 +739,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%"},
                                                                 id="no_outcome_of_uc2_bar"
                                                             ),
                                                         ]
@@ -749,10 +752,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 fourth-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -760,6 +763,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
                                                                 id="percent_outcome_of_uc2_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -797,10 +801,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 first-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -808,6 +812,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%"},
                                                                 id="no_outcome_of_uc3_bar"
                                                             ),
                                                         ]
@@ -820,10 +825,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 second-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -831,6 +836,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
                                                                 id="percent_outcome_of_uc3_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -849,10 +855,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 third-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -860,6 +866,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%"},
                                                                 id="no_outcome_of_uc4_bar"
                                                             ),
                                                         ]
@@ -872,10 +879,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 fourth-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -883,6 +890,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
                                                                 id="percent_outcome_of_uc4_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -920,10 +928,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 first-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -931,6 +939,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%"},
                                                                 id="no_outcome_of_uc5_bar"
                                                             ),
                                                         ]
@@ -943,10 +952,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 second-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -954,6 +963,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
                                                                 id="percent_outcome_of_uc5_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -972,10 +982,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 third-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -983,6 +993,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%"},
                                                                 id="no_outcome_of_uc8_bar"
                                                             ),
                                                         ]
@@ -995,10 +1006,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 fourth-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -1006,8 +1017,9 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
                                                                 id="percent_outcome_of_uc8_pie",
-                                                                className="percent-outcome-of-uc-pie"
+                                                                className="percent-outcome-of-uc-pie",
                                                             ),
                                                         ]
                                                     )
@@ -1042,10 +1054,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 first-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -1053,6 +1065,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%"},
                                                                 id="no_outcome_of_uc9_bar"
                                                             ),
                                                         ]
@@ -1065,10 +1078,10 @@ app.layout = html.Div(children=[
                                         className="col-md-6 second-col",
                                         children=[
                                             html.Div(
-                                                className="sub_basic_metrics",
+                                                className="sub_basic_metrics outcome-of-uc",
                                                 children=[
                                                     html.Div(
-                                                        className="col-md-12",
+                                                        className="col-md-12 part-4-graph-responsive",
                                                         children=[
                                                             html.Div(
                                                                 className='outcome_of_uc_sub_title',
@@ -1076,6 +1089,7 @@ app.layout = html.Div(children=[
                                                             ),
                                                             html.Hr(),
                                                             html.Div(
+                                                                style={"height": "97%", "position": "relative", "left": "-5%"},
                                                                 id="percent_outcome_of_uc9_pie",
                                                                 className="percent-outcome-of-uc-pie"
                                                             ),
@@ -1329,10 +1343,8 @@ def update_output(df_outcome, df_usecase, df_conv):
         graph_list = []
         number_of_outcome_of_each_usecase_dict = get_number_of_outcome_of_each_usecase(df_outcome, df_usecase)
         for uc in uc_list[:-1]:
-            bar_number_of_outcome_of_uc_fig = bar_number_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict,
-                                                                               uc)
-            pie_percent_of_outcome_of_uc_fig = pie_percent_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict,
-                                                                                 uc)
+            bar_number_of_outcome_of_uc_fig = bar_number_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc)
+            pie_percent_of_outcome_of_uc_fig = pie_percent_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc)
             graph_list.append(bar_number_of_outcome_of_uc_fig)
             graph_list.append(pie_percent_of_outcome_of_uc_fig)
 
