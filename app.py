@@ -1,24 +1,12 @@
 import dash
 from dash.dependencies import Input, Output, State
 
-import dash_core_components as dcc
-import dash_html_components as html
-import plotly.express as px
-import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
-import numpy as np
-from utils.helper_2 import *
 from utils.draw_chart import *
-import logging
-from random import randrange
 import pandas as pd
-import dash_table
 from datetime import datetime as dt
-from datetime import date, timedelta
+import time
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-# app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
@@ -1318,11 +1306,13 @@ def handle_df(is_click, start_date, end_date):
 )
 def update_output(df_outcome, df_usecase, df_conv):
     if df_outcome is not None:
-        df_outcome = pd.read_json(df_outcome, orient="split")
-        df_usecase = pd.read_json(df_usecase, orient="split")
-        df_conv = pd.read_json(df_conv, orient="split")
+        total_time = time.time()
+        df_outcome = pd.read_json(df_outcome, "split")
+        df_usecase = pd.read_json(df_usecase, "split")
+        df_conv = pd.read_json(df_conv, "split")
 
         # no_conversation, users, success rate in period
+        start1 = time.time()
         no_conversations_in_period = get_number_of_conversation(df_outcome)
         no_users_in_period = get_number_of_user(df_outcome)
         success_rate_in_period = get_success_rate(df_outcome)
@@ -1330,18 +1320,24 @@ def update_output(df_outcome, df_usecase, df_conv):
         no_conversations_in_period_text = html.P(str(no_conversations_in_period), style=metrics_in_period_text_style)
         no_users_in_period_text = html.P(str(no_users_in_period), style=metrics_in_period_text_style)
         success_rate_in_period_text = html.P(str(success_rate_in_period), style=metrics_in_period_text_style)
+        print("no conversations, users, success rate: " + str(time.time() - start1))
 
         # NUMBER OF EACH OUTCOME IN PERIOD
+        start2 = time.time()
         number_of_outcome_dict = get_number_of_each_outcome(df_outcome)
         bar_bot_performance_by_outcome_fig = bar_bot_performance_by_outcome(number_of_outcome_dict)
         pie_bot_performance_by_outcome_fig = pie_bot_performance_by_outcome(number_of_outcome_dict)
+        print("Outcome graph: " + str(time.time() - start2))
 
         # NUMBER OF EACH USECASE IN PERIOD
+        start3 = time.time()
         number_of_usecase_dict = get_number_of_each_usecase(df_usecase)
         bar_bot_performance_by_usecase_fig = bar_bot_performance_by_usecase(number_of_usecase_dict)
         pie_bot_performance_by_usecase_fig = pie_bot_performance_by_usecase(number_of_usecase_dict)
+        print("Use case graph: " + str(time.time() - start3))
 
         # NUMBER OF OUTCOME OF EACH USECASE
+        start4 = time.time()
         graph_list = []
         number_of_outcome_of_each_usecase_dict = get_number_of_outcome_of_each_usecase(df_outcome, df_usecase)
         for uc in uc_list[:-1]:
@@ -1349,8 +1345,10 @@ def update_output(df_outcome, df_usecase, df_conv):
             pie_percent_of_outcome_of_uc_fig = pie_percent_of_outcome_of_usecase(number_of_outcome_of_each_usecase_dict, uc)
             graph_list.append(bar_number_of_outcome_of_uc_fig)
             graph_list.append(pie_percent_of_outcome_of_uc_fig)
+        print("Outcome each use case: " + str(time.time() - start4))
 
         # TABLE OF OUTCOME
+        start5 = time.time()
         # thank_df, shipping_order_df, handover_df, silence_df, other_df = get_conversation_each_outcome(df_conv[[
         #     "conversation_id", "use_case", "outcome", "sender_id", "user_message", "bot_message", "created_time",
         #     "intent", "entities", "turn"]])
@@ -1365,11 +1363,13 @@ def update_output(df_outcome, df_usecase, df_conv):
         handover_df = generate_table("handover_table", handover_conv_id_list)
         silence_df = generate_table("silence_table", silence_conv_id_list)
         other_df = generate_table("other_table", other_conv_id_list)
+        print("TABLE OF OUTCOME: " + str(time.time() - start5))
 
         # TABLE OF USECASE
         # uc1_df, uc2_df, uc3_df, uc4_df, uc5_df, uc8_df, uc9_df, other_usecase_df = get_conversation_each_usecase(
         #     df_conv[["conversation_id", "use_case", "outcome", "sender_id", "user_message",
         #              "bot_message", "created_time", "intent", "entities"]])
+        start6 = time.time()
         uc_s1_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & (df_usecase["uc_s1"] == 1)]["conv_id"].to_list()
         uc_s2_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & (df_usecase["uc_s2"] == 1)]["conv_id"].to_list()
         uc_s3_id_list = df_usecase[(df_usecase["turn"].isin([0,1])) & ((df_usecase["uc_s31"] == 1) | (df_usecase["uc_s32"] == 1))]["conv_id"].to_list()
@@ -1387,6 +1387,8 @@ def update_output(df_outcome, df_usecase, df_conv):
         uc_s8_df = generate_table("uc_s8_table", uc_s8_id_list)
         uc_s9_df = generate_table("uc_s9_table", uc_s9_id_list)
         other_usecase_df = generate_table("uc_other_table", uc_other_id_list)
+        print("TABLE OF USE case: " + str(time.time() - start6))
+        print("Total time: " + str(time.time() - total_time))
 
         return [no_conversations_in_period_text, no_users_in_period_text, success_rate_in_period_text,
                 bar_bot_performance_by_outcome_fig, pie_bot_performance_by_outcome_fig,
@@ -1481,4 +1483,4 @@ def toggle_display_outcome_table(click):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)

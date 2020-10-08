@@ -1,12 +1,5 @@
 import pandas as pd
-from csv import DictWriter
-import os
-import json
-import logging
-import pickle
 import datetime
-import time
-from ast import literal_eval
 from pymongo import MongoClient
 
 client = MongoClient("mongodb+srv://ducanh:1234@ducanh.sa1mn.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority")
